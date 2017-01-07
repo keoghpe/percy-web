@@ -12,7 +12,8 @@
     {{#if (eq "admin" organizationUser.organization.currentUserMembership.role)}}
       {{!-- Allow admin to do everything. --}}
       {{forms/organization-user-edit organizationUser=organizationUser}}
-    {{else if (eq organizationUser.user.id currentUser.id)}}
+    {{else if (eq organizationUser.user.id currentUser.user.id)}}
+      <h5>second</h5>
       {{!-- Allow member to view their own record. --}}
       {{forms/organization-user-edit organizationUser=organizationUser}}
     {{else}}

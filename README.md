@@ -53,6 +53,38 @@ yarn run start
 
 Then, access [http://dev.percy.local:4200](http://dev.percy.local:4200)
 
+### Using the production api with full oauth flow
+
+Configure redirect pattern `https://percy.io/api/auth/github/callback` => `http://dev.percy.local:4200/api/auth/github/callback` with switcheroo chrome extension https://github.com/ranjez/Switcheroo
+
+#### In fastboot mode
+
+To start percy in fastboot mode:
+
+If you have backend running locally:
+
+```bash
+PERCY_WEB_API_HOST=http://dev.percy.local:9090 npm run start
+```
+
+To connect to production backend:
+
+```bash
+PERCY_WEB_API_HOST=https://percy.io npm run start
+```
+
+To run fastboot tests:
+
+```bash
+npm run fastboot:test
+```
+
+Debugging:
+
+```bash
+PERCY_WEB_API_HOST=https://percy.io node --inspect --debug-brk node_modules/ember-cli/bin/ember server
+```
+
 ## Run tests
 
 ```bash

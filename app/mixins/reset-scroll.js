@@ -3,7 +3,9 @@ import Ember from 'ember';
 var ResetScrollMixin = Ember.Mixin.create({
   actions: {
     didTransition() {
-      window.scrollTo(0, 0);
+      if (window && window.scrollTo) {
+        window.scrollTo(0, 0);
+      }
     }
   }
 });

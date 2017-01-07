@@ -4,8 +4,7 @@ export default Ember.Component.extend({
   organizationUser: null,
   classes: null,
 
-  session: Ember.inject.service(),
-  currentUser: Ember.computed.alias('session.data.authenticated.user'),
+  currentUser: Ember.inject.service(),
 
   isExpanded: false,
   classNames: ['OrganizationsUserCard'],

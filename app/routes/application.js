@@ -3,7 +3,7 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 
 export default Ember.Route.extend(ApplicationRouteMixin, {
   session: Ember.inject.service(),
-  currentUser: Ember.computed.alias('session.data.authenticated.user'),
+  currentUser: Ember.inject.service(),
 
   // ESA relies on `config.baseURL` which is gone in our version of Ember. Fix logout manually.
   // https://github.com/simplabs/ember-simple-auth/issues/1048
@@ -11,6 +11,19 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
     if (!Ember.testing) {
       window.location.replace('/');
     }
+  },
+
+  beforeModel() {
+    return this._loadCurrentUser();
+  },
+
+  sessionAuthenticated() {
+    this._super(...arguments);
+    this._loadCurrentUser();
+  },
+
+  _loadCurrentUser() {
+    this.get('currentUser').load().catch(() => this.get('session').invalidate());
   },
 
   actions: {
@@ -21,18 +34,23 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
       this.transitionTo('login');
     },
     redirectToDefaultOrganization() {
-      let lastOrganizationSlug = localStorage.getItem('lastOrganizationSlug');
+      let lastOrganizationSlug;
+      if (typeof localStorage !== 'undefined') {
+        lastOrganizationSlug = localStorage.getItem('lastOrganizationSlug');
+      }
       if (lastOrganizationSlug) {
         this.transitionTo('organization.index', lastOrganizationSlug);
       } else {
-        this.get('currentUser.organizations').then((orgs) => {
-          let org = orgs.get('firstObject');
-          if (org) {
-            this.transitionTo('organization.index', org.get('slug'));
-          } else {
-            // User has no organizations.
-            this.transitionTo('organizations.new');
-          }
+        this.get('currentUser').load().then(() => {
+          this.get('currentUser.user.organizations').then((orgs) => {
+            let org = orgs.get('firstObject');
+            if (org) {
+              this.transitionTo('organization.index', org.get('slug'));
+            } else {
+              // User has no organizations.
+              this.transitionTo('organizations.new');
+            }
+          });
         });
       }
     },

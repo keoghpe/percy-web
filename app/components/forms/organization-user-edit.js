@@ -9,10 +9,9 @@ export default BaseFormComponent.extend({
   classNameBindings: ['classes'],
 
   session: Ember.inject.service(),
-  currentUser: Ember.computed.alias('session.data.authenticated.user'),
-  isCurrentUser: Ember.computed('organizationUser', 'currentUser', function() {
-    // TODO: why can't we use Ember.computed.equal for this?
-    return this.get('organizationUser.user.id') === this.get('currentUser.id');
+  currentUser: Ember.inject.service(),
+  isCurrentUser: Ember.computed('organizationUser', 'currentUser.user', function() {
+    return this.get('organizationUser.user.id') === this.get('currentUser.user.id');
   }),
   deleteText: Ember.computed('isCurrentUser', function() {
     if (this.get('isCurrentUser')) {

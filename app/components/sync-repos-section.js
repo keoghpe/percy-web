@@ -5,7 +5,7 @@ export default Ember.Component.extend({
   classes: null,
 
   isPrivateReposExpanded: false,
-  session: Ember.inject.service(),
+  currentUser: Ember.inject.service(),
 
   classNames: ['SyncReposSection', 'Card'],
   classNameBindings: ['classes', 'isPrivateReposExpanded::SyncReposSection--collapsed'],

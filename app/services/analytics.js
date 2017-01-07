@@ -2,9 +2,8 @@ import Ember from 'ember';
 import config from '../config/environment';
 
 export default Ember.Service.extend({
-  session: Ember.inject.service(),
   adminMode: Ember.inject.service(),
-  currentUser: Ember.computed.alias('session.data.authenticated.user'),
+  currentUser: Ember.inject.service(),
 
   userInstance: null,
   organizationInstance: null,
@@ -93,7 +92,7 @@ export default Ember.Service.extend({
     if (organization) {
       this.organizationInstance.setUserId(organization.get('id'));
       let organizationEventProperties = Object.assign(
-        {'user_id': this.get('currentUser.id')},
+        {'user_id': this.get('currentUser.user.id')},
         eventProperties
       );
       this.organizationInstance.logEvent(eventName, organizationEventProperties);

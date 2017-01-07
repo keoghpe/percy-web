@@ -20,11 +20,11 @@
     {{#link-to "organizations.new" classNames="Button Button--onDark Button--withLeftIcon"}}
       {{fa-icon "plus-circle fa--left"}} Create new organization
     {{/link-to}}
-    {{#if currentUser.organizations.isPending}}
+    {{#if currentUser.user.organizations.isPending}}
       {{loading-page}}
     {{else}}
       <ul>
-        {{#each currentUser.organizations as |org|}}
+        {{#each currentUser.user.organizations as |org|}}
           <li>
             {{#link-to "organization.index" org.slug classNames="OrganizationsSwitcherNav-item"}}
               {{org.name}}

@@ -1,6 +1,6 @@
 <div class="container Header Header--large">
   {{#if session.isAuthenticated}}
-    {{nav-menu user=session.data.authenticated.user}}
+    {{nav-menu user=currentUser.user}}
   {{else}}
     {{nav-menu}}
   {{/if}}

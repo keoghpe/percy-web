@@ -9,7 +9,7 @@ export default Ember.Component.extend({
   ],
 
   session: Ember.inject.service(),
-  currentUser: Ember.computed.alias('session.data.authenticated.user'),
+  currentUser: Ember.inject.service(),
   actions: {
     chooseOrganization(organization) {
       // Send action directly up to application controller, so we don't have to delegate every

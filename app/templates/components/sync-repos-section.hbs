@@ -17,15 +17,15 @@
   {{sync-repos-button private=true classes="Button--small"}}
   <div class="SyncReposSection-info">
     Last synced public repos:
-    {{#if session.data.authenticated.user.lastSyncedAt}}
-      {{moment-from-now session.data.authenticated.user.lastSyncedAt}}
+    {{#if currentUser.user.lastSyncedAt}}
+      {{moment-from-now currentUser.user.lastSyncedAt}}
     {{else}}
       never
     {{/if}}
     <br>
     Last synced private repos:
-    {{#if session.data.authenticated.user.lastPrivateSyncedAt}}
-      {{moment-from-now session.data.authenticated.user.lastPrivateSyncedAt}}
+    {{#if currentUser.user.lastPrivateSyncedAt}}
+      {{moment-from-now currentUser.user.lastPrivateSyncedAt}}
     {{else}}
       never
     {{/if}}

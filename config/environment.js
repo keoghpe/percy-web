@@ -6,6 +6,9 @@ module.exports = function(environment) {
     environment: environment,
     rootURL: '/',
     locationType: 'auto',
+    fastboot: {
+      hostWhitelist: ['percy.io', 'canary.percy.io', /^localhost:\d+$/, /^dev.percy.local:\d+$/]
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -53,10 +56,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    if (process.env.PERCY_DEV_MIRAGE === 'yes') {
-      ENV['ember-cli-mirage'] = {
-        enabled: true
-      }
+    ENV['ember-cli-mirage'] = {
+      enabled: (process.env.PERCY_DEV_MIRAGE === 'yes')
     }
     ENV.APP.githubUrls = {
       integration: 'https://github.com/integrations/percy-dev/installations/new',

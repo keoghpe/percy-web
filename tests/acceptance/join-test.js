@@ -36,8 +36,8 @@ describe('Acceptance: Join', function() {
       expect(currentPath()).to.equal('join');
     });
     percySnapshot(this.test);
-
     click('.InvitationHandler button:contains("Accept invitation")');
+
     andThen(() => {
       expect(currentPath()).to.equal('organization.index');
     });

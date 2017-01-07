@@ -5,7 +5,7 @@ import {setupTest} from 'ember-mocha';
 
 describe('AnalyticsService', function() {
   setupTest('service:analytics', {
-    needs: ['service:session', 'service:adminMode']
+    needs: ['service:session', 'service:adminMode', 'service:currentUser']
   });
 
   // Replace this with your real tests.

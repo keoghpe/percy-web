@@ -1,4 +1,5 @@
 import Mirage from 'ember-cli-mirage';
+import config from '../config/environment';
 
 export default function() {
   this.passthrough('http://api.amplitude.com');
@@ -137,4 +138,7 @@ export default function() {
   this.get('/builds/:id');
   this.get('/builds/:build_id/snapshots');
   this.get('/builds/:build_id/comparisons');
+  if (config.PERCY_WEB_API_HOST) {
+    this.passthrough(config.PERCY_WEB_API_HOST+'/**');
+  }
 }

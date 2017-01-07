@@ -7,8 +7,7 @@ export default Ember.Component.extend({
   classes: null,
 
   store: Ember.inject.service(),
-  session: Ember.inject.service(),
-  currentUser: Ember.computed.alias('session.data.authenticated.user'),
+  currentUser: Ember.inject.service(),
 
   changeset: Ember.computed('organization', function() {
     let validator = this.get('validator') || {};
@@ -59,7 +58,7 @@ export default Ember.Component.extend({
     },
     assignBotUser() {
       let changeset = this.get('changeset');
-      changeset.set('githubBotUser', this.get('currentUser'));
+      changeset.set('githubBotUser', this.get('currentUser.user'));
     },
     saveSelection() {
       let organization = this.get('organization');

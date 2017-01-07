@@ -5,8 +5,7 @@ export default Ember.Component.extend({
 
   isExpanded: false,
 
-  session: Ember.inject.service(),
-  currentUser: Ember.computed.alias('session.data.authenticated.user'),
+  currentUser: Ember.inject.service(),
 
   classNames: ['OrganizationsSwitcherNav'],
   classNameBindings: [
@@ -15,7 +14,7 @@ export default Ember.Component.extend({
 
   actions: {
     toggleSwitcher() {
-      this.get('currentUser.organizations').reload();
+      this.get('currentUser.user.organizations').reload();
       this.toggleProperty('isExpanded');
     },
     hideSwitcher() {

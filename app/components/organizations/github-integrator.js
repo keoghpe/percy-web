@@ -10,8 +10,6 @@ export default Ember.Component.extend({
   classes: null,
 
   store: Ember.inject.service(),
-  session: Ember.inject.service(),
-  currentUser: Ember.computed.alias('session.data.authenticated.user'),
 
   waitingForInstallation: false,
   currentIntegration: Ember.computed.alias('organization.githubIntegration'),

@@ -5,7 +5,6 @@ export default Ember.Component.extend(TargetApplicationActionsMixin, {
   user: null,
   classes: null,
 
-  session: Ember.inject.service(),
   classNames: ['NavMenu'],
   classNameBindings: ['classes'],
 });

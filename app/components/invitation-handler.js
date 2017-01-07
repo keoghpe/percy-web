@@ -4,8 +4,7 @@ export default Ember.Component.extend({
   invitation: null,
 
   classNames: ['InvitationHandler'],
-  session: Ember.inject.service(),
-  currentUser: Ember.computed.alias('session.data.authenticated.user'),
+  currentUser: Ember.inject.service(),
 
   actions: {
     invalidateSession() {

@@ -35,7 +35,7 @@
 
     {{!-- Show special "sync private repos" section if on bot user and the current user is the bot user. --}}
     {{#if (eq changeset.githubAuthMechanism "github-bot-user")}}
-      {{#if (eq organization.githubBotUser session.data.authenticated.user)}}
+      {{#if (eq organization.githubBotUser currentUser.user)}}
         {{sync-repos-section organization=organization}}
       {{/if}}
     {{/if}}

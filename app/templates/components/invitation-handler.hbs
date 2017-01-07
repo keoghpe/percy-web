@@ -12,7 +12,7 @@
       <button class="Button Button--primary" {{action "accept"}}>Accept invitation</button>
     </p>
     <p>
-      Joining as <strong>{{user-name user=currentUser}}</strong>. You can <a href="#" {{action "invalidateSession"}}>logout</a> and login as a different user.
+      Joining as <strong>{{user-name user=currentUser.user}}</strong>. You can <a href="#" {{action "invalidateSession"}}>logout</a> and login as a different user.
     </p>
   {{/if}}
 </div>

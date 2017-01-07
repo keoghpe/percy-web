@@ -3,17 +3,28 @@ import DS from 'ember-data';
 import utils from 'percy-web/lib/utils';
 
 export default DS.JSONAPIAdapter.extend({
+  fastboot: Ember.inject.service(),
+
   namespace: 'api/v1',
   adminMode: Ember.inject.service(),
 
   headers: Ember.computed(function() {
-    let headers = {};
+    if (this.get('fastboot.isFastBoot')) {
+      let headers = this.get('fastboot.request.headers');
+      if (headers.headers.cookie) {
+        return {'Cookie': headers.headers.cookie};
+      } else {
+        return {};
+      }
+    } else {
+      let headers = {};
 
-    let percyMode = this.get('adminMode').get();
-    if (percyMode) {
-      headers['X-Percy-Mode'] = percyMode;
+      let percyMode = this.get('adminMode').get();
+      if (percyMode) {
+        headers['X-Percy-Mode'] = percyMode;
+      }
+      return headers;
     }
-    return headers;
   }),
 
   isInvalid(status) {
