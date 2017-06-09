@@ -46,15 +46,17 @@ export default Ember.Component.extend({
   }).drop(),
 
   restoreSelectedModeColumns: Ember.on('init', function() {
-    let numColumns = localStorage.getItem('numColumns');
+    if (window.localStorage) {
+      let numColumns = localStorage.getItem('numColumns');
 
-    // Cleanup bad data (not a number) in localStorage.
-    if (numColumns && Number(numColumns) === numColumns && numColumns % 1 !== 0) {
-      localStorage.deleteItem('numColumns');
-      return;
-    }
-    if (numColumns) {
-      this.send('selectNumColumns', parseInt(numColumns));
+      // Cleanup bad data (not a number) in localStorage.
+      if (numColumns && Number(numColumns) === numColumns && numColumns % 1 !== 0) {
+        localStorage.deleteItem('numColumns');
+        return;
+      }
+      if (numColumns) {
+        this.send('selectNumColumns', parseInt(numColumns));
+      }
     }
   }),
   actions: {

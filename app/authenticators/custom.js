@@ -48,6 +48,8 @@ export default BaseAuthenticator.extend({
           }
           // Redirect to GitHub auth.
           window.location = utils.buildApiUrl('login', {params: {redirect_to: finalRedirect}});
+        } else {
+          return Ember.getOwner(this).lookup('router:main').transitionTo('github-login');
         }
       });
     });

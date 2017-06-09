@@ -9,12 +9,18 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   // https://github.com/simplabs/ember-simple-auth/issues/1048
   sessionInvalidated() {
     if (!Ember.testing) {
-      window.location.replace('/');
+      if (window.location) {
+        window.location.replace('/');
+      } else {
+        this.transitionTo('/');
+      }
     }
   },
 
   beforeModel() {
-    return this._loadCurrentUser();
+    if (this.get('session.isAuthenticated')) {
+      return this._loadCurrentUser();
+    }
   },
 
   sessionAuthenticated() {

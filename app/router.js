@@ -18,6 +18,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('login');
+  this.route('github-login');
   this.route('join', {path: '/join/:invite_code'});
   this.route('docs', {path: '/docs'}, function() {
     this.route('page', {path: '*path'});
