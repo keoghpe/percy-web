@@ -30,6 +30,10 @@ Router.map(function() {
   this.route('privacy');
   this.route('security');
   this.route('admin');
+  this.route('auth', function() {
+    this.route('failure');
+    this.route('success');
+  });
   this.route('organizations', {path: '/organizations'}, function() {
     this.route('new');
     this.route('organization', {path: '/:organization_id'}, function() {

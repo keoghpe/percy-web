@@ -45,8 +45,9 @@ export default {
       });
     }
     let host;
-    if (config.PERCY_WEB_API_HOST_FASTBOOT) {
-      host = config.PERCY_WEB_API_HOST_FASTBOOT;
+    if (options.fastboot && options.fastboot.get('isFastBoot')) {
+      let request = options.fastboot.get('request');
+      host = `${request.get('protocol')}://${request.get('host')}`;
     } else if (window && window.location) {
       host = window.location.origin;
     } else {

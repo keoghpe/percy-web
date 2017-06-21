@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import AuthenticatedRouteMixin from '../../../mixins/authenticated-route-mixin';
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   redirect() {
@@ -8,4 +8,3 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     this.transitionTo('organization.project.index', organizationSlug, projectSlug);
   },
 });
-

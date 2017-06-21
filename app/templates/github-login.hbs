@@ -1,0 +1,6 @@
+Redirecting to github login screen...
+<div id='login-url' data-login-url="{{model.redirectTarget}}"></div>
+<script>
+  var doc = document.getElementById("login-url")
+  window.location.replace(doc.dataset.loginUrl);
+</script>

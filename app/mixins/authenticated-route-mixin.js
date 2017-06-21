@@ -2,7 +2,9 @@ import ESAAuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-r
 import Ember from 'ember';
 
 var AuthenticatedRouteMixin = Ember.Mixin.create(ESAAuthenticatedRouteMixin, {
-
+  authenticationRoute: Ember.computed(function() {
+    return 'github-login';
+  })
 });
 
 export default AuthenticatedRouteMixin;

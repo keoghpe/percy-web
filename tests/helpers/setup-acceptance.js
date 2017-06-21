@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import startApp from 'percy-web/tests/helpers/start-app';
 import destroyApp from 'percy-web/tests/helpers/destroy-app';
+import {authenticateSession} from 'percy-web/tests/helpers/ember-simple-auth';
 
 // Import mocha helpers so that they will be included for all tests.
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "it|describe" }]*/
@@ -72,6 +73,7 @@ export function setupSession(createData) {
     expect(this.loginUser).not.to.be.undefined; // eslint-disable-line no-unused-expressions
     if (this.loginUser) {
       this.loginUser.update({_currentLoginInTest: true});
+      authenticateSession(this.application, {auth: true});
     }
   });
   afterEach(function() {
