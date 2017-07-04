@@ -1,10 +1,5 @@
-{{#if (eq selectedNumColumns 4)}}
-  <button class="Button" {{action "selectNumColumns" 1}}>
-    Full Width
-  </button>
-{{/if}}
-{{#if (eq selectedNumColumns 1)}}
-  <button class="Button" {{action "selectNumColumns" 4}}>
-    Overview
-  </button>
-{{/if}}
+<button class="Button" {{action "selectNumColumns" 1}}>1</button>
+<button class="Button" {{action "selectNumColumns" 2}}>2</button>
+<button class="Button" {{action "selectNumColumns" 3}}>3</button>
+<button class="Button" {{action "selectNumColumns" 4}}>4</button>
+<button class="Button" {{action "selectNumColumns" 5}}>5</button>
