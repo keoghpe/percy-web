@@ -4,7 +4,6 @@ $statusBarWidth: 7px
   padding: 5px 5px 5px ($statusBarWidth + 10px)
 
   .BuildOverview-statusBar
-    background: $green
     top: 0
     bottom: 0
     left: 0
@@ -22,3 +21,31 @@ $statusBarWidth: 7px
 
   h1, h2
     margin: 0
+
+  &.BuildOverview--pending
+    .BuildOverview-statusBar
+      background-color: $dark-gray
+
+  &.BuildOverview--processing
+    .BuildOverview-statusBar
+      background-color: $lighter-green
+
+  &.BuildOverview--finished
+    .BuildOverview-statusBar
+      background-color: $green
+
+    &.BuildOverview--hasDiffs
+      .BuildOverview-statusBar
+        background-color: $yellow
+
+    &.BuildOverview--approved
+      .BuildOverview-statusBar
+        background-color: $green
+
+  &.BuildOverview--failed
+    .BuildOverview-statusBar
+      background-color: $red
+
+  &.BuildOverview--expired
+    .BuildOverview-statusBar
+      background-color: $dark-yellow
