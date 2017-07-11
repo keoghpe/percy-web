@@ -137,8 +137,8 @@ describe('Acceptance: Build', function() {
     });
     percySnapshot(this.test.fullTitle() + ' on the build page');
 
-    click('.BuildModePicker button');
-    percySnapshot(this.test.fullTitle() + ' in overview mode');
+    //click('.BuildModePicker button');
+    //percySnapshot(this.test.fullTitle() + ' in overview mode');
   });
 
   it('toggles the image and pdiff', function() {
