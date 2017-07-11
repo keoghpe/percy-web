@@ -1,14 +1,8 @@
 /* jshint expr:true */
 import {setupComponentTest} from 'ember-mocha';
-import {
-  beforeEach,
-  afterEach,
-  it,
-  describe
-} from 'mocha';
+import {beforeEach, it, describe} from 'mocha';
 import {percySnapshot} from 'ember-percy';
 import hbs from 'htmlbars-inline-precompile';
-import {startMirage} from 'percy-web/initializers/ember-cli-mirage';
 import {make, manualSetup}  from 'ember-data-factory-guy';
 
 describe('Integration: BuildOverviewComponent', function() {
@@ -17,12 +11,7 @@ describe('Integration: BuildOverviewComponent', function() {
   });
 
   beforeEach(function() {
-    this.server = startMirage();
     manualSetup(this.container);
-  });
-
-  afterEach(function() {
-    this.server.shutdown();
   });
 
   it('renders in pending state', function() {
