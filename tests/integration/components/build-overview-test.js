@@ -10,6 +10,8 @@ describe('Integration: BuildOverviewComponent', function() {
     integration: true
   });
 
+  let snapshotOptions = {minimumHeight: 100};
+
   beforeEach(function() {
     manualSetup(this.container);
   });
@@ -19,7 +21,7 @@ describe('Integration: BuildOverviewComponent', function() {
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
-    percySnapshot(this.test);
+    percySnapshot(this.test, snapshotOptions);
   });
 
   it('renders in processing state', function() {
@@ -27,7 +29,7 @@ describe('Integration: BuildOverviewComponent', function() {
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
-    percySnapshot(this.test);
+    percySnapshot(this.test, snapshotOptions);
   });
 
   it('renders in finished state', function() {
@@ -35,7 +37,23 @@ describe('Integration: BuildOverviewComponent', function() {
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
-    percySnapshot(this.test);
+    percySnapshot(this.test, snapshotOptions);
+  });
+
+  it('renders in finished state with diffs', function() {
+    let build = make('build', 'finished', 'hasDiffs');
+    this.set('build', build);
+
+    this.render(hbs`{{build-overview build=build}}`);
+    percySnapshot(this.test, snapshotOptions);
+  });
+
+  it('renders in finished state with no diffs', function() {
+    let build = make('build', 'finished', 'noDiffs');
+    this.set('build', build);
+
+    this.render(hbs`{{build-overview build=build}}`);
+    percySnapshot(this.test, snapshotOptions);
   });
 
   it('renders in failed state', function() {
@@ -43,7 +61,7 @@ describe('Integration: BuildOverviewComponent', function() {
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
-    percySnapshot(this.test);
+    percySnapshot(this.test, snapshotOptions);
   });
 
   it('renders in expired state', function() {
@@ -51,7 +69,7 @@ describe('Integration: BuildOverviewComponent', function() {
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
-    percySnapshot(this.test);
+    percySnapshot(this.test, snapshotOptions);
   });
 
 });

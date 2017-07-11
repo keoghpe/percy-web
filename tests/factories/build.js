@@ -7,5 +7,13 @@ FactoryGuy.define('build', {
     processing: {state: 'processing'},
     failed: {state: 'failed'},
     expired: {state: 'expired'},
+    hasDiffs: {
+      totalComparisonsDiff: 10,
+      totalComparisonsFinished: 15
+    },
+    noDiffs: {
+      totalComparisonsDiff: 0,
+      totalComparisonsFinished: 12
+    }
   }
 });
