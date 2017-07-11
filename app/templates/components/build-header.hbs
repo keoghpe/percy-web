@@ -1,36 +1,9 @@
 <div class="BuildHeader-inner">
   <div class="row">
     <div class="six columns">
-      <div>
-        <span class="BuildHeader-title">
-          <strong>
-            {{#link-to "organization.project.index" build.project.organization.slug build.project.slug}}{{build.project.name}}{{/link-to}}
-          </strong>
-          {{build.buildTitle}}
-        </span>
-      </div>
-      {{build-info build=build}}
-      <div class="BuildHeader-stateAndCommit">
-        {{build-state build=build}}
-        {{commit-info build=build}}
-      </div>
+      {{build-overview build=build}}
     </div>
     <div class="six columns">
-      {{#if showActions}}
-        {{approval-section build=build}}
-        {{build-mode-picker
-          selectedNumColumns=selectedNumColumns
-          selectNumColumns=(action selectNumColumns)
-        }}
-        {{#if (gt build.numComparisonWidths 1)}}
-          {{build-width-selector
-            widths=build.comparisonWidths
-            defaultSelectedWidth=defaultSelectedWidth
-            updateSelectedWidth=(action updateSelectedWidth)
-            noWidthSelected=noWidthSelected
-          }}
-        {{/if}}
-      {{/if}}
     </div>
   </div>
 </div>
