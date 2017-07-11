@@ -18,11 +18,6 @@
       This build has not finished receiving data from your CI service or client. If this has been pending for a while, your client may have failed to upload or finalize all snapshots. This build can be safely ignored, it will not be used as a baseline for visual diffs.
     </p>
   </div>
-{{else if build.isProcessing}}
-  <div class="container container--fixedWidth Alert Alert--warning u-text-center">
-    {{fa-icon 'fa-spinner fa-pulse'}}
-    <strong>Processing visual diffs...</strong> hang tight!
-  </div>
 {{else if build.isFailed}}
   <div class="container container--fixedWidth Alert Alert--error">
     {{#if (eq build.failureReason 'missing_resources')}}
