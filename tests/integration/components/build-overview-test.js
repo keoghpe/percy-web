@@ -9,6 +9,7 @@ import {
 import {percySnapshot} from 'ember-percy';
 import hbs from 'htmlbars-inline-precompile';
 import {startMirage} from 'percy-web/initializers/ember-cli-mirage';
+import {make, manualSetup}  from 'ember-data-factory-guy';
 
 describe('Integration: BuildOverviewComponent', function() {
   setupComponentTest('build-overview', {
@@ -17,6 +18,7 @@ describe('Integration: BuildOverviewComponent', function() {
 
   beforeEach(function() {
     this.server = startMirage();
+    manualSetup(this.container);
   });
 
   afterEach(function() {
@@ -24,7 +26,7 @@ describe('Integration: BuildOverviewComponent', function() {
   });
 
   it('renders in pending state', function() {
-    let build = server.create('build', {state: 'pending'});
+    let build = make('build', 'pending');
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
@@ -32,7 +34,7 @@ describe('Integration: BuildOverviewComponent', function() {
   });
 
   it('renders in processing state', function() {
-    let build = server.create('build', {state: 'processing'});
+    let build = make('build', 'processing');
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
@@ -40,7 +42,7 @@ describe('Integration: BuildOverviewComponent', function() {
   });
 
   it('renders in finished state', function() {
-    let build = server.create('build', {state: 'finished'});
+    let build = make('build', 'finished');
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
@@ -48,7 +50,7 @@ describe('Integration: BuildOverviewComponent', function() {
   });
 
   it('renders in failed state', function() {
-    let build = server.create('build', {state: 'failed'});
+    let build = make('build', 'failed');
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
@@ -56,18 +58,11 @@ describe('Integration: BuildOverviewComponent', function() {
   });
 
   it('renders in expired state', function() {
-    let build = server.create('build', {state: 'expired'});
+    let build = make('build', 'expired');
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
     percySnapshot(this.test);
   });
 
-  it('renders in approved state', function() {
-    let build = server.create('build', {state: 'approved'});
-    this.set('build', build);
-
-    this.render(hbs`{{build-overview build=build}}`);
-    percySnapshot(this.test);
-  });
 });
