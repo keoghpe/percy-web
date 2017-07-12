@@ -14,7 +14,7 @@
     Due to how GitHub authorization works, we have to request higher GitHub permissions for your account if you need this bot user to access to private repositories.
   </p>
 
-  {{sync-repos-button private=true classes="Button--small"}}
+  {{sync-repos-button private=true}}
   <div class="SyncReposSection-info">
     Last synced public repos:
     {{#if session.data.authenticated.user.lastSyncedAt}}
