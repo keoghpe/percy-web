@@ -14,6 +14,9 @@ FactoryGuy.define('build', {
     noDiffs: {
       totalComparisonsDiff: 0,
       totalComparisonsFinished: 12
-    }
+    },
+    missingResources: {failureReason: 'missing_resources'},
+    noSnapshots: {failureReason: 'no_snapshots'},
+    renderTimeout: {failureReason: 'render_timeout'},
   }
 });

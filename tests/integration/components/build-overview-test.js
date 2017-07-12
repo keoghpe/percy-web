@@ -62,6 +62,14 @@ describe('Integration: BuildOverviewComponent', function() {
     percySnapshot(this.test);
   });
 
+  it('renders in failed state with reason', function() {
+    let build = make('build', 'failed', 'missingResources');
+    this.set('build', build);
+
+    this.render(hbs`{{build-overview build=build}}`);
+    percySnapshot(this.test);
+  });
+
   it('renders in expired state', function() {
     let build = make('build', 'expired');
     this.set('build', build);
