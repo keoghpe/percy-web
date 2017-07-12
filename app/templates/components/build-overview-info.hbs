@@ -1,0 +1,21 @@
+{{#if build.isGithubLinked}}
+  {{#if build.isPullRequest}}
+    <h2>
+      <a href="{{build.repo.htmlUrl}}/pull/{{build.pullRequestNumber}}">
+        {{build.pullRequestTitle}}
+      </a> #{{build.pullRequestNumber}}
+    </h2>
+  {{else}}
+    <h2>
+      <a href="{{build.repo.htmlUrl}}/tree/{{build.branch}}">
+        {{build.branch}}
+      </a>
+    </h2>
+  {{/if}}
+{{else}}
+  <h2>{{build.branch}}</h2>
+{{/if}}
+
+<a href="#" class="Button Button-small u-pull-right">
+  Build Info
+</a>
