@@ -62,8 +62,24 @@ describe('Integration: BuildOverviewComponent', function() {
     percySnapshot(this.test);
   });
 
-  it('renders in failed state with reason', function() {
+  it('renders in failed state with missing resources', function() {
     let build = make('build', 'failed', 'missingResources');
+    this.set('build', build);
+
+    this.render(hbs`{{build-overview build=build}}`);
+    percySnapshot(this.test);
+  });
+
+  it('renders in failed state with no snapshots', function() {
+    let build = make('build', 'failed', 'no_snapshots');
+    this.set('build', build);
+
+    this.render(hbs`{{build-overview build=build}}`);
+    percySnapshot(this.test);
+  });
+
+  it('renders in failed state with render timeout', function() {
+    let build = make('build', 'failed', 'render_timeout');
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
