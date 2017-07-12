@@ -4,7 +4,10 @@
       {{build-overview-icon icon='pull-request'}}
       <a href="{{build.repo.htmlUrl}}/pull/{{build.pullRequestNumber}}">
         {{build.pullRequestTitle}}
-      </a> #{{build.pullRequestNumber}}
+      </a>
+      <span class="BuildOverviewInfo-PrNumber">
+        #{{build.pullRequestNumber}}
+      </span>
     </h2>
   {{else}}
     <h2>
