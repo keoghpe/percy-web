@@ -2,6 +2,7 @@
   <span class="BuildOverview-statusBar">&nbsp;</span>
   {{#if build.isPending}}
     <h1>Receiving build...</h1>
+    <h2>Hang tight&hellip; this page auto refreshes every 5 seconds</h2>
   {{else if build.isProcessing}}
     <h1>Processing visual differences</h1>
     <h2>Hang tight&hellip; this page auto refreshes every 5 seconds</h2>
@@ -20,7 +21,7 @@
   {{#if build.isFinished}}
     <h2>from {{pluralize build.totalComparisonsFinished "snapshot"}}.</h2>
   {{else if build.isFailed}}
-    {{build.failureReasonHumanized}}
+    <h2>Reason: {{build.failureReasonHumanized}}.</h2>
   {{/if}}
 </div>
 <div class="BuildOverview-info">
