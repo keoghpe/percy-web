@@ -1,4 +1,5 @@
 $button-height: 38px
+$button-small-height: 28px
 
 .Button,
 button,
@@ -79,8 +80,10 @@ input[type="button"],
       box-shadow: inset 3px 3px 120px -40px rgba(0,0,0,0.75)
 
   &.Button--small
-    font-size: 10px
-    padding: 0 10px
+    padding: 0 9px
+    font-size: 12px
+    height: $button-small-height
+    line-height: $button-small-height
 
   &.Button--nav
     border: none

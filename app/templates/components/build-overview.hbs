@@ -8,9 +8,9 @@
     <h2>Hang tight&hellip; this page auto refreshes every 5 seconds</h2>
   {{else if build.isFinished}}
     {{#if build.hasDiffs}}
-      <h1>{{pluralize build.totalComparisonsDiff "visual difference"}} found</h1>
+      <h1>{{pluralize build.totalComparisonsDiff "visual difference"}}</h1>
     {{else}}
-      <h1>No visual differences found</h1>
+      <h1>No visual differences</h1>
     {{/if}}
   {{else if build.isFailed}}
     <h1>This build has failed</h1>
