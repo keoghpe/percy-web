@@ -1,6 +1,5 @@
 {{#if build.isGithubLinked}}
   {{#if build.isPullRequest}}
-    
     <h2>
       {{build-overview-icon icon='pull-request'}}
       <a href="{{build.repo.htmlUrl}}/pull/{{build.pullRequestNumber}}">
