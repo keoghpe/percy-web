@@ -30,14 +30,6 @@ describe('Integration: BuildOverviewComponent', function() {
     percySnapshot(this.test);
   });
 
-  it('renders in finished state', function() {
-    let build = make('build', 'finished');
-    this.set('build', build);
-
-    this.render(hbs`{{build-overview build=build}}`);
-    percySnapshot(this.test);
-  });
-
   it('renders in finished state with diffs', function() {
     let build = make('build', 'finished', 'hasDiffs');
     this.set('build', build);
@@ -71,7 +63,7 @@ describe('Integration: BuildOverviewComponent', function() {
   });
 
   it('renders in failed state with no snapshots', function() {
-    let build = make('build', 'failed', 'no_snapshots');
+    let build = make('build', 'failed', 'noSnapshots');
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
@@ -79,7 +71,7 @@ describe('Integration: BuildOverviewComponent', function() {
   });
 
   it('renders in failed state with render timeout', function() {
-    let build = make('build', 'failed', 'render_timeout');
+    let build = make('build', 'failed', 'renderTimeout');
     this.set('build', build);
 
     this.render(hbs`{{build-overview build=build}}`);
