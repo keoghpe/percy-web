@@ -1,5 +1,5 @@
-<span class="BuildOverview-statusBar">&nbsp;</span>
-<div class="BuildOverview-content">
+<div class="BuildOverview-status">
+  <span class="BuildOverview-statusBar">&nbsp;</span>
   {{#if build.isPending}}
     <h1>Receiving build...</h1>
   {{else if build.isProcessing}}
@@ -22,9 +22,8 @@
   {{else if build.isFailed}}
     {{build.failureReasonHumanized}}
   {{/if}}
-
-
-
+</div>
+<div class="BuildOverview-info">
   {{#if build.isPending}}
     <p>
       This build has not finished receiving data from your CI service or client. If this has been pending for a while, your client may have failed to upload or finalize all snapshots. This build can be safely ignored, it will not be used as a baseline for visual diffs.
