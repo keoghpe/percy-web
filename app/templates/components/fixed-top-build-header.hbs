@@ -16,7 +16,7 @@
         </span>
         {{#link-to "organization.project" organization project}}{{project.name}}{{/link-to}}
       </div>
-      <div class="NavMenu-item">
+      <div class="NavMenu-item NavMenu-item--center">
         {{#if (gt build.numComparisonWidths 1)}}
           {{build-width-selector
             widths=build.comparisonWidths
