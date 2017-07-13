@@ -16,8 +16,16 @@
         </span>
         {{#link-to "organization.project" organization project}}{{project.name}}{{/link-to}}
       </div>
-    </div>
-    <div class="NavMenu">
+      <div class="NavMenu-item">
+        {{#if (gt build.numComparisonWidths 1)}}
+          {{build-width-selector
+            widths=build.comparisonWidths
+            defaultSelectedWidth=defaultSelectedWidth
+            updateSelectedWidth=(action updateSelectedWidth)
+            noWidthSelected=noWidthSelected
+          }}
+        {{/if}}
+      </div>
       <div class="NavMenu-item--right">
         {{approval-section build=build}}
       </div>
