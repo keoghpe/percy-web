@@ -1,7 +1,7 @@
 .Header
   position: relative
-  background-color: $dark-purple
-  color: $white
+  height: 60px
+  box-shadow: $base-shadow
 
   &.Header--large
     min-height: 520px
@@ -40,8 +40,6 @@
     font-weight: 600
 
   .Header-trialBar
-    color: $white
-    background: $purple
     padding: 2px
     border-radius: 3px
     text-align: center
@@ -58,11 +56,7 @@
       font-weight: bold
 
   .Button
-    color: $white
     box-shadow: $base-shadow
-
-  &.Header--small
-    height: 60px
 
   &.Header--fixedTop
     position: fixed
@@ -71,10 +65,31 @@
     z-index: 1000
 
   a
-    color: $white
     text-decoration: none
-  a:hover
-    color: $lightest-purple
+
+  &.Header-dark
+    background-color: $dark-purple
+    color: $white
+
+    a
+      color: $white
+
+    a:hover
+      color: $lightest-purple
+
+    .Button
+      color: $white
+
+    .Header-trialBar
+      color: $white
+      background: $purple
+
+  &.Header-light
+    background-color: $lightest-gray
+
+    .Header-trialBar
+      color: $white
+      background: $purple
 
 .HeaderSpacer
   height: 60px
