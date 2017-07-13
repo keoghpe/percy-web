@@ -1,9 +1,13 @@
 {{#if build.isFinished}}
-  {{approval-button build=build}}
+  <div class="NavMenu-item">
   {{#if build.isApproved}}
-    <p class="u-pull-right">
-      Approved by<br/>
+    <p>
+      Approved by
       {{user-name user=build.approvedBy}}
     </p>
   {{/if}}
+  </div>
+  <div class="NavMenu-item">
+    {{approval-button build=build}}
+  </div>
 {{/if}}

@@ -6,7 +6,6 @@ $approved-background: $green
   border: 0
   color: $white
   background-color: $approved-background
-  text-shadow: $approved-text-shadow
   font-weight: 600
 
   .fa--left
@@ -19,16 +18,17 @@ $approved-background: $green
     background: $light-green
     text-shadow: 1px 1px 1px $green
     border: 0
+    &:active
+      background: $green
 
   &.ApprovalButton--approved
-    padding: 20px 28px
+    padding: 20px
     cursor: default
 
     &:hover,
     &:focus,
     &.ApprovalButton--hover,
       background-color: $approved-background
-      text-shadow: $approved-text-shadow
 
     span
       display: none
