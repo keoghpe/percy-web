@@ -2,8 +2,10 @@
   <div class="NavMenu-item">
   {{#if build.isApproved}}
     <p>
-      Approved by
-      {{user-name user=build.approvedBy}}
+      Approved
+      <span class="u-hide-on-mobile">
+        by {{user-name user=build.approvedBy}}
+      </span>
     </p>
   {{/if}}
   </div>
