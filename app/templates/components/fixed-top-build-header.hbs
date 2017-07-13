@@ -1,19 +1,23 @@
 <div class="container">
-  <div class="Header Header-light Header--small Header--fixedTop">
-    <img src="/images/percy-light.svg" class="Header-logo u-pull-left">
+  <div class="Header Header--dark Header--small Header--fixedTop">
+    {{#link-to "index"}}
+      <img src="/images/percy.svg" class="Header-logo u-pull-left">
+    {{/link-to}}
     <div class="NavMenu">
-      <div class="NavMenu-item NavMenu-item-title">
-        {{#link-to "organization" organization}}
-          {{organization.name}}
-        {{/link-to}}
-        /
+      <div class="NavMenu-item NavMenu-item--left NavMenu-item-title">
+        <span class="u-hide-on-mobile">
+          {{#link-to "organization" organization}}
+            {{organization.name}}
+          {{/link-to}}
+          /
+        </span>
         {{#link-to "organization.project" organization project}}
           {{project.name}}
         {{/link-to}}
       </div>
     </div>
-    <div class="NavMenu u-pull-right">
-      <div class="NavMenu-item">
+    <div class="NavMenu">
+      <div class="NavMenu-item--right">
         {{approval-button}}
       </div>
     </div>
