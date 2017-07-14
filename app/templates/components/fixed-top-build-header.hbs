@@ -1,6 +1,5 @@
 <div class="container">
   <div class="Header Header--dark Header--small Header--fixedTop">
-
     <div class="NavMenu NavMenu--left">
       {{#link-to "index"}}
         {{#link-to "index"}}
@@ -11,19 +10,28 @@
         {{/link-to}}
       {{/link-to}}
       <div class="NavMenu-item NavMenu-item--left NavMenu-item-title">
-        {{#link-to "organization" organization}}{{organization.name}}{{/link-to}}
-          /
-        {{#link-to "organization.project" organization project}}{{project.name}}{{/link-to}}
+        {{#link-to "organization" organization class="FixedTopBuildHeader-organization"}}
+          {{organization.name}}
+        {{/link-to}}
+        <span class="FixedTopBuildHeader-separator"> / </span>
+        {{#link-to "organization.project" organization project class="FixedTopBuildHeader-project"}}
+          {{project.name}}
+        {{/link-to}}
+      </div>
+    </div>
+    <div class="NavMenu NavMenu--right">
+      <div class="NavMenu-item--right">
+        {{approval-section build=build}}
       </div>
     </div>
     <div class="NavMenu NavMenu--center NavMenu--tight">
       {{#if build.isFinished}}
-      <div class="NavMenu-item">
+      <div class="NavMenu-item u-hide-on-mobile">
         <a href="" class="Button Button--onDark Button--withIconOnly">
           {{fa-icon "search-plus" classNames="fa--left"}}
         </a>
       </div>
-      <div class="NavMenu-item">
+      <div class="NavMenu-item u-hide-on-mobile">
         <a href="" class="Button Button--onDark Button--withIconOnly">
           {{fa-icon "search-minus" classNames="fa--left"}}
         </a>
@@ -38,11 +46,6 @@
             noWidthSelected=noWidthSelected
           }}
         {{/if}}
-      </div>
-    </div>
-    <div class="NavMenu NavMenu--right">
-      <div class="NavMenu-item--right">
-        {{approval-section build=build}}
       </div>
     </div>
   </div>

@@ -11,12 +11,25 @@
   .NavMenu--center
     width: 230px
 
-  @media (max-width: 800px)
+  @media (max-width: 750px)
+    .NavMenu--center
+      width: auto
+
     .NavMenu
-      .NavMenu-item-title
+      .FixedTopBuildHeader-organization,
+      .FixedTopBuildHeader-separator
         display: none
 
   @media (max-width: 600px)
     .NavMenu
       .ApprovalSection-user
+        display: none
+
+    .NavMenu
+      .FixedTopBuildHeader-project
+        display: none
+
+  @media (max-width: 350px)
+    .NavMenu
+      .Header-logo
         display: none
