@@ -1,6 +1,4 @@
 .NavMenu
-  text-align: center
-
   .NavMenu-item
     display: inline-block
     float: left
@@ -18,15 +16,25 @@
   .NavMenu-item--left
     padding: 10px
 
-  .NavMenu-item--center
-    float: none
-    margin: 0px auto
-
   .NavMenu-avatar
     padding: 11px 11px
     float: right
 
+.NavMenu--center
+  width: 0px
+  margin: 0px auto
+
+.NavMenu--right
+  float: right
+
+.NavMenu--left
+  float: left
+
+.NavMenu--tight
+  .NavMenu-item
+    padding: 10px 2.5px
+
 @media (max-width: 750px)
-  .NavMenu
-    .NavMenu-item a
-      padding: 10px 5px
+  .NavMenu--center
+    margin: 0
+    float: left

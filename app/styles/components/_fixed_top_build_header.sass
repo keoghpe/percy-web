@@ -1,8 +1,22 @@
 .FixedTopBuildHeader
   box-shadow: $base-shadow-flush
+  text-align: center
 
   a:hover
     text-decoration: underline
 
   .NavMenu-item--right
     margin: 10px 10px 0px 0px
+
+  .NavMenu--center
+    width: 222px
+
+  @media (max-width: 800px)
+    .NavMenu
+      .NavMenu-item-title
+        display: none
+
+  @media (max-width: 600px)
+    .NavMenu
+      .ApprovalSection-user
+        display: none

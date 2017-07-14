@@ -54,17 +54,6 @@ input[type="button"],
       border: $lighter-gray-border
       cursor: default
 
-  &.Button--onDark,
-    color: $white
-    background-color: $dark-purple
-
-    &:hover,
-      color: $white
-      background-color: $purple
-
-    &:active
-      box-shadow: inset 3px 3px 120px -40px rgba(0,0,0,0.75)
-
   &.Button--onDark.Button--primary,
     color: $white
     background-color: $purple
@@ -77,7 +66,7 @@ input[type="button"],
       background-color: $light-purple
 
     &:active
-      box-shadow: inset 3px 3px 120px -40px rgba(0,0,0,0.75)
+      background-color: $purple
 
   &.Button--small
     padding: 0 9px
@@ -115,7 +104,14 @@ input[type="button"],
 button,
 .Button
   &.Button--withLeftIcon
-    padding: 0 15px 0 39px
+    padding: 0 15px 0 15px
+
+  &.Button--withIconOnly
+    padding: 0 20px
+    color: $default-text-color
+
+    .fa
+      font-size: 2rem
 
   .fa--left
     position: absolute

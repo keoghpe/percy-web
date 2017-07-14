@@ -1,22 +1,33 @@
 <div class="container">
   <div class="Header Header--dark Header--small Header--fixedTop">
-    {{#link-to "index"}}
+
+    <div class="NavMenu NavMenu--left">
       {{#link-to "index"}}
-        <img src="/images/percy.svg" class="Header-logo u-pull-left">
-        <div class="Header-title u-pull-left u-hide-on-mobile">
-          Percy
-        </div>
+        {{#link-to "index"}}
+          <img src="/images/percy.svg" class="Header-logo u-pull-left">
+          <div class="Header-title u-pull-left u-hide-on-mobile">
+            Percy
+          </div>
+        {{/link-to}}
       {{/link-to}}
-    {{/link-to}}
-    <div class="NavMenu">
       <div class="NavMenu-item NavMenu-item--left NavMenu-item-title">
-        <span class="u-hide-on-mobile">
-          {{#link-to "organization" organization}}{{organization.name}}{{/link-to}}
+        {{#link-to "organization" organization}}{{organization.name}}{{/link-to}}
           /
-        </span>
         {{#link-to "organization.project" organization project}}{{project.name}}{{/link-to}}
       </div>
-      <div class="NavMenu-item NavMenu-item--center">
+    </div>
+    <div class="NavMenu NavMenu--center NavMenu--tight">
+      <div class="NavMenu-item">
+        <a href="" class="Button Button--onDark Button--withIconOnly">
+          {{fa-icon "search-plus" classNames="fa--left"}}
+        </a>
+      </div>
+      <div class="NavMenu-item">
+        <a href="" class="Button Button--onDark Button--withIconOnly">
+          {{fa-icon "search-minus" classNames="fa--left"}}
+        </a>
+      </div>
+      <div class="NavMenu-item">
         {{#if (gt build.numComparisonWidths 1)}}
           {{build-width-selector
             widths=build.comparisonWidths
@@ -26,6 +37,8 @@
           }}
         {{/if}}
       </div>
+    </div>
+    <div class="NavMenu NavMenu--right">
       <div class="NavMenu-item--right">
         {{approval-section build=build}}
       </div>
