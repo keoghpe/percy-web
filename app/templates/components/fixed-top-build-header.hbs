@@ -17,6 +17,7 @@
       </div>
     </div>
     <div class="NavMenu NavMenu--center NavMenu--tight">
+      {{#if build.isFinished}}
       <div class="NavMenu-item">
         <a href="" class="Button Button--onDark Button--withIconOnly">
           {{fa-icon "search-plus" classNames="fa--left"}}
@@ -27,6 +28,7 @@
           {{fa-icon "search-minus" classNames="fa--left"}}
         </a>
       </div>
+      {{/if}}
       <div class="NavMenu-item">
         {{#if (gt build.numComparisonWidths 1)}}
           {{build-width-selector
