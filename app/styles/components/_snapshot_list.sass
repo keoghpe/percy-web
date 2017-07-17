@@ -7,20 +7,29 @@
   .Alert
     width: 100%
 
+  .SnapshotViewer
+    @include transition('0.15s ease-out')
+    transition-property: width
+
   &.SnapshotList--1col
     .SnapshotViewer
       width: 100%
+  &.SnapshotList--2col
+    .SnapshotViewer
+      width: 50%
+  &.SnapshotList--3col
+    .SnapshotViewer
+      width: 33.2%
   &.SnapshotList--4col
     .SnapshotViewer
       width: 24.5%
-      @include transition('1s ease-in-out')
-      transition-property: width
 
       .SnapshotViewer-snapshotMissing
         .fa
-          @include transition('1s ease-in-out')
           font-size: 5rem
-
+  &.SnapshotList--5col
+    .SnapshotViewer
+      width: 20%
   .HideNoDiffsPanel
     @include Card
     @include Card--linkable

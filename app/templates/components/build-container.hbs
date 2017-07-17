@@ -1,5 +1,6 @@
 {{fixed-top-build-header 
-  updateSelectedWidth=(action "updateSelectedWidth")
+  zoomIn=(action "zoomIn")
+  zoomOut=(action "zoomOut")
   build=build
   project=build.project
   organization=build.project.organization
@@ -8,7 +9,6 @@
   build=build
   defaultSelectedWidth=buildContainerSelectedWidth
   updateSelectedWidth=(action "updateSelectedWidth")
-  selectNumColumns=(action "selectNumColumns")
   selectedNumColumns=selectedNumColumns
   noWidthSelected=noWidthSelected
 }}
@@ -24,7 +24,6 @@
       activeSnapshotId=activeSnapshotId
       updateActiveSnapshotId=(action "updateActiveSnapshotId")
       selectedWidth=selectedWidth
-      selectNumColumns=(action "selectNumColumns")
       selectedNumColumns=selectedNumColumns
       snapshotWidthChangeTriggered=(action "snapshotWidthChangeTriggered")
       build=build

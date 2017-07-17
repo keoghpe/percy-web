@@ -54,9 +54,28 @@ export default Ember.Component.extend({
       return;
     }
     if (numColumns) {
-      this.send('selectNumColumns', parseInt(numColumns));
+      this.zoomTo(parseInt(numColumns));
     }
   }),
+
+  zoom(direction) {
+    var numColumns = this.get('selectedNumColumns') + direction
+    if (numColumns < 1) { numColumns = 1; }
+    if (numColumns > 5) { numColumns = 5; }
+
+    this.zoomTo(numColumns);
+  },
+
+  zoomTo(numColumns) {
+    this.set('selectedNumColumns', numColumns);
+
+    try {
+      localStorage.setItem('numColumns', numColumns);
+    } catch (_) {
+      // Safari throws errors while accessing localStorage in private mode.
+    }
+  },
+
   actions: {
     showSnapshotFullModalTriggered(snapshotId, snapshotSelectedWidth) {
       this.sendAction('openSnapshotFullModal', snapshotId, snapshotSelectedWidth);
@@ -74,14 +93,11 @@ export default Ember.Component.extend({
       }
       window.scrollTo(0, 0);
     },
-    selectNumColumns(numColumns) {
-      this.set('selectedNumColumns', numColumns);
-
-      try {
-        localStorage.setItem('numColumns', numColumns);
-      } catch (_) {
-        // Safari throws errors while accessing localStorage in private mode.
-      }
+    zoomIn(){
+      this.zoom(-1);
+    },
+    zoomOut(){
+      this.zoom(1);
     },
     showSupport() {
       this.sendAction('showSupport');
