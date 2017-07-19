@@ -19,7 +19,7 @@
   {{/if}}
 
   {{#if build.isFinished}}
-    <h2>from {{pluralize build.totalComparisonsFinished "snapshot"}}.</h2>
+    <h2>in {{pluralize build.totalComparisonsFinished "snapshot"}}.</h2>
   {{else if build.isFailed}}
     <h2>Reason: {{build.failureReasonHumanized}}.</h2>
   {{/if}}
