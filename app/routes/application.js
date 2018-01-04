@@ -14,7 +14,7 @@ export default Route.extend(ApplicationRouteMixin, EnsureStatefulLogin, {
   session: service(),
   flashMessages: service(),
   currentUser: alias('session.currentUser'),
-
+  //foo
   beforeModel(transition) {
     _removeAuth0PasswordlessStyle();
 
