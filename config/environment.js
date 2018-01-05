@@ -54,7 +54,7 @@ module.exports = function(environment) {
       },
     },
   };
-
+  //
   ENV.APP.STRIPE_PUBLISHABLE_KEY = 'pk_test_N5PmOTEMBIbsZMjbxnaWthNy';
   ENV.APP.INTERCOM_APP_ID = 'itdwmqct';
   ENV.APP.GOOGLE_ANALYTICS_ID = 'UA-63384548-3';
