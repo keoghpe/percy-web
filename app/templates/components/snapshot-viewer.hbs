@@ -27,7 +27,7 @@
     </div>
 
     <div class="btn-group">
-      <button type="button" class="primary btn btn-square" {{action "approveSnapshot"}}><i class="fa fa-check"></i></button>
+      <button type="button" class="primary btn btn-square" {{action (route-action "createReview" build.id (array snapshot.id))}}><i class="fa fa-check"></i></button>
     </div>
   </div>
 </div>

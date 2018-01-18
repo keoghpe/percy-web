@@ -68,5 +68,18 @@ export default Route.extend(AuthenticatedRouteMixin, {
         queryParams: {activeSnapshotId: snapshotId},
       });
     },
+
+    createReview(buildId, snapshotIds) {
+      const build = this.get('store').peekRecord('build', buildId);
+      const snapshots = snapshotIds.map(snapshotId => {
+        return this.get('store').peekRecord('snapshot', snapshotId);
+      });
+
+      const review = this.get('store').createRecord('review', {
+        build: build,
+        snapshots: snapshots,
+      });
+      review.save();
+    },
   },
 });

@@ -67,14 +67,6 @@ export default Component.extend({
   },
 
   actions: {
-    approveSnapshot() {
-      const review = this.get('store').createRecord('review', {
-        build: this.get('build'),
-        snapshots: [this.get('snapshot')],
-      });
-      review.save();
-    },
-
     selectChild() {
       this.get('setAsSelected').call(this);
       this.get('selectChild')(this);
