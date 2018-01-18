@@ -1,9 +1,11 @@
 import {not, alias, notEmpty} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import Component from '@ember/component';
+import {inject as service} from '@ember/service';
 
 export default Component.extend({
   snapshot: null,
+  store: service(),
   classNames: ['SnapshotViewer'],
   buildContainerSelectedWidth: null,
   snapshotSelectedWidth: computed('buildContainerSelectedWidth', {
@@ -65,6 +67,14 @@ export default Component.extend({
   },
 
   actions: {
+    approveSnapshot() {
+      const review = this.get('store').createRecord('review', {
+        build: this.get('build'),
+        snapshots: [this.get('snapshot')],
+      });
+      review.save();
+    },
+
     selectChild() {
       this.get('setAsSelected').call(this);
       this.get('selectChild')(this);

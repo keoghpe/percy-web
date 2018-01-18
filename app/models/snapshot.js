@@ -10,4 +10,6 @@ export default DS.Model.extend({
   screenshots: DS.hasMany('screenshot', {async: false}),
   createdAt: DS.attr('date'),
   updatedAt: DS.attr('date'),
+  reviewState: DS.attr(),
+  reviewStateReason: DS.attr(),
 });
