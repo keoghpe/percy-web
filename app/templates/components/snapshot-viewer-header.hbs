@@ -1,0 +1,51 @@
+<div class="Viewer-header SnapshotViewer-header {{if fullscreen 'SnapshotViewer-header-full'}}">
+  <div class="flex align-center truncate">
+
+    <figure class="svg-container">
+      {{comparison-icon
+        hasComparison=hasComparisonAtSelectedWidth
+        svgClassName="mr-2"
+      }}
+    </figure>
+
+    <a class="Viewer-header-title SnapshotViewer-title truncate" title="{{snapshot.name}}" href="{{snapshotUrl}}">{{snapshot.name}}</a>
+  </div>
+
+  {{#if fullscreen}}
+    {{comparison-mode-switcher
+      comparison=selectedComparison
+      updateComparisonMode=updateComparisonMode
+      comparisonMode=comparisonMode
+    }}
+  {{/if}}
+
+  <div class="flex justify-end">
+    <div class="btn-toolbar" role="group" aria-label="Viewport Comparison Switcher">
+      <div class="btn-group btn-group-alt mr-2" role="group" aria-label="First Group">
+
+        {{comparison-switcher
+          comparisons=snapshot.comparisons
+          buildWidths=buildWidths
+          selectedWidth=selectedWidth
+          updateSelectedWidth=updateSelectedWidth
+        }}
+
+      </div>
+      <div class="btn-group" role="group" aria-label="Second Group">
+
+        <button type="button" class="ToggleFullViewButton btn btn-square {{if fullscreen 'minimize-snapshot' 'maximize-snapshot'}}"
+          {{action toggleViewMode snapshot.id}}>
+
+          <figure class="svg-container">
+            {{#if fullscreen}}
+              {{inline-svg "minimize-icon"}}
+            {{else}}
+              {{inline-svg "maximize-icon"}}
+            {{/if}}
+          </figure>
+
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
