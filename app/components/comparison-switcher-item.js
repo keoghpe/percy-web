@@ -13,8 +13,6 @@ export default Component.extend({
     'matchingComparison.isDifferent:has-diffs',
   ],
 
-  updateSelectedWidth() {},
-
   matchingComparison: computed('comparisons', 'width', function() {
     let comparisons = this.get('comparisons') || [];
     return comparisons.findBy('width', this.get('width'));

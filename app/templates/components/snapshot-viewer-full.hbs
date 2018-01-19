@@ -1,41 +1,16 @@
-<div class="Viewer-header SnapshotViewer-header SnapshotViewer-header-full" data-test-SnapshotViewer-header>
-  <div class="flex align-center truncate">
-    <figure class="svg-container" data-test-SnapshotViewer-comparisonIcon>
-      {{comparison-icon
-        hasComparison=hasComparisonAtSelectedWidth
-        svgClassName="mr-1"
-      }}
-    </figure>
-    <a class="Viewer-header-title SnapshotViewer-title truncate" title="{{snapshot.name}}" href="{{snapshotUrl}}" data-test-SnapshotViewer-title>{{snapshot.name}}</a>
-  </div>
-  {{comparison-mode-switcher
-    comparison=selectedComparison
-    updateComparisonMode=updateComparisonMode
-    comparisonMode=comparisonMode
-    data-test-SnapshotViewer-comparison-mode-switcher=true
-  }}
-  <div class="flex justify-end">
-    <div class="btn-toolbar" role="group" aria-label="Viewport Comparison Switcher">
-      <div class="btn-group btn-group-alt mr-1" role="group" aria-label="First Group">
-        {{comparison-switcher
-          comparisons=snapshot.comparisons
-          buildWidths=buildWidths
-          snapshotSelectedWidth=snapshotSelectedWidth
-          updateSelectedWidth=(action 'updateSelectedWidth')
-          data-test-SnapshotViewer-widthSwitcher=true
-        }}
-      </div>
-      <div class="btn-group" role="group" aria-label="Second Group">
-        <button type="button" class="ToggleFullViewButton btn btn-square minimize-snapshot"
-          {{action closeSnapshotFullModal build.id snapshotId}} data-test-SnapshotViewer-toggleFullScreen>
-          <figure class="svg-container">
-            {{inline-svg "minimize-icon"}}
-          </figure>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+{{snapshot-viewer-header
+  fullscreen=true
+  snapshot=snapshot
+  buildWidths=buildWidths
+  selectedWidth=snapshotSelectedWidth
+  selectedComparison=selectedComparison
+  hasComparisonAtSelectedWidth=hasComparisonAtSelectedWidth
+  toggleViewMode=(action closeSnapshotFullModal build.id snapshot.id)
+  updateSelectedWidth=(action "updateSelectedWidth")
+
+  updateComparisonMode=updateComparisonMode
+  comparisonMode=comparisonMode
+}}
 
 <div class="SnapshotViewerFull-body">
   {{#if selectedComparison}}
