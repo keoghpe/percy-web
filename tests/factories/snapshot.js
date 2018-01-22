@@ -17,7 +17,14 @@ FactoryGuy.define('snapshot', {
         return make('build');
       },
     },
-    withComparisons: {},
+    withComparisons: {
+      comparisons: () => {
+        const widths = [375, 550, 1024];
+        return widths.map(width => {
+          return make('comparison', {width});
+        });
+      },
+    },
     withScreenshots: {},
     completeExample: {},
   },

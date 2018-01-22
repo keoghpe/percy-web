@@ -5,12 +5,12 @@ import {expect} from 'chai';
 import {it, describe, beforeEach} from 'mocha';
 import {percySnapshot} from 'ember-percy';
 import hbs from 'htmlbars-inline-precompile';
-import {make, manualSetup} from 'ember-data-factory-guy';
-// import sinon from 'sinon';
+import {make, makeList, manualSetup} from 'ember-data-factory-guy';
+import sinon from 'sinon';
 import SnapshotViewerPO from 'percy-web/tests/pages/components/snapshot-viewer';
 
-describe('Integration: SnapshotViewer', function() {
-  setupComponentTest('snapshot-viewer', {
+describe('Integration: SnapshotViewerFull', function() {
+  setupComponentTest('snapshot-viewer-full', {
     integration: true,
   });
 
@@ -19,35 +19,50 @@ describe('Integration: SnapshotViewer', function() {
     SnapshotViewerPO.setContext(this);
   });
 
-  let snapshotTitle;
-  const buildWidths = ['325', '500', '1024'];
+  const snapshotTitle = 'Awesome snapshot title';
+  // NOTE: these need to be the same as the widths in the snapshot factory
+  const buildWidths = [375, 550, 1024];
   describe('it renders header', function() {
     beforeEach(function() {
-      snapshotTitle = 'Awesome snapshot title';
-      const snapshot = make('snapshot', {name: snapshotTitle});
+      const snapshots = makeList('snapshot', 5, 'withComparisons');
+      snapshots[0].set('name', snapshotTitle);
       const build = make('build');
+      build.set('snapshots', snapshots);
+
       this.setProperties({
-        snapshot,
-        build,
         buildWidths,
-        buildContainerSelectedWidth: ['500'],
+        build,
+        snapshotId: build.get('snapshots.firstObject.id'),
+        snapshotSelectedWidth: buildWidths[1],
+        comparisonMode: 'diff',
+        stub: sinon.stub(),
       });
 
-      this.render(hbs`{{snapshot-viewer
-        snapshot=snapshot
+      this.render(hbs`{{snapshot-viewer-full
+        snapshotId=snapshotId
         build=build
         buildWidths=buildWidths
-        buildContainerSelectedWidth=buildContainerSelectedWidth
+        snapshotSelectedWidth=snapshotSelectedWidth
+        comparisonMode=comparisonMode
+        transitionRouteToWidth=stub
+        updateComparisonMode=stub
+        updateSelectedWidth=stub
+        closeSnapshotFullModal=stub
       }}`);
     });
 
     it('renders header', function() {
-      // TODO test buildContainerSElectedWidth
+      // TODO test snapshotSelectedWidth
       expect(SnapshotViewerPO.header.isTitleVisible, 'title should be visible').to.equal(true);
 
       expect(SnapshotViewerPO.header.titleText, 'title text should be correct').to.equal(
         snapshotTitle,
       );
+
+      expect(
+        SnapshotViewerPO.header.isComparisonModeSwitcherVisible,
+        'comparison mode switcher should be visible',
+      ).to.equal(true);
 
       expect(
         SnapshotViewerPO.header.isWidthSwitcherVisible,
