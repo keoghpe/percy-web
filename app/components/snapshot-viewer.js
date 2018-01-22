@@ -6,6 +6,10 @@ export default Component.extend({
   snapshot: null,
   classNames: ['SnapshotViewer'],
   buildContainerSelectedWidth: null,
+
+  registerChild() {},
+  unregisterChild() {},
+
   snapshotSelectedWidth: computed('buildContainerSelectedWidth', {
     get() {
       return this.get('buildContainerSelectedWidth');
