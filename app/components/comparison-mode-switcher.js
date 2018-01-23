@@ -1,9 +1,11 @@
-import {alias} from '@ember/object/computed';
+import {alias, empty} from '@ember/object/computed';
 import Component from '@ember/component';
 
 export default Component.extend({
-  wasAdded: alias('comparison.wasAdded'),
+  classNameBindings: ['isHidden:is-invisible'],
   comparison: null,
+  isHidden: empty('comparison'),
+  wasAdded: alias('comparison.wasAdded'),
   comparisonMode: null,
   updateComparisonMode: null,
 });

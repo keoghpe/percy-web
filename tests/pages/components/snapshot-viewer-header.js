@@ -1,6 +1,7 @@
 import {create, clickable, isVisible, hasClass, text, collection} from 'ember-cli-page-object';
 
-const selectors = {
+const SELECTORS = {
+  HEADER: '[data-test-SnapshotViewer-header]',
   COMPARISON_ICON: '[data-test-SnapshotViewer-comparisonIcon]',
   TITLE: '[data-test-SnapshotViewer-title]',
   WIDTH_SWITCHER: '[data-test-SnapshotViewer-widthSwitcher]',
@@ -13,17 +14,18 @@ const selectors = {
 };
 
 export const SnapshotViewerHeader = {
-  isTitleVisible: isVisible(selectors.TITLE),
-  titleText: text(selectors.TITLE),
+  scope: SELECTORS.HEADER,
+  isTitleVisible: isVisible(SELECTORS.TITLE),
+  titleText: text(SELECTORS.TITLE),
 
-  isComparisonModeSwitcherVisible: isVisible(selectors.COMPARISON_MODE_SWITCHER),
+  isComparisonModeSwitcherVisible: isVisible(SELECTORS.COMPARISON_MODE_SWITCHER),
 
-  isWidthSwitcherVisible: isVisible(selectors.WIDTH_SWITCHER),
+  isWidthSwitcherVisible: isVisible(SELECTORS.WIDTH_SWITCHER),
 
   widthSwitcher: {
-    scope: selectors.WIDTH_SWITCHER,
+    scope: SELECTORS.WIDTH_SWITCHER,
     buttons: collection({
-      itemScope: selectors.WIDTH_SWITCHER_BUTTON,
+      itemScope: SELECTORS.WIDTH_SWITCHER_BUTTON,
       item: {
         isActive: hasClass('is-active'),
         text: text(),
@@ -31,12 +33,12 @@ export const SnapshotViewerHeader = {
     }),
   },
 
-  isFullScreenToggleVisible: isVisible(selectors.FULL_SCREEN_TOGGLE),
-  clickToggleFullscreen: clickable(selectors.FULL_SCREEN_TOGGLE),
+  isFullScreenToggleVisible: isVisible(SELECTORS.FULL_SCREEN_TOGGLE),
+  clickToggleFullscreen: clickable(SELECTORS.FULL_SCREEN_TOGGLE),
 
-  clickBaseComparisonMode: clickable(selectors.COMPARISON_MODE_SWITCHER_BASE),
-  clickDiffComparisonMode: clickable(selectors.COMPARISON_MODE_SWITCHER_DIFF),
-  clickHeadComparisonMode: clickable(selectors.COMPARISON_MODE_SWITCHER_HEAD),
+  clickBaseComparisonMode: clickable(SELECTORS.COMPARISON_MODE_SWITCHER_BASE),
+  clickDiffComparisonMode: clickable(SELECTORS.COMPARISON_MODE_SWITCHER_DIFF),
+  clickHeadComparisonMode: clickable(SELECTORS.COMPARISON_MODE_SWITCHER_HEAD),
 };
 
 export default create(SnapshotViewerHeader);

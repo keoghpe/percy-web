@@ -1,7 +1,5 @@
 import FactoryGuy from 'ember-data-factory-guy';
 import moment from 'moment';
-// import faker from 'faker';
-// import {make} from 'ember-data-factory-guy';
 
 FactoryGuy.define('comparison', {
   default: {

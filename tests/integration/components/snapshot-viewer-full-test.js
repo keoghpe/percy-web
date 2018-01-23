@@ -9,11 +9,6 @@ import {make, makeList, manualSetup} from 'ember-data-factory-guy';
 import sinon from 'sinon';
 import SnapshotViewerPO from 'percy-web/tests/pages/components/snapshot-viewer';
 
-// TODO: acceptance test for clicking different comparison modes
-// TODO: acceptance test for clicking snapshot title and see query params change
-// TODO: clicking comparison mode buttons switch img src
-// TODO: clicking on comparison, toggles to next comparison mode
-
 describe('Integration: SnapshotViewerFull', function() {
   setupComponentTest('snapshot-viewer-full', {
     integration: true,
@@ -79,7 +74,6 @@ describe('Integration: SnapshotViewerFull', function() {
     });
 
     it('sends updateComparisonMode action when comparison switcher is clicked', function() {
-      // TODO: test this somewhere images can change
       SnapshotViewerPO.header.clickBaseComparisonMode();
       expect(updateComparisonModeStub).to.have.been.calledWith('base');
 

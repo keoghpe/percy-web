@@ -1,4 +1,4 @@
-<div class="Viewer-header SnapshotViewer-header SnapshotViewer-header-full">
+<div class="Viewer-header SnapshotViewer-header SnapshotViewer-header-full" data-test-SnapshotViewer-header>
   <div class="flex align-center truncate">
     <figure class="svg-container" data-test-SnapshotViewer-comparisonIcon>
       {{comparison-icon
@@ -8,14 +8,12 @@
     </figure>
     <a class="Viewer-header-title SnapshotViewer-title truncate" title="{{snapshot.name}}" href="{{snapshotUrl}}" data-test-SnapshotViewer-title>{{snapshot.name}}</a>
   </div>
-  {{#if selectedComparison}}
-    {{comparison-mode-switcher
-      comparison=selectedComparison
-      updateComparisonMode=updateComparisonMode
-      comparisonMode=comparisonMode
-      data-test-SnapshotViewer-comparison-mode-switcher=true
-    }}
-  {{/if}}
+  {{comparison-mode-switcher
+    comparison=selectedComparison
+    updateComparisonMode=updateComparisonMode
+    comparisonMode=comparisonMode
+    data-test-SnapshotViewer-comparison-mode-switcher=true
+  }}
   <div class="flex justify-end">
     <div class="btn-toolbar" role="group" aria-label="Viewport Comparison Switcher">
       <div class="btn-group btn-group-alt mr-1" role="group" aria-label="First Group">

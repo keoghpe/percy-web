@@ -2,6 +2,7 @@ import setupAcceptance, {setupSession} from '../helpers/setup-acceptance';
 import freezeMoment from '../helpers/freeze-moment';
 import moment from 'moment';
 
+// TODO convert this file to use page objects
 describe('Acceptance: Pending Build', function() {
   freezeMoment('2018-05-22');
   setupAcceptance();
@@ -216,6 +217,19 @@ describe('Acceptance: Build', function() {
     percySnapshot(this.test.fullTitle() + ' | Right*2 + Left');
   });
 
+  it('adds query param when clicking on snapshot header', function() {
+    let snapshot = this.comparisons.wasAdded.headSnapshot;
+
+    visit(`/${this.project.fullSlug}/builds/${this.build.id}`);
+    click('[data-test-SnapshotViewer-header]:eq(0)');
+
+    andThen(() => {
+      expect(currentURL()).to.equal(
+        `/${this.project.fullSlug}/builds/${this.build.id}?snapshot=${snapshot.id}`,
+      );
+    });
+  });
+
   it('jumps to snapshot for query params', function() {
     let snapshot = this.comparisons.wasAdded.headSnapshot;
 
@@ -296,20 +310,57 @@ describe('Acceptance: Build', function() {
 
   it('hides comparison mode controls in full view if no snapshot taken', function() {
     let snapshot = this.comparisons.differentNoMobile.headSnapshot;
-
     visit(`/${this.project.fullSlug}/builds/${this.build.id}/view/${snapshot.id}/320?mode=diff`);
     andThen(() => {
       expect(find('[data-test-comparison-mode-switcher]').css('visibility')).to.equal('hidden');
     });
   });
 
-  it('hides comparison mode controls in full view if no snapshot taken', function() {
+  it('shows "New" comparison mode controls in full view if snapshot is new', function() {
     let snapshot = this.comparisons.wasAdded.headSnapshot;
 
     visit(`/${this.project.fullSlug}/builds/${this.build.id}/view/${snapshot.id}/1280?mode=diff`);
     andThen(() => {
       expect(find('[data-test-comparison-mode-switcher] button').length).to.equal(1);
       expect(find('[data-test-comparison-mode-switcher] button').text()).to.equal('New Snapshot');
+    });
+  });
+
+  it('toggles between old/diff/new comparisons when interacting with comparison mode switcher', function() { // eslint-disable-line
+    let originalModeButton;
+    let diffModeButton;
+    let newModeButton;
+
+    const snapshot = this.comparisons.different.headSnapshot;
+    visit(`/${this.project.fullSlug}/builds/${this.build.id}/view/${snapshot.id}/1280?mode=diff`);
+
+    andThen(() => {
+      originalModeButton = find('[data-test-comparison-mode-switcher] button:contains(Original)');
+      diffModeButton = find('[data-test-comparison-mode-switcher] button:contains(Diff)');
+      newModeButton = find('[data-test-comparison-mode-switcher] button:contains(New)');
+
+      click(originalModeButton);
+    });
+
+    andThen(() => {
+      expect(find('[data-test-snapshotviewerfull-comparison-viewer] img').attr('src')).to.equal(
+        '/images/test/bs-base.png',
+      );
+
+      click(newModeButton);
+    });
+
+    andThen(() => {
+      expect(find('[data-test-snapshotviewerfull-comparison-viewer] img').attr('src')).to.equal(
+        '/images/test/bs-head.png',
+      );
+      click(diffModeButton);
+    });
+
+    andThen(() => {
+      expect(find('[data-test-snapshotviewerfull-comparison-viewer] img').attr('src')).to.equal(
+        '/images/test/bs-pdiff-base-head.png',
+      );
     });
   });
 });
