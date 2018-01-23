@@ -1,4 +1,4 @@
-import {create, clickable, isVisible, text, collection} from 'ember-cli-page-object';
+import {create, clickable, isVisible, hasClass, text, collection} from 'ember-cli-page-object';
 
 const selectors = {
   COMPARISON_ICON: '[data-test-SnapshotViewer-comparisonIcon]',
@@ -19,12 +19,13 @@ export const SnapshotViewerHeader = {
   isComparisonModeSwitcherVisible: isVisible(selectors.COMPARISON_MODE_SWITCHER),
 
   isWidthSwitcherVisible: isVisible(selectors.WIDTH_SWITCHER),
+
   widthSwitcher: {
     scope: selectors.WIDTH_SWITCHER,
-
     buttons: collection({
       itemScope: selectors.WIDTH_SWITCHER_BUTTON,
       item: {
+        isActive: hasClass('is-active'),
         text: text(),
       },
     }),

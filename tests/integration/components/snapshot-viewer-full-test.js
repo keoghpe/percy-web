@@ -10,100 +10,75 @@ import sinon from 'sinon';
 import SnapshotViewerPO from 'percy-web/tests/pages/components/snapshot-viewer';
 
 // TODO: acceptance test for clicking different comparison modes
+// TODO: acceptance test for clicking snapshot title and see query params change
+// TODO: clicking comparison mode buttons switch img src
+// TODO: clicking on comparison, toggles to next comparison mode
 
 describe('Integration: SnapshotViewerFull', function() {
   setupComponentTest('snapshot-viewer-full', {
     integration: true,
   });
 
-  beforeEach(function() {
-    manualSetup(this.container);
-    SnapshotViewerPO.setContext(this);
-  });
-
   let closeSnapshotFullModalStub;
   let updateComparisonModeStub;
   const snapshotTitle = 'Awesome snapshot title';
+  const widthIndex = 1;
   // NOTE: these need to be the same as the widths in the snapshot factory
   const buildWidths = [375, 550, 1024];
-  // TODO: un-nest this describe
-  describe('it renders header', function() {
-    beforeEach(function() {
-      const snapshots = makeList('snapshot', 5, 'withComparisons');
-      snapshots[0].set('name', snapshotTitle);
-      const build = make('build');
-      build.set('snapshots', snapshots);
+  const snapshotSelectedWidth = buildWidths[widthIndex];
 
-      closeSnapshotFullModalStub = sinon.stub();
-      updateComparisonModeStub = sinon.stub();
+  beforeEach(function() {
+    manualSetup(this.container);
+    SnapshotViewerPO.setContext(this);
 
-      this.setProperties({
-        buildWidths,
-        build,
-        snapshotId: build.get('snapshots.firstObject.id'),
-        snapshotSelectedWidth: buildWidths[1],
-        comparisonMode: 'diff',
-        closeSnapshotFullModal: closeSnapshotFullModalStub,
-        updateComparisonMode: updateComparisonModeStub,
-        stub: sinon.stub(),
-      });
+    const snapshots = makeList('snapshot', 5, 'withComparisons');
+    snapshots[0].set('name', snapshotTitle);
+    const build = make('build');
+    build.set('snapshots', snapshots);
 
-      this.render(hbs`{{snapshot-viewer-full
-        snapshotId=snapshotId
-        build=build
-        buildWidths=buildWidths
-        snapshotSelectedWidth=snapshotSelectedWidth
-        comparisonMode=comparisonMode
-        transitionRouteToWidth=stub
-        updateComparisonMode=updateComparisonMode
-        updateSelectedWidth=stub
-        closeSnapshotFullModal=closeSnapshotFullModal
-      }}`);
+    closeSnapshotFullModalStub = sinon.stub();
+    updateComparisonModeStub = sinon.stub();
+
+    this.setProperties({
+      build,
+      buildWidths,
+      snapshotSelectedWidth,
+      snapshotId: build.get('snapshots.firstObject.id'),
+      comparisonMode: 'diff',
+      closeSnapshotFullModal: closeSnapshotFullModalStub,
+      updateComparisonMode: updateComparisonModeStub,
+      stub: sinon.stub(),
     });
 
-    it('renders header', function() {
-      // TODO test snapshotSelectedWidth
-      expect(SnapshotViewerPO.header.isTitleVisible, 'title should be visible').to.equal(true);
+    this.render(hbs`{{snapshot-viewer-full
+      snapshotId=snapshotId
+      build=build
+      buildWidths=buildWidths
+      snapshotSelectedWidth=snapshotSelectedWidth
+      comparisonMode=comparisonMode
+      transitionRouteToWidth=stub
+      updateComparisonMode=updateComparisonMode
+      closeSnapshotFullModal=closeSnapshotFullModal
+    }}`);
+  });
 
-      expect(SnapshotViewerPO.header.titleText, 'title text should be correct').to.equal(
-        snapshotTitle,
-      );
+  it('displays snapshot name', function() {
+    expect(SnapshotViewerPO.header.isTitleVisible, 'title should be visible').to.equal(true);
 
+    expect(SnapshotViewerPO.header.titleText, 'title text should be correct').to.equal(
+      snapshotTitle,
+    );
+  });
+
+  describe('comparison mode switcher', function() {
+    it('displays comparison mode switcher', function() {
       expect(
         SnapshotViewerPO.header.isComparisonModeSwitcherVisible,
         'comparison mode switcher should be visible',
       ).to.equal(true);
-
-      expect(
-        SnapshotViewerPO.header.isWidthSwitcherVisible,
-        'width switcher should be visible',
-      ).to.equal(true);
-
-      expect(
-        SnapshotViewerPO.header.widthSwitcher.buttons().count,
-        'there should be correct number of buttons',
-      ).to.equal(buildWidths.length);
-
-      SnapshotViewerPO.header.widthSwitcher.buttons().forEach((button, i) => {
-        expect(button.text, `button ${i} should contain correct width`).to.equal(
-          `${buildWidths[i]}px`,
-        );
-      });
-
-      expect(SnapshotViewerPO.header.isFullScreenToggleVisible).to.equal(true);
-
-      percySnapshot(this.test);
     });
 
-    it('clicks toggleFullscreen button', function() {
-      SnapshotViewerPO.header.clickToggleFullscreen();
-      expect(closeSnapshotFullModalStub).to.have.been.calledWith(
-        this.get('build.id'),
-        this.get('snapshotId'),
-      );
-    });
-
-    it('sends updateComparisonMode action', function() {
+    it('sends updateComparisonMode action when comparison switcher is clicked', function() {
       // TODO: test this somewhere images can change
       SnapshotViewerPO.header.clickBaseComparisonMode();
       expect(updateComparisonModeStub).to.have.been.calledWith('base');
@@ -113,6 +88,71 @@ describe('Integration: SnapshotViewerFull', function() {
 
       SnapshotViewerPO.header.clickHeadComparisonMode();
       expect(updateComparisonModeStub).to.have.been.calledWith('head');
+    });
+  });
+
+  describe('width switcher', function() {
+    it('displays', function() {
+      expect(
+        SnapshotViewerPO.header.isWidthSwitcherVisible,
+        'width switcher should be visible',
+      ).to.equal(true);
+    });
+
+    it('has the right number of buttons', function() {
+      expect(
+        SnapshotViewerPO.header.widthSwitcher.buttons().count,
+        'there should be correct number of buttons',
+      ).to.equal(buildWidths.length);
+    });
+
+    it('displays the correct text on the buttons', function() {
+      SnapshotViewerPO.header.widthSwitcher.buttons().forEach((button, i) => {
+        expect(button.text, `button ${i} should contain correct width`).to.equal(
+          `${buildWidths[i]}px`,
+        );
+      });
+    });
+
+    it('displays correct number as selected', function() {
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(0).isActive).to.equal(false);
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(widthIndex).isActive).to.equal(true);
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(2).isActive).to.equal(false);
+    });
+
+    it('updates active button when clicked', function() {
+      SnapshotViewerPO.header.widthSwitcher.buttons(0).click();
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(0).isActive).to.equal(true);
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(1).isActive).to.equal(false);
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(2).isActive).to.equal(false);
+
+      SnapshotViewerPO.header.widthSwitcher.buttons(2).click();
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(0).isActive).to.equal(false);
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(1).isActive).to.equal(false);
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(2).isActive).to.equal(true);
+
+      SnapshotViewerPO.header.widthSwitcher.buttons(1).click();
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(0).isActive).to.equal(false);
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(1).isActive).to.equal(true);
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(2).isActive).to.equal(false);
+    });
+  });
+
+  it('compares visually to previous screenshot', function() {
+    percySnapshot(this.test);
+  });
+
+  describe('full screen toggle button', function() {
+    it('displays', function() {
+      expect(SnapshotViewerPO.header.isFullScreenToggleVisible).to.equal(true);
+    });
+
+    it('sends closeSnapshotFullModal when toggle fullscreen button is clicked', function() {
+      SnapshotViewerPO.header.clickToggleFullscreen();
+      expect(closeSnapshotFullModalStub).to.have.been.calledWith(
+        this.get('build.id'),
+        this.get('snapshotId'),
+      );
     });
   });
 });
