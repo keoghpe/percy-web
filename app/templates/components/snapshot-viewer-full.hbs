@@ -29,8 +29,8 @@
       </div>
       <div class="btn-group" role="group" aria-label="Second Group">
         <button type="button" class="ToggleFullViewButton btn btn-square minimize-snapshot"
-          {{action closeSnapshotFullModal build.id snapshotId}}>
-          <figure class="svg-container" data-test-SnapshotViewer-showFullScreen>
+          {{action closeSnapshotFullModal build.id snapshotId}} data-test-SnapshotViewer-toggleFullScreen>
+          <figure class="svg-container">
             {{inline-svg "minimize-icon"}}
           </figure>
         </button>

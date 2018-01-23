@@ -9,6 +9,8 @@ import {make, makeList, manualSetup} from 'ember-data-factory-guy';
 import sinon from 'sinon';
 import SnapshotViewerPO from 'percy-web/tests/pages/components/snapshot-viewer';
 
+// TODO: acceptance test for clicking different comparison modes
+
 describe('Integration: SnapshotViewerFull', function() {
   setupComponentTest('snapshot-viewer-full', {
     integration: true,
@@ -19,9 +21,12 @@ describe('Integration: SnapshotViewerFull', function() {
     SnapshotViewerPO.setContext(this);
   });
 
+  let closeSnapshotFullModalStub;
+  let updateComparisonModeStub;
   const snapshotTitle = 'Awesome snapshot title';
   // NOTE: these need to be the same as the widths in the snapshot factory
   const buildWidths = [375, 550, 1024];
+  // TODO: un-nest this describe
   describe('it renders header', function() {
     beforeEach(function() {
       const snapshots = makeList('snapshot', 5, 'withComparisons');
@@ -29,12 +34,17 @@ describe('Integration: SnapshotViewerFull', function() {
       const build = make('build');
       build.set('snapshots', snapshots);
 
+      closeSnapshotFullModalStub = sinon.stub();
+      updateComparisonModeStub = sinon.stub();
+
       this.setProperties({
         buildWidths,
         build,
         snapshotId: build.get('snapshots.firstObject.id'),
         snapshotSelectedWidth: buildWidths[1],
         comparisonMode: 'diff',
+        closeSnapshotFullModal: closeSnapshotFullModalStub,
+        updateComparisonMode: updateComparisonModeStub,
         stub: sinon.stub(),
       });
 
@@ -45,9 +55,9 @@ describe('Integration: SnapshotViewerFull', function() {
         snapshotSelectedWidth=snapshotSelectedWidth
         comparisonMode=comparisonMode
         transitionRouteToWidth=stub
-        updateComparisonMode=stub
+        updateComparisonMode=updateComparisonMode
         updateSelectedWidth=stub
-        closeSnapshotFullModal=stub
+        closeSnapshotFullModal=closeSnapshotFullModal
       }}`);
     });
 
@@ -83,6 +93,26 @@ describe('Integration: SnapshotViewerFull', function() {
       expect(SnapshotViewerPO.header.isFullScreenToggleVisible).to.equal(true);
 
       percySnapshot(this.test);
+    });
+
+    it('clicks toggleFullscreen button', function() {
+      SnapshotViewerPO.header.clickToggleFullscreen();
+      expect(closeSnapshotFullModalStub).to.have.been.calledWith(
+        this.get('build.id'),
+        this.get('snapshotId'),
+      );
+    });
+
+    it('sends updateComparisonMode action', function() {
+      // TODO: test this somewhere images can change
+      SnapshotViewerPO.header.clickBaseComparisonMode();
+      expect(updateComparisonModeStub).to.have.been.calledWith('base');
+
+      SnapshotViewerPO.header.clickDiffComparisonMode();
+      expect(updateComparisonModeStub).to.have.been.calledWith('diff');
+
+      SnapshotViewerPO.header.clickHeadComparisonMode();
+      expect(updateComparisonModeStub).to.have.been.calledWith('head');
     });
   });
 });
