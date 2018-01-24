@@ -103,11 +103,11 @@ export default Component.extend({
       'keydown.snapshots',
       function(e) {
         if (!this.get('isShowingModal')) {
-          if (e.keyCode === 39) {
-            // right arrow
+          if (e.keyCode === 40) {
+            // down arrow
             this.send('nextSnapshot');
-          } else if (e.keyCode === 37) {
-            // left arrow
+          } else if (e.keyCode === 38) {
+            // up arrow
             this.send('previousSnapshot');
           }
         }
@@ -121,7 +121,7 @@ export default Component.extend({
     if (!component) {
       return;
     }
-    $('.BuildContainer-body').animate({scrollTop: component.$().get(0).offsetTop - 10}, 0);
+    $('.BuildContainer-body').animate({scrollTop: component.$().get(0).offsetTop - 16}, 250);
   },
   actions: {
     registerChild(component) {
