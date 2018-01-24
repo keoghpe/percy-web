@@ -6,6 +6,7 @@ import {inject as service} from '@ember/service';
 export default Component.extend({
   snapshot: null,
   store: service(),
+  flashMessages: service(),
   classNames: ['SnapshotViewer'],
   buildContainerSelectedWidth: null,
   snapshotSelectedWidth: computed('buildContainerSelectedWidth', {
@@ -22,7 +23,6 @@ export default Component.extend({
     return comparisons.findBy('width', parseInt(width, 10));
   }),
   classNameBindings: [
-    'isFocus:SnapshotViewer--focus',
     'isExpanded::SnapshotViewer--collapsed',
     'isActionable:SnapshotViewer--actionable',
   ],
@@ -70,6 +70,7 @@ export default Component.extend({
     selectChild() {
       this.get('setAsSelected').call(this);
       this.get('selectChild')(this);
+      this.get('flashMessages').success('Snapshot URL was copied to your clipboard');
     },
 
     registerChild() {

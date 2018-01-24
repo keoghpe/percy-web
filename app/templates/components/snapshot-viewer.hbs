@@ -1,4 +1,4 @@
-<div class="Viewer-header SnapshotViewer-header" {{action "selectChild"}}>
+<header class="SnapshotViewer-header sticky grid gap-4 z-1 px-2 py-1 bg-gray-000 border-top border-bottom border-gray-100">
   <div class="flex align-center truncate">
     <figure class="svg-container">
       {{comparison-icon
@@ -6,14 +6,15 @@
         svgClassName="mr-1"
       }}
     </figure>
-    <a class="Viewer-header-title SnapshotViewer-title truncate" title="{{snapshot.name}}" href="{{snapshotUrl}}">{{snapshot.name}}</a>
+    <div class="text-weight-bold truncate" data-test-snapshot-header-title title="{{snapshot.name}}">{{snapshot.name}}</div>
   </div>
   <div class="btn-toolbar">
     <div class="btn-group">
       {{#copy-button
         class="btn-icon-only"
-        clipboardText="Full size snapshot URL goes here"
+        clipboardText=(concat "percy.io/" project.fullSlug "/builds/" build.id "?snapshot=" snapshot.id)
         title="Copy snapshot URL to clipboard"
+        success=(action "selectChild")
       }}
         {{inline-svg "link-icon" class="mr-sm"}}
       {{/copy-button}}
@@ -38,7 +39,7 @@
       <button type="button" class="btn btn-success" {{action (route-action "createReview" build.id (array snapshot.id))}}>Approve</button>
     </div>
   </div>
-</div>
+</header>
 {{#if isExpanded}}
   {{#if selectedComparison}}
     {{comparison-viewer
