@@ -4,7 +4,7 @@ import Component from '@ember/component';
 export default Component.extend({
   comparison: null,
 
-  classNames: ['ComparisonViewer'],
+  classNames: ['ComparisonViewer bg-gray-000 border-bottom border-gray-100'],
   hasNoWidth: computed('comparison', 'snapshotSelectedWidth', function() {
     return parseInt(this.get('snapshotSelectedWidth')) !== this.get('comparison.width');
   }),

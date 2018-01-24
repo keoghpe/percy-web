@@ -222,9 +222,9 @@ describe('Acceptance: Build', function() {
     visit(`/${this.project.fullSlug}/builds/${this.build.id}?snapshot=${snapshot.id}`);
     andThen(() => {
       expect(currentPath()).to.equal('organization.project.builds.build.index');
-      expect(find('.SnapshotViewer.SnapshotViewer--focus .SnapshotViewer-title').text()).to.equal(
-        snapshot.name,
-      );
+      expect(
+        find('.SnapshotViewer.SnapshotViewer--focus [data-test-snapshot-header-title]').text(),
+      ).to.equal(snapshot.name);
     });
 
     percySnapshot(this.test.fullTitle());
@@ -234,9 +234,9 @@ describe('Acceptance: Build', function() {
     let snapshot = this.comparisons.same.headSnapshot;
     visit(`/${this.project.fullSlug}/builds/${this.build.id}?snapshot=${snapshot.id}`);
     andThen(() => {
-      expect(find('.SnapshotViewer.SnapshotViewer--focus .SnapshotViewer-title').text()).to.equal(
-        snapshot.name,
-      );
+      expect(
+        find('.SnapshotViewer.SnapshotViewer--focus [data-test-snapshot-header-title]').text(),
+      ).to.equal(snapshot.name);
     });
   });
 

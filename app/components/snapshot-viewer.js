@@ -7,7 +7,7 @@ export default Component.extend({
   snapshot: null,
   store: service(),
   flashMessages: service(),
-  classNames: ['SnapshotViewer'],
+  classNames: ['SnapshotViewer mb-2'],
   buildContainerSelectedWidth: null,
   snapshotSelectedWidth: computed('buildContainerSelectedWidth', {
     get() {
@@ -51,10 +51,6 @@ export default Component.extend({
   willDestroyElement() {
     this._super(...arguments);
     this.send('unregisterChild', this);
-  },
-
-  click() {
-    this.send('selectChild');
   },
 
   setAsSelected() {

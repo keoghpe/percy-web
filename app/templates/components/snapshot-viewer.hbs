@@ -11,12 +11,12 @@
   <div class="btn-toolbar">
     <div class="btn-group">
       {{#copy-button
-        class="btn-icon-only"
+        class="btn-icon-only mr-sm opacity-25 opacity-hoverable"
         clipboardText=(concat "percy.io/" project.fullSlug "/builds/" build.id "?snapshot=" snapshot.id)
         title="Copy snapshot URL to clipboard"
         success=(action "selectChild")
       }}
-        {{inline-svg "link-icon" class="mr-sm"}}
+        {{inline-svg "link-icon"}}
       {{/copy-button}}
     </div>
     <div class="btn-group btn-group-alt">
