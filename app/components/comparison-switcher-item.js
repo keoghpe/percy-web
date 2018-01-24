@@ -9,7 +9,7 @@ export default Component.extend({
   classNames: ['btn'],
   classNameBindings: [
     'isSelected:is-active:',
-    'matchingComparison::is-disabled',
+    'matchingComparison::has-no-snapshot',
     'matchingComparison.isDifferent:has-diffs',
   ],
 

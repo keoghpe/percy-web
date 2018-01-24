@@ -406,20 +406,21 @@ button,
       transform: translate3d(0, 0, 0);
     }
 
-    &.is-disabled {
-      color: rgba($default-text-color, 0.5);
-      opacity: 0.5;
+    &.has-no-snapshot {
+      color: var(--light-text-color);
     }
 
     &.has-diffs {
-      color: rgba($red, 0.4);
+      color: var(--purple-600);
 
       &:hover {
-        color: var(--red);
+        background: var(--purple-100);
       }
 
       &.is-active {
-        color: var(--red);
+        color: var(--white);
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        background: var(--purple-600);
       }
     }
   }
