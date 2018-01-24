@@ -372,18 +372,12 @@ button,
 }
 
 .btn-group {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 1px;
 
-  > .btn {
-    margin-right: 1px;
-
-    &:hover {
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
-  > .btn:only-child {
-    margin-right: 0;
+  > .btn:hover {
+    transform: translate3d(0, 0, 0);
   }
 
   > .btn:not(:first-child):not(:last-child) {
@@ -396,7 +390,6 @@ button,
   }
 
   > .btn:last-child:not(:first-child) {
-    margin-right: 0;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -433,5 +426,7 @@ button,
 }
 
 .btn-toolbar {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: var(--spacing-1);
 }
