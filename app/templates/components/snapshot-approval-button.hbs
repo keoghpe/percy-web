@@ -1,5 +1,5 @@
 {{#if (eq snapshot.reviewState "approved")}}
   <div class="status-pill is-approved">Approved</div>
 {{else}}
-  <button type="button" class="btn btn-success {{if isLoading 'is-loading'}}" {{action "approveSnapshot"}}>Approve</button>
+  <button type="button" class="btn btn-success {{if isLoading 'is-loading'}}" {{action "approveSnapshot"}} data-test-SnapshotViewerHeader-approve>Approve</button>
 {{/if}}
