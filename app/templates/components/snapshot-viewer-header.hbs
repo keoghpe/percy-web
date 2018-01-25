@@ -1,0 +1,53 @@
+<div class="Viewer-header SnapshotViewer-header {{if fullscreen 'SnapshotViewer-header-full'}}" data-test-SnapshotViewer-header>
+  <div class="flex align-center truncate">
+
+    <figure class="svg-container" data-test-SnapshotViewer-comparisonIcon>
+      {{comparison-icon
+        hasComparison=hasComparisonAtSelectedWidth
+        svgClassName="mr-1"
+      }}
+    </figure>
+
+    <a class="Viewer-header-title SnapshotViewer-title truncate" title="{{snapshot.name}}" href="{{snapshotUrl}}" data-test-SnapshotViewer-title>{{snapshot.name}}</a>
+  </div>
+
+  {{#if fullscreen}}
+    {{comparison-mode-switcher
+      comparison=selectedComparison
+      updateComparisonMode=updateComparisonMode
+      comparisonMode=comparisonMode
+      data-test-SnapshotViewer-comparison-mode-switcher=true
+    }}
+  {{/if}}
+
+  <div class="flex justify-end">
+    <div class="btn-toolbar" role="group" aria-label="Viewport Comparison Switcher">
+      <div class="btn-group btn-group-alt" role="group" aria-label="First Group">
+
+        {{comparison-switcher
+          comparisons=snapshot.comparisons
+          buildWidths=buildWidths
+          selectedWidth=selectedWidth
+          updateSelectedWidth=updateSelectedWidth
+          data-test-SnapshotViewer-widthSwitcher=true
+        }}
+
+      </div>
+      <div class="btn-group ml-1" role="group" aria-label="Second Group">
+
+        <button type="button" class="ToggleFullViewButton btn btn-square {{if fullscreen 'minimize-snapshot' 'maximize-snapshot'}}"
+          {{action toggleViewMode}} data-test-SnapshotViewer-toggleFullScreen>
+
+          <figure class="svg-container">
+            {{#if fullscreen}}
+              {{inline-svg "minimize-icon"}}
+            {{else}}
+              {{inline-svg "maximize-icon"}}
+            {{/if}}
+          </figure>
+
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

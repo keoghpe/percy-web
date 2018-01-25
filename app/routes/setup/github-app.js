@@ -1,12 +1,7 @@
-import Ember from 'ember';
 import {alias} from '@ember/object/computed';
 import Route from '@ember/routing/route';
 import {inject as service} from '@ember/service';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
-import {task, timeout} from 'ember-concurrency';
-
-const POLLING_INTERVAL_SECONDS = 1;
-const MAX_UPDATE_POLLING_REQUESTS = 600;
 
 export default Route.extend(AuthenticatedRouteMixin, {
   session: service(),
@@ -20,67 +15,20 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   installationId: null,
-  runningTask: null,
 
-  startPollingForUpdates: function() {
-    this.set('runningTask', this.get('pollForUpdatesTask').perform());
+  actions: {
+    afterAppInstalled(organization) {
+      organization.get('projects').then(projects => {
+        if (projects.get('length') > 0) {
+          this.replaceWith('organizations.organization.settings', organization.get('slug'));
+        } else {
+          this.replaceWith('organization.index', organization.get('slug'));
+        }
+      });
+    },
   },
-
-  deactivate: function() {
-    if (this.get('runningTask')) {
-      this.get('runningTask').cancel();
-    }
-  },
-
-  pollForUpdatesTask: task(function*() {
-    this.set('numPollRequests', 0);
-    while (this.get('numPollRequests') < MAX_UPDATE_POLLING_REQUESTS) {
-      this.incrementProperty('numPollRequests');
-
-      // Find the organization the user added the GitHub integration to,
-      // and then redirect them back to the org setup flow
-      // or to settings if they already have projects
-      this.get('currentUser.organizations')
-        .reload()
-        .then(orgs => {
-          // Attempt to get the organization that matches the installationId
-          // This may fail if we haven't received the webhook yet, or a fake param is used
-          let organization = orgs.find(
-            org => org.get('githubIntegration.githubInstallationId') == this.get('installationId'),
-          );
-
-          if (organization) {
-            this.get('runningTask').cancel();
-            // If the organization has projects redirect to the settings page,
-            // else redirect to add a project page.
-            organization.get('projects').then(projects => {
-              this.get('flashMessages').success(
-                'Remember to link your project in settings for Pull Request integration \
-                to work.',
-                {
-                  title: 'GitHub App installed!',
-                },
-              );
-
-              if (projects.get('length') > 0) {
-                this.replaceWith('organizations.organization.settings', organization.get('slug'));
-              } else {
-                this.replaceWith('organization.index', organization.get('slug'));
-              }
-            });
-          }
-        });
-
-      if (Ember.testing) {
-        return;
-      }
-
-      yield timeout(POLLING_INTERVAL_SECONDS * 1000);
-    }
-  }).drop(),
 
   model(params) {
     this.set('installationId', params.installationId);
-    this.startPollingForUpdates();
   },
 });

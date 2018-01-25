@@ -77,15 +77,15 @@ export default DS.Model.extend({
     return this.get('totalComparisonsDiff') > 0;
   }),
 
-  buildStatusLabel: computed('state', function() {
+  buildStatusLabel: computed('state', 'reviewState', function() {
     if (this.get('isPending')) {
       return PENDING_LABEL;
     } else if (this.get('isProcessing')) {
       return PROCESSING_LABEL;
     } else if (this.get('isFinished')) {
-      if (this.get('isApproved') || this.get('hasNoDiffs')) {
+      if (this.get('isApproved')) {
         return APPROVED_LABEL;
-      } else {
+      } else if (this.get('isUnreviewed')) {
         return UNREVIEWED_LABEL;
       }
     } else if (this.get('isFailed')) {

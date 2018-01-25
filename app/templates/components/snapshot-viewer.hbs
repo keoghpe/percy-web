@@ -1,37 +1,16 @@
-<div class="Viewer-header SnapshotViewer-header" {{action "selectChild"}} data-test-SnapshotViewer-header>
-  <div class="flex align-center truncate">
-    <figure class="svg-container" data-test-SnapshotViewer-comparisonIcon>
-      {{comparison-icon
-        hasComparison=hasComparisonAtSelectedWidth
-        svgClassName="mr-1"
-      }}
-    </figure>
-    <a class="Viewer-header-title SnapshotViewer-title truncate" title="{{snapshot.name}}" href="{{snapshotUrl}}" data-test-SnapshotViewer-title>{{snapshot.name}}</a>
-  </div>
-  <div class="btn-toolbar" role="group" aria-label="Viewport Comparison Switcher">
-    <div class="btn-group btn-group-alt mr-1" role="group" aria-label="First Group">
-      {{comparison-switcher
-        comparisons=snapshot.comparisons
-        buildWidths=buildWidths
-        snapshotSelectedWidth=snapshotSelectedWidth
-        updateSelectedWidth=(action 'updateSelectedWidth')
-        data-test-SnapshotViewer-widthSwitcher=true
-      }}
-    </div>
-    <div class="btn-group" role="group" aria-label="Second Group">
-      <button type="button" class="ToggleFullViewButton btn btn-square maximize-snapshot"
-        {{action 'showSnapshotFullModalTriggered' snapshot.id snapshotSelectedWidth}} data-test-SnapshotViewer-toggleFullScreen>
-        <figure class="svg-container">
-          {{inline-svg "maximize-icon"}}
-        </figure>
-      </button>
-    </div>
+{{snapshot-viewer-header
+  fullscreen=false
+  snapshot=snapshot
+  buildWidths=buildWidths
+  selectedWidth=snapshotSelectedWidth
+  selectedComparison=selectedComparison
+  hasComparisonAtSelectedWidth=hasComparisonAtSelectedWidth
+  toggleViewMode=(action showSnapshotFullModalTriggered snapshot.id snapshotSelectedWidth)
+  updateSelectedWidth=(action "updateSelectedWidth")
 
-    <div class="btn-group">
-      <button type="button" class="primary btn btn-square" {{action (route-action "createReview" build.id (array snapshot.id))}}><i class="fa fa-check"></i></button>
-    </div>
-  </div>
-</div>
+  registerChild=(action "registerChild")
+}}
+
 {{#if isExpanded}}
   {{#if selectedComparison}}
     {{comparison-viewer

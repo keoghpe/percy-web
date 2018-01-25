@@ -89,9 +89,5 @@ export default Component.extend({
       this.set('snapshotSelectedWidth', value);
       this.get('snapshotWidthChangeTriggered')();
     },
-
-    showSnapshotFullModalTriggered(snapshotId, snapshotSelectedWidth) {
-      this.showSnapshotFullModalTriggered(snapshotId, snapshotSelectedWidth);
-    },
   },
 });

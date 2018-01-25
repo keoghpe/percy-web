@@ -1,21 +1,9 @@
-import {computed} from '@ember/object';
 import Component from '@ember/component';
 
 export default Component.extend({
-  snapshotSelectedWidth: null,
+  selectedWidth: null,
   comparisons: [],
   buildWidths: [],
-
-  updateSelectedWidth() {},
-
-  selectedWidth: computed('snapshotSelectedWidth', {
-    get() {
-      return this.get('snapshotSelectedWidth');
-    },
-    set(_, value) {
-      return value;
-    },
-  }),
 
   actions: {
     updateSelectedWidth(value) {
@@ -23,7 +11,6 @@ export default Component.extend({
         return;
       }
 
-      this.set('selectedWidth', value);
       this.get('updateSelectedWidth')(value);
     },
   },

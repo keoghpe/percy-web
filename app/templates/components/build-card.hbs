@@ -23,11 +23,13 @@
     </div>
     <div class="flex align-center">
       {{#if build.isGithubLinked}}
-        {{#if build.isPullRequest}}
-          {{inline-svg "pull-request-icon" class="mr-1"}}
-          <a href="{{build.repo.htmlUrl}}/pull/{{build.pullRequestNumber}}" class="no-wrap truncate text-weight-semibold mr-1" onclick={{action "stopPropagation"}}>#{{build.pullRequestNumber}} {{build.pullRequestTitle}}</a>
-        {{else if build.commit}}
-          {{inline-svg "commit-icon" class="mr-1"}}
+        {{#if build.commit}}
+          {{#if build.isPullRequest}}
+            {{inline-svg "pull-request-icon" class="mr-1"}}
+            <a href="{{build.repo.htmlUrl}}/pull/{{build.pullRequestNumber}}" class="no-wrap truncate text-weight-semibold mr-1" onclick={{action "stopPropagation"}}>#{{build.pullRequestNumber}} {{build.pullRequestTitle}}</a>
+          {{else}}
+            {{inline-svg "commit-icon" class="mr-1"}}
+          {{/if}}
           <strong class="no-wrap mr-1">{{build.commit.authorName}}</strong>
           <span class="text-light truncate">{{build.commit.message}}</span>
         {{/if}}
