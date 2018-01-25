@@ -51,6 +51,10 @@ export default Component.extend({
       );
     },
 
+    onCopySnapshotUrlToClipboard() {
+      this.get('flashMessages').success('Snapshot URL was copied to your clipboard');
+    },
+
     cycleComparisonMode(keyCode) {
       let galleryMap = this.get('galleryMap');
       let galleryLength = this.get('galleryMap.length');
