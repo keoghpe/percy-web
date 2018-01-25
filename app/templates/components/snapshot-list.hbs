@@ -8,7 +8,6 @@
   {{#unless snapshot.isApproved}}
     {{snapshot-viewer
       snapshot=snapshot
-      project=project
       buildContainerSelectedWidth=buildContainerSelectedWidth
       buildWidths=buildWidths
       listIndex=index
@@ -29,7 +28,6 @@
     {{#if snapshot.isApproved}}
       {{snapshot-viewer
         snapshot=snapshot
-        project=project
         buildContainerSelectedWidth=buildContainerSelectedWidth
         buildWidths=buildWidths
         listIndex=index
