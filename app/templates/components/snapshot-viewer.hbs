@@ -14,7 +14,7 @@
         class="btn-icon-only mr-sm opacity-25 opacity-hoverable"
         clipboardText=(concat "percy.io/" project.fullSlug "/builds/" build.id "?snapshot=" snapshot.id)
         title="Copy snapshot URL to clipboard"
-        success=(action "selectChild")
+        success=(action "copySnapshotUrlToClipboard")
       }}
         {{inline-svg "link-icon"}}
       {{/copy-button}}
@@ -49,7 +49,7 @@
       showNoDiffSnapshot=showNoDiffSnapshot
     }}
   {{else}}
-    <div class="SnapshotViewer-noComparison">
+    <div class="p-2 text-center">
       No snapshot taken at {{snapshotSelectedWidth}}px.
     </div>
   {{/if}}

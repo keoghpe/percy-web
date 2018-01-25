@@ -17,17 +17,17 @@ export default Component.extend({
       return value;
     },
   }),
+
   selectedComparison: computed('snapshot', 'snapshotSelectedWidth', function() {
     let width = this.get('snapshotSelectedWidth');
     let comparisons = this.get('snapshot.comparisons') || [];
     return comparisons.findBy('width', parseInt(width, 10));
   }),
-  classNameBindings: [
-    'isExpanded::SnapshotViewer--collapsed',
-    'isActionable:SnapshotViewer--actionable',
-  ],
+
+  classNameBindings: ['isActionable:SnapshotViewer--actionable'],
   isDefaultExpanded: true,
   isFocus: false,
+
   isExpanded: computed('isDefaultExpanded', function() {
     // TODO: this is just to break the binding with isDefaultExpanded,
     // fix this when migrating to later ember versions with default one-way bindings.
@@ -53,6 +53,10 @@ export default Component.extend({
     this.send('unregisterChild', this);
   },
 
+  click() {
+    this.send('selectChild');
+  },
+
   setAsSelected() {
     this.set('showNoDiffSnapshot', true);
     this.set('isFocus', true);
@@ -65,7 +69,9 @@ export default Component.extend({
   actions: {
     selectChild() {
       this.get('setAsSelected').call(this);
-      this.get('selectChild')(this);
+    },
+
+    copySnapshotUrlToClipboard() {
       this.get('flashMessages').success('Snapshot URL was copied to your clipboard');
     },
 

@@ -1,24 +1,9 @@
 .SnapshotViewer {
-  .SnapshotViewer-noComparison {
-    width: 100%;
-    padding: 10px;
-    text-align: center;
-  }
-
-  &.SnapshotViewer--collapsed {
-    margin-top: 0;
-    // Hacky way to make inner borders overlap, plus the z-index in hover.
-    margin-top: -1px;
-    margin-bottom: 0;
-  }
-
   &.SnapshotViewer--actionable {
-    margin-bottom: 10px;
     cursor: pointer;
 
     &:hover .SnapshotViewer-header {
-      cursor: pointer;
-      border-color: var(--gray-300);
+      border-color: var(--gray-200) !important;
     }
   }
 }
@@ -26,6 +11,7 @@
 .SnapshotViewer-header {
   grid-template-columns: 1fr auto;
   top: -2px;
+  transition: border-color 250ms;
 }
 
 .SnapshotViewer-header-full {
