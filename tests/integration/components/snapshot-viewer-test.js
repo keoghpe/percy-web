@@ -9,11 +9,6 @@ import {make, manualSetup} from 'ember-data-factory-guy';
 import sinon from 'sinon';
 import SnapshotViewerPO from 'percy-web/tests/pages/components/snapshot-viewer';
 
-// TODO: acceptance test for clicking different comparison modes
-// TODO: acceptance test for clicking snapshot title and see query params change
-// TODO: clicking comparison mode buttons switch img src
-// TODO: clicking on right comparison, toggles diff image
-
 describe('Integration: SnapshotViewer', function() {
   setupComponentTest('snapshot-viewer', {
     integration: true,
@@ -25,15 +20,18 @@ describe('Integration: SnapshotViewer', function() {
   const buildWidths = [375, 550, 1024];
   const buildContainerSelectedWidth = buildWidths[widthIndex];
   let showSnapshotFullModalTriggeredStub;
+  let createReviewStub;
 
   beforeEach(function() {
     manualSetup(this.container);
     SnapshotViewerPO.setContext(this);
 
     showSnapshotFullModalTriggeredStub = sinon.stub();
+    createReviewStub = sinon.stub();
     snapshotTitle = 'Awesome snapshot title';
     const snapshot = make('snapshot', {name: snapshotTitle});
     const build = make('build');
+    build.set('snapshots', [snapshot]);
     const stub = sinon.stub();
 
     this.setProperties({
@@ -43,6 +41,7 @@ describe('Integration: SnapshotViewer', function() {
       buildWidths,
       buildContainerSelectedWidth,
       showSnapshotFullModalTriggered: showSnapshotFullModalTriggeredStub,
+      createReview: createReviewStub,
     });
 
     this.render(hbs`{{snapshot-viewer
@@ -52,6 +51,7 @@ describe('Integration: SnapshotViewer', function() {
       buildContainerSelectedWidth=buildContainerSelectedWidth
       showSnapshotFullModalTriggered=showSnapshotFullModalTriggered
       snapshotWidthChangeTriggered=stub
+      createReview=createReview
     }}`);
   });
 
@@ -134,6 +134,15 @@ describe('Integration: SnapshotViewer', function() {
         this.get('snapshot.id'),
         this.get('buildContainerSelectedWidth'),
       );
+    });
+  });
+
+  describe('approve snapshot button', function() {
+    it('sends createReview with correct arguments when approve button is clicked', function() {
+      SnapshotViewerPO.header.clickApprove();
+      expect(createReviewStub).to.have.been.calledWith(this.get('build.id'), [
+        this.get('build.snapshots.firstObject.id'),
+      ]);
     });
   });
 });
