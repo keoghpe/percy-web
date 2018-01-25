@@ -26,7 +26,6 @@ export default Component.extend({
 
   classNameBindings: ['isActionable:SnapshotViewer--actionable'],
   isDefaultExpanded: true,
-  isFocus: false,
 
   isExpanded: computed('isDefaultExpanded', function() {
     // TODO: this is just to break the binding with isDefaultExpanded,
@@ -59,7 +58,6 @@ export default Component.extend({
 
   setAsSelected() {
     this.set('showNoDiffSnapshot', true);
-    this.set('isFocus', true);
 
     if (this.get('isNotExpanded')) {
       this.set('isExpanded', true);
