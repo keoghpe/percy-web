@@ -8,7 +8,7 @@ export default Component.extend({
   store: service(),
   flashMessages: service(),
   classNames: ['SnapshotViewer mb-2'],
-  classNameBindings: ['isActionable:SnapshotViewer--actionable'],
+  classNameBindings: ['isActionable:SnapshotViewer--actionable', 'isApproved:is-approved'],
   isDefaultExpanded: true,
   buildContainerSelectedWidth: null,
   registerChild() {},
@@ -38,6 +38,10 @@ export default Component.extend({
 
   isNotExpanded: not('isExpanded'),
   isActionable: alias('isNotExpanded'),
+
+  isApproved: computed('snapshot', function() {
+    return this.get('snapshot.isApproved');
+  }),
 
   comparisonForSelectedWidth: computed('snapshot.comparisons', 'snapshotSelectedWidth', function() {
     let comparisons = this.get('snapshot.comparisons') || [];

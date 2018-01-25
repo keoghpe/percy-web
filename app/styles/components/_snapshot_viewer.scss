@@ -6,6 +6,18 @@
       border-color: var(--gray-200) !important;
     }
   }
+
+  &.is-approved {
+    .snapshot-viewer-header-controls {
+      opacity: 0;
+    }
+
+    &:hover {
+      .snapshot-viewer-header-controls {
+        opacity: 1;
+      }
+    }
+  }
 }
 
 .SnapshotViewer-header {
@@ -16,6 +28,10 @@
 
 .SnapshotViewer-header-full {
   grid-template-columns: 1fr auto 1fr;
+}
+
+.snapshot-viewer-header-controls {
+  transition: opacity 250ms;
 }
 
 .maximize-snapshot {
