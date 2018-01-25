@@ -16,6 +16,7 @@ describe('Integration: SnapshotViewerFull', function() {
 
   let closeSnapshotFullModalStub;
   let updateComparisonModeStub;
+  let createReviewStub;
   const snapshotTitle = 'Awesome snapshot title';
   const widthIndex = 1;
   // NOTE: these need to be the same as the widths in the snapshot factory
@@ -33,6 +34,7 @@ describe('Integration: SnapshotViewerFull', function() {
 
     closeSnapshotFullModalStub = sinon.stub();
     updateComparisonModeStub = sinon.stub();
+    createReviewStub = sinon.stub();
 
     this.setProperties({
       build,
@@ -42,6 +44,7 @@ describe('Integration: SnapshotViewerFull', function() {
       comparisonMode: 'diff',
       closeSnapshotFullModal: closeSnapshotFullModalStub,
       updateComparisonMode: updateComparisonModeStub,
+      createReview: createReviewStub,
       stub: sinon.stub(),
     });
 
@@ -54,6 +57,7 @@ describe('Integration: SnapshotViewerFull', function() {
       transitionRouteToWidth=stub
       updateComparisonMode=updateComparisonMode
       closeSnapshotFullModal=closeSnapshotFullModal
+      createReview=createReview
     }}`);
   });
 
@@ -147,6 +151,15 @@ describe('Integration: SnapshotViewerFull', function() {
         this.get('build.id'),
         this.get('snapshotId'),
       );
+    });
+  });
+
+  describe('approve snapshot button', function() {
+    it('sends createReview with correct arguments when approve button is clicked', function() {
+      SnapshotViewerPO.header.clickApprove();
+      expect(createReviewStub).to.have.been.calledWith(this.get('build.id'), [
+        this.get('build.snapshots.firstObject.id'),
+      ]);
     });
   });
 });

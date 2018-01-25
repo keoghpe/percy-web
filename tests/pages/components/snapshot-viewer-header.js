@@ -7,6 +7,7 @@ const SELECTORS = {
   WIDTH_SWITCHER: '[data-test-SnapshotViewer-widthSwitcher]',
   WIDTH_SWITCHER_BUTTON: '[data-test-ComparisonSwitcher-button]',
   FULL_SCREEN_TOGGLE: '[data-test-SnapshotViewer-toggleFullScreen]',
+  APPROVE_BUTTON: '[data-test-SnapshotViewerHeader-approve]',
   COMPARISON_MODE_SWITCHER: '[data-test-SnapshotViewer-comparison-mode-switcher]',
   COMPARISON_MODE_SWITCHER_BASE: '[data-test-ComparisonModeSwitcher-base]',
   COMPARISON_MODE_SWITCHER_DIFF: '[data-test-ComparisonModeSwitcher-diff]',
@@ -39,6 +40,8 @@ export const SnapshotViewerHeader = {
   clickBaseComparisonMode: clickable(SELECTORS.COMPARISON_MODE_SWITCHER_BASE),
   clickDiffComparisonMode: clickable(SELECTORS.COMPARISON_MODE_SWITCHER_DIFF),
   clickHeadComparisonMode: clickable(SELECTORS.COMPARISON_MODE_SWITCHER_HEAD),
+
+  clickApprove: clickable(SELECTORS.APPROVE_BUTTON),
 };
 
 export default create(SnapshotViewerHeader);
