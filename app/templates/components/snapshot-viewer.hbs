@@ -1,12 +1,12 @@
-<div class="Viewer-header SnapshotViewer-header" {{action "selectChild"}}>
+<div class="Viewer-header SnapshotViewer-header" {{action "selectChild"}} data-test-SnapshotViewer-header>
   <div class="flex align-center truncate">
-    <figure class="svg-container">
+    <figure class="svg-container" data-test-SnapshotViewer-comparisonIcon>
       {{comparison-icon
         hasComparison=hasComparisonAtSelectedWidth
         svgClassName="mr-1"
       }}
     </figure>
-    <a class="Viewer-header-title SnapshotViewer-title truncate" title="{{snapshot.name}}" href="{{snapshotUrl}}">{{snapshot.name}}</a>
+    <a class="Viewer-header-title SnapshotViewer-title truncate" title="{{snapshot.name}}" href="{{snapshotUrl}}" data-test-SnapshotViewer-title>{{snapshot.name}}</a>
   </div>
   <div class="btn-toolbar" role="group" aria-label="Viewport Comparison Switcher">
     <div class="btn-group btn-group-alt mr-1" role="group" aria-label="First Group">
@@ -15,11 +15,12 @@
         buildWidths=buildWidths
         snapshotSelectedWidth=snapshotSelectedWidth
         updateSelectedWidth=(action 'updateSelectedWidth')
+        data-test-SnapshotViewer-widthSwitcher=true
       }}
     </div>
     <div class="btn-group" role="group" aria-label="Second Group">
       <button type="button" class="ToggleFullViewButton btn btn-square maximize-snapshot"
-        {{action 'showSnapshotFullModalTriggered' snapshot.id snapshotSelectedWidth}}>
+        {{action 'showSnapshotFullModalTriggered' snapshot.id snapshotSelectedWidth}} data-test-SnapshotViewer-toggleFullScreen>
         <figure class="svg-container">
           {{inline-svg "maximize-icon"}}
         </figure>
@@ -38,9 +39,10 @@
       snapshotSelectedWidth=snapshotSelectedWidth
       isDefaultExpanded=isDefaultExpanded
       showNoDiffSnapshot=showNoDiffSnapshot
+      data-test-SnapshotViewer-comparison=true
     }}
   {{else}}
-    <div class="SnapshotViewer-noComparison">
+    <div class="SnapshotViewer-noComparison" data-test-SnapshotViewer-noComparison>
       No snapshot taken at {{snapshotSelectedWidth}}px.
     </div>
   {{/if}}

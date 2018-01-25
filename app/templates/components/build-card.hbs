@@ -1,4 +1,4 @@
-<div class="build-card c-pointer {{if build.isExpired 'opacity-50'}} is-{{dasherize build.buildStatusLabel}}" {{action "navigateToBuild"}}>
+<div class="build-card c-pointer {{if build.isExpired 'opacity-50'}} is-{{dasherize build.state}} is-{{if build.isFinished (dasherize build.reviewState)}}" {{action "navigateToBuild"}}>
   <div>
     <div style="margin-bottom: -6px;">
       {{#link-to "organization.project.builds.build" build.project.organization.slug build.project.slug build.id class="f2 text-mono"}}{{build.buildNumber}}{{/link-to}}
@@ -26,17 +26,17 @@
         {{#if build.isPullRequest}}
           {{inline-svg "pull-request-icon" class="mr-1"}}
           <a href="{{build.repo.htmlUrl}}/pull/{{build.pullRequestNumber}}" class="no-wrap truncate text-weight-semibold mr-1" onclick={{action "stopPropagation"}}>#{{build.pullRequestNumber}} {{build.pullRequestTitle}}</a>
-        {{else}}
+        {{else if build.commit}}
           {{inline-svg "commit-icon" class="mr-1"}}
+          <strong class="no-wrap mr-1">{{build.commit.authorName}}</strong>
+          <span class="text-light truncate">{{build.commit.message}}</span>
         {{/if}}
       {{/if}}
-      <strong class="no-wrap mr-1">{{build.commit.authorName}}</strong>
-      <span class="text-light truncate">{{build.commit.message}}</span>
     </div>
   </div>
   <div>
     <div class="flex align-center">
-      {{#if build.isWaiting}}
+      {{#if (or build.isPending build.isProcessing)}}
         {{inline-svg "loader-icon" class="mr-2"}}
       {{else if build.isFailed}}
         {{inline-svg "null-comparison-icon" class="mr-2"}}
@@ -71,6 +71,6 @@
     </div>
   </div>
   <div>
-    <div class="status-pill is-{{dasherize build.buildStatusLabel}}" data-test-build-state>{{build.buildStatusLabel}}</div>
+    <div class="status-pill is-{{dasherize build.state}} is-{{if build.isFinished (dasherize build.reviewState)}}" data-test-build-state>{{build.buildStatusLabel}}</div>
   </div>
 </div>

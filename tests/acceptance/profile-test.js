@@ -1,5 +1,5 @@
 import setupAcceptance, {setupSession} from '../helpers/setup-acceptance';
-import UserSettingsPageObject from '../pages/user-settings';
+import UserSettingsPageObject from '../pages/user-settings-page';
 
 describe('Acceptance: User Settings', function() {
   setupAcceptance();
@@ -19,11 +19,5 @@ describe('Acceptance: User Settings', function() {
       .fillInEmail('tyrion@motherofdragons.biz')
       .submitForm();
     percySnapshot(this.test.fullTitle() + ' after submitting');
-  });
-
-  it('displays connected-accounts info page', function() {
-    UserSettingsPageObject.visitConnectedAccountsPage();
-
-    percySnapshot(this.test.fullTitle() + ' with github integration');
   });
 });

@@ -1,17 +1,18 @@
-<div class="Viewer-header SnapshotViewer-header SnapshotViewer-header-full">
+<div class="Viewer-header SnapshotViewer-header SnapshotViewer-header-full" data-test-SnapshotViewer-header>
   <div class="flex align-center truncate">
-    <figure class="svg-container">
+    <figure class="svg-container" data-test-SnapshotViewer-comparisonIcon>
       {{comparison-icon
         hasComparison=hasComparisonAtSelectedWidth
         svgClassName="mr-1"
       }}
     </figure>
-    <a class="Viewer-header-title SnapshotViewer-title truncate" title="{{snapshot.name}}" href="{{snapshotUrl}}">{{snapshot.name}}</a>
+    <a class="Viewer-header-title SnapshotViewer-title truncate" title="{{snapshot.name}}" href="{{snapshotUrl}}" data-test-SnapshotViewer-title>{{snapshot.name}}</a>
   </div>
   {{comparison-mode-switcher
     comparison=selectedComparison
     updateComparisonMode=updateComparisonMode
     comparisonMode=comparisonMode
+    data-test-SnapshotViewer-comparison-mode-switcher=true
   }}
   <div class="flex justify-end">
     <div class="btn-toolbar" role="group" aria-label="Viewport Comparison Switcher">
@@ -21,11 +22,12 @@
           buildWidths=buildWidths
           snapshotSelectedWidth=snapshotSelectedWidth
           updateSelectedWidth=(action 'updateSelectedWidth')
+          data-test-SnapshotViewer-widthSwitcher=true
         }}
       </div>
       <div class="btn-group" role="group" aria-label="Second Group">
         <button type="button" class="ToggleFullViewButton btn btn-square minimize-snapshot"
-          {{action (route-action 'closeSnapshotFullModal' build.id snapshotId)}}>
+          {{action closeSnapshotFullModal build.id snapshotId}} data-test-SnapshotViewer-toggleFullScreen>
           <figure class="svg-container">
             {{inline-svg "minimize-icon"}}
           </figure>
@@ -42,6 +44,7 @@
       comparisonMode=comparisonMode
       snapshotSelectedWidth=snapshotSelectedWidth
       cycleComparisonMode='cycleComparisonMode'
+      data-test-SnapshotViewerFull-comparison-viewer=true
     }}
   {{else}}
     <div class="SnapshotViewerFull-noComparison">

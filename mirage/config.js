@@ -61,6 +61,37 @@ export default function() {
     return new Mirage.Response(204, {}, {success: true});
   });
 
+  this.post('/user/identities', function(schema, request) {
+    if (request.requestBody.match(/password%5D=passwordStrengthError!123$/)) {
+      return new Mirage.Response(
+        400,
+        {},
+        {
+          errors: [
+            {
+              status: 'bad_request',
+              detail: 'PasswordStrengthError: Password is too weak',
+            },
+          ],
+        },
+      );
+    } else if (request.requestBody.match(/password%5D=badRequestWithNoDetail!123$/)) {
+      return new Mirage.Response(
+        400,
+        {},
+        {
+          errors: [
+            {
+              status: 'bad_request',
+            },
+          ],
+        },
+      );
+    } else {
+      return new Mirage.Response(201, {}, {success: true});
+    }
+  });
+
   this.get('/user/organizations', function(schema) {
     let user = schema.users.findBy({_currentLoginInTest: true});
     if (!user) {

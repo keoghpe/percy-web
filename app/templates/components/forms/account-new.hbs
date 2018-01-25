@@ -1,0 +1,23 @@
+<form action="javascript:;" data-test-account-new-form>
+  <label>
+    <span class="label-body">Email</span> - you can change this later in your profile.
+    <input type="input" class="form-control" disabled value={{session.currentUser.email}}>
+  </label>
+
+  {{form-fields/input
+    property="password"
+    title="Password"
+    type="password"
+    changeset=changeset
+    data-test-account-new-password=true
+  }}
+
+  {{form-fields/submit
+    value="Create account"
+    classes="btn btn-md btn-primary mb-2"
+    isSaving=isSaving
+    isSaveSuccessful=isSaveSuccessful
+    submit=(action "save")
+    data-test-account-new-submit=true
+  }}
+</form>

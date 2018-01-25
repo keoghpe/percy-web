@@ -359,14 +359,14 @@ auth0-js@6.8.0:
     winchan "^0.1.1"
     xtend "~2.1.1"
 
-auth0-js@^8.2.0, auth0-js@~8.11.2:
-  version "8.11.3"
-  resolved "https://registry.yarnpkg.com/auth0-js/-/auth0-js-8.11.3.tgz#97385a17c8aad1cd612bf82fded328a4396eebdf"
+auth0-js@^9.0.2, auth0-js@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/auth0-js/-/auth0-js-9.1.0.tgz#19ebe6e4d5f78db1f7770f813a561288a19eab0f"
   dependencies:
     base64-js "^1.2.0"
-    idtoken-verifier "^1.1.0"
+    idtoken-verifier "^1.1.1"
     qs "^6.4.0"
-    superagent "^3.3.1"
+    superagent "^3.8.2"
     url-join "^1.1.0"
     winchan "^0.2.0"
 
@@ -386,11 +386,11 @@ auth0-lock-passwordless@^2.2.3:
     reqwest "^1.1.4"
     trim "0.0.1"
 
-auth0-lock@^10.10.1:
-  version "10.24.1"
-  resolved "https://registry.yarnpkg.com/auth0-lock/-/auth0-lock-10.24.1.tgz#f85a87c3a9309b9a7a7df369040fc663bde6ec9c"
+auth0-lock@^11.0.1:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/auth0-lock/-/auth0-lock-11.1.0.tgz#b5d7aa8daf836ffbe37cd10c635556fb32b374f5"
   dependencies:
-    auth0-js "~8.11.2"
+    auth0-js "^9.1.0"
     blueimp-md5 "2.3.1"
     fbjs "^0.3.1"
     idtoken-verifier "^1.0.1"
@@ -401,7 +401,6 @@ auth0-lock@^10.10.1:
     react "^15.6.2"
     react-dom "^15.6.2"
     react-transition-group "^2.2.1"
-    superagent "^3.3.1"
     trim "0.0.1"
     url-join "^1.1.0"
 
@@ -3217,7 +3216,7 @@ ember-cli-normalize-entity-name@^1.0.0:
   dependencies:
     silent-error "^1.0.0"
 
-ember-cli-page-object@^1.13.0-alpha.1:
+ember-cli-page-object@^1.13.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/ember-cli-page-object/-/ember-cli-page-object-1.13.0.tgz#9ac9342d9f90a363c429fbb14f3ad5c0be11827a"
   dependencies:
@@ -3418,7 +3417,7 @@ ember-cli@^2.16.1:
     walk-sync "^0.3.0"
     yam "0.0.22"
 
-ember-composable-helpers@^2.0.3:
+ember-composable-helpers@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ember-composable-helpers/-/ember-composable-helpers-2.1.0.tgz#71f75ab2de1c696d21939b5f9dcc62eaf2c947e5"
   dependencies:
@@ -3773,12 +3772,12 @@ ember-runtime-enumerable-includes-polyfill@^2.0.0:
     ember-cli-babel "^6.9.0"
     ember-cli-version-checker "^2.1.0"
 
-ember-simple-auth-auth0@^3.1.0:
+"ember-simple-auth-auth0@git+https://github.com/auth0-community/ember-simple-auth-auth0.git#813fb5b85bba79240621dbf38fe95f33c028ec3d":
   version "3.1.0"
-  resolved "https://registry.yarnpkg.com/ember-simple-auth-auth0/-/ember-simple-auth-auth0-3.1.0.tgz#365ed4047afc2b82770e09ead169399f13d29877"
+  resolved "git+https://github.com/auth0-community/ember-simple-auth-auth0.git#813fb5b85bba79240621dbf38fe95f33c028ec3d"
   dependencies:
-    auth0-js "^8.2.0"
-    auth0-lock "^10.10.1"
+    auth0-js "^9.0.2"
+    auth0-lock "^11.0.1"
     auth0-lock-passwordless "^2.2.3"
     broccoli-webpack "^1.0.0"
     ember-cli-babel "^6.0.0"
@@ -5309,7 +5308,7 @@ iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@^0.4.5, iconv-lite@~0.4.13:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
-idtoken-verifier@^1.0.1, idtoken-verifier@^1.1.0:
+idtoken-verifier@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/idtoken-verifier/-/idtoken-verifier-1.1.0.tgz#1add30125aa3e5e5859d152b356a908a8e2eb5a0"
   dependencies:
@@ -5317,6 +5316,16 @@ idtoken-verifier@^1.0.1, idtoken-verifier@^1.1.0:
     crypto-js "^3.1.9-1"
     jsbn "^0.1.0"
     superagent "^3.3.1"
+    url-join "^1.1.0"
+
+idtoken-verifier@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/idtoken-verifier/-/idtoken-verifier-1.1.1.tgz#bc6eb46e6a153bb2058aed1cac2c27ac6751b5e5"
+  dependencies:
+    base64-js "^1.2.0"
+    crypto-js "^3.1.9-1"
+    jsbn "^0.1.0"
+    superagent "^3.8.2"
     url-join "^1.1.0"
 
 ieee754@^1.1.4:
@@ -7754,11 +7763,7 @@ prettier-eslint@^8.5.0:
     typescript "^2.5.1"
     typescript-eslint-parser "^11.0.0"
 
-prettier@^1.7.0:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.9.2.tgz#96bc2132f7a32338e6078aeb29727178c6335827"
-
-prettier@^1.9.0:
+prettier@^1.10.0, prettier@^1.7.0:
   version "1.10.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.10.2.tgz#1af8356d1842276a99a5b5529c82dd9e9ad3cc93"
 
@@ -9190,6 +9195,21 @@ sum-up@^1.0.1:
 superagent@^3.3.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/superagent/-/superagent-3.8.1.tgz#2571fd921f3fcdba43ac68c3b35c91951532701f"
+  dependencies:
+    component-emitter "^1.2.0"
+    cookiejar "^2.1.0"
+    debug "^3.1.0"
+    extend "^3.0.0"
+    form-data "^2.3.1"
+    formidable "^1.1.1"
+    methods "^1.1.1"
+    mime "^1.4.1"
+    qs "^6.5.1"
+    readable-stream "^2.0.5"
+
+superagent@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/superagent/-/superagent-3.8.2.tgz#e4a11b9d047f7d3efeb3bbe536d9ec0021d16403"
   dependencies:
     component-emitter "^1.2.0"
     cookiejar "^2.1.0"

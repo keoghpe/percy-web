@@ -4,10 +4,10 @@
       {{action updateComparisonMode 'head'}}>New Snapshot</button>
   {{else}}
     <button type="button" class="btn {{if (eq comparisonMode 'base') 'is-active'}}"
-      {{action updateComparisonMode 'base'}}>Original</button>
+      {{action updateComparisonMode 'base'}} data-test-ComparisonModeSwitcher-base>Original</button>
     <button type="button" class="btn {{if (eq comparisonMode 'diff') 'is-active'}}"
-      {{action updateComparisonMode 'diff'}}>Diff</button>
+      {{action updateComparisonMode 'diff'}} data-test-ComparisonModeSwitcher-diff>Diff</button>
     <button type="button" class="btn {{if (eq comparisonMode 'head') 'is-active'}}"
-      {{action updateComparisonMode 'head'}}>New</button>
+      {{action updateComparisonMode 'head'}} data-test-ComparisonModeSwitcher-head>New</button>
   {{/if}}
 </div>

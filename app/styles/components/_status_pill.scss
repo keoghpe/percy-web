@@ -1,38 +1,13 @@
 .status-pill {
-  --text-color: var(--text-color);
-  --background-color: var(--gray-100);
+  --status-text-color: var(--text-color);
+  --status-background-color: var(--gray-100);
   padding: var(--spacer-0) var(--spacer-2);
   font-size: var(--f6-size);
   font-weight: var(--semibold);
-  color: var(--text-color);
+  color: var(--status-text-color);
   text-align: center;
   white-space: nowrap;
-  background: var(--background-color);
+  background: var(--status-background-color);
   border-radius: 13px;
   transition: transform 250ms;
-
-  &.is-processing {
-    --text-color: var(--text-color);
-    --background-color: var(--gray-000);
-  }
-
-  &.is-approved {
-    --text-color: var(--green-500);
-    --background-color: var(--green-000);
-  }
-
-  &.is-unreviewed {
-    --text-color: var(--purple-800);
-    --background-color: var(--purple-300);
-  }
-
-  &.is-failed {
-    --text-color: var(--red-500);
-    --background-color: var(--red-000);
-  }
-
-  &.is-expired {
-    --text-color: var(--light-text-color);
-    --background-color: var(--gray-100);
-  }
 }

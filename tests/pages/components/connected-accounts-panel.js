@@ -1,13 +1,16 @@
-import {clickable, isVisible, create} from 'ember-cli-page-object';
+import {clickable, isVisible, visitable, create} from 'ember-cli-page-object';
 
 const SELECTORS = {
   ADD_EMAIL_PASSWORD_IDENTITY_BUTTON: '[data-test-connected-accounts-panel-add-ep-identity]',
   DELETE_EMAIL_PASSWORD_IDENTITY_BUTTON: '[data-test-connected-accounts-panel-delete-ep-identity]',
   ADD_GITHUB_IDENTITY_BUTTON: '[data-test-connected-accounts-panel-add-github-identity]',
   DELETE_GITHUB_IDENTITY_BUTTON: '[data-test-connected-accounts-panel-delete-github-identity]',
+  EMAIL_PASSWORD_IDENTITY_FORM: '[data-test-connected-accounts-email-password-form]',
 };
 
 export const ConnectedAccountsPanel = {
+  visitConnectedAccounts: visitable('/settings/connected-accounts'),
+
   isAddAuth0IdentityVisible: isVisible(SELECTORS.ADD_EMAIL_PASSWORD_IDENTITY_BUTTON),
   clickAddAuth0Identity: clickable(SELECTORS.ADD_EMAIL_PASSWORD_IDENTITY_BUTTON),
 
