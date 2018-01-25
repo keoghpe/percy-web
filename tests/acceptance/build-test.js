@@ -245,7 +245,7 @@ describe('Acceptance: Build', function() {
 
     percySnapshot(this.test.fullTitle() + ' | shows batched no diffs');
 
-    click('.HideNoDiffsPanel');
+    click('[data-test-hide-no-diffs]');
     andThen(() => {
       expect(find('.ComparisonViewer-noDiffBox')).to.have.lengthOf(1);
     });
