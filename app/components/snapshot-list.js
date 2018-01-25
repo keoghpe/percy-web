@@ -96,7 +96,7 @@ export default Component.extend({
     },
   ),
   isDefaultExpanded: computed('snapshotsWithDiffs', function() {
-    return this.get('snapshotsWithDiffs.length') < 1;
+    return this.get('snapshotsWithDiffs.length') < 150;
   }),
   didInsertElement() {
     $(document).bind(
