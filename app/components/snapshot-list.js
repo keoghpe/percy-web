@@ -96,7 +96,7 @@ export default Component.extend({
     },
   ),
   isDefaultExpanded: computed('snapshotsWithDiffs', function() {
-    return this.get('snapshotsWithDiffs.length') < 150;
+    return this.get('snapshotsWithDiffs.length') < 1;
   }),
   didInsertElement() {
     $(document).bind(
@@ -121,7 +121,7 @@ export default Component.extend({
     if (!component) {
       return;
     }
-    $('.BuildContainer-body').animate({scrollTop: component.$().get(0).offsetTop - 16}, 250);
+    $('.BuildContainer-body').animate({scrollTop: component.$().get(0).offsetTop + 1}, 250);
   },
   actions: {
     registerChild(component) {
