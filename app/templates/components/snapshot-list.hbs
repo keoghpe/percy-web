@@ -5,22 +5,46 @@
   </div>
 {{/unless}}
 {{#each computedSnapshots as |snapshot index|}}
-  {{snapshot-viewer
-    snapshot=snapshot
-    project=project
-    buildContainerSelectedWidth=buildContainerSelectedWidth
-    buildWidths=buildWidths
-    listIndex=index
-    isDefaultExpanded=isDefaultExpanded
-    selectChild=(action 'selectChild')
-    registerChild=(action 'registerChild')
-    unregisterChild=(action 'unregisterChild')
-    snapshotWidthChangeTriggered=snapshotWidthChangeTriggered
-    build=build
-    showSnapshotFullModalTriggered=showSnapshotFullModalTriggered
-    createReview=createReview
-  }}
+  {{#unless snapshot.isApproved}}
+    {{snapshot-viewer
+      snapshot=snapshot
+      project=project
+      buildContainerSelectedWidth=buildContainerSelectedWidth
+      buildWidths=buildWidths
+      listIndex=index
+      isDefaultExpanded=isDefaultExpanded
+      selectChild=(action 'selectChild')
+      registerChild=(action 'registerChild')
+      unregisterChild=(action 'unregisterChild')
+      snapshotWidthChangeTriggered=snapshotWidthChangeTriggered
+      build=build
+      showSnapshotFullModalTriggered=showSnapshotFullModalTriggered
+      createReview=createReview
+    }}
+  {{/unless}}
 {{/each}}
+<div class="my-8">
+  <h2 class="f2 text-weight-regular px-2">Approved Snapshots</h2>
+  {{#each computedSnapshots as |snapshot index|}}
+    {{#if snapshot.isApproved}}
+      {{snapshot-viewer
+        snapshot=snapshot
+        project=project
+        buildContainerSelectedWidth=buildContainerSelectedWidth
+        buildWidths=buildWidths
+        listIndex=index
+        isDefaultExpanded=isDefaultExpanded
+        selectChild=(action 'selectChild')
+        registerChild=(action 'registerChild')
+        unregisterChild=(action 'unregisterChild')
+        snapshotWidthChangeTriggered=snapshotWidthChangeTriggered
+        build=build
+        showSnapshotFullModalTriggered=showSnapshotFullModalTriggered
+        createReview=createReview
+      }}
+    {{/if}}
+  {{/each}}
+</div>
 {{#if hideNoDiffs}}
   <div class="SnapshotViewer SnapshotViewer--actionable">
     <div class="SnapshotViewer-header flex align-center justify-center text-weight-bold p-2 mx-2 mb-2 bg-gray-000 rounded border border-gray-100 c-pointer" data-test-hide-no-diffs {{action "toggleNoDiffSnapshots"}}>
