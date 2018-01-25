@@ -73,7 +73,7 @@ export default Component.extend({
       this.get('setAsSelected').call(this);
     },
 
-    copySnapshotUrlToClipboard() {
+    onCopySnapshotUrlToClipboard() {
       this.get('flashMessages').success('Snapshot URL was copied to your clipboard');
     },
 
