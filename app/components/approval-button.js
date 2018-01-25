@@ -3,7 +3,6 @@ import Component from '@ember/component';
 
 export default Component.extend({
   build: null,
-  approve: null,
   isApproved: alias('build.isApproved'),
   isLoading: false,
   tagName: 'button',
@@ -13,8 +12,12 @@ export default Component.extend({
   click() {
     this.set('isLoading', true);
     const snapshotIds = this.get('build.snapshots').mapBy('id');
-    this.createReview(this.get('build.id'), snapshotIds).finally(() => {
-      this.set('isLoading', false);
-    });
+    this.createReview(this.get('build.id'), snapshotIds)
+      .then(() => {
+        return this.get('build').reloadAll();
+      })
+      .finally(() => {
+        this.set('isLoading', false);
+      });
   },
 });
