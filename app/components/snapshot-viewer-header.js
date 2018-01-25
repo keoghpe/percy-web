@@ -7,6 +7,7 @@ export default Component.extend({
   selectedWidth: null,
   selectedComparison: null,
   hasComparisonAtSelectedWidth: null,
+  tagName: '',
 
   // optional params
   fullscreen: false,

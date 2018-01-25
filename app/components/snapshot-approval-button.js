@@ -4,6 +4,7 @@ import Component from '@ember/component';
 export default Component.extend({
   isApproved: alias('snapshot.isApproved'),
   isLoading: false,
+  tagName: '',
 
   actions: {
     approveSnapshot() {
