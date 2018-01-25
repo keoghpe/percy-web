@@ -79,7 +79,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
         build: build,
         snapshots: snapshots,
       });
-      review.save();
+      return review.save();
     },
   },
 });
