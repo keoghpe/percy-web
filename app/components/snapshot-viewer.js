@@ -9,6 +9,10 @@ export default Component.extend({
   flashMessages: service(),
   classNames: ['SnapshotViewer mb-2'],
   buildContainerSelectedWidth: null,
+  registerChild() {},
+  unregisterChild() {},
+  selectChild() {},
+
   snapshotSelectedWidth: computed('buildContainerSelectedWidth', {
     get() {
       return this.get('buildContainerSelectedWidth');
@@ -84,10 +88,6 @@ export default Component.extend({
     updateSelectedWidth(value) {
       this.set('snapshotSelectedWidth', value);
       this.get('snapshotWidthChangeTriggered')();
-    },
-
-    showSnapshotFullModalTriggered(snapshotId, snapshotSelectedWidth) {
-      this.attrs.showSnapshotFullModalTriggered(snapshotId, snapshotSelectedWidth);
     },
   },
 });

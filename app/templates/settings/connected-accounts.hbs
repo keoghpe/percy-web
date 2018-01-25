@@ -1,10 +1,1 @@
-<div class="container-sm">
-  <h2 class="f1 text-weight-regular">Connected Accounts</h2>
-
-  {{connected-accounts-panel
-    identities=model
-    deleteIdentity=(route-action "deleteIdentity")
-    addIdentity=(route-action "addIdentity")
-  }}
-
-</div>
+{{connected-accounts-list identities=model}}

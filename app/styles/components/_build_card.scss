@@ -50,24 +50,4 @@
   &:nth-child(even) {
     background: var(--gray-000);
   }
-
-  &.is-processing {
-    --status-color: var(--gray-200);
-  }
-
-  &.is-unreviewed {
-    --status-color: var(--purple-600);
-  }
-
-  &.is-approved {
-    --status-color: var(--green-500);
-  }
-
-  &.is-failed {
-    --status-color: var(--red-500);
-  }
-
-  &.is-expired {
-    --status-color: var(--gray-100);
-  }
 }

@@ -1,13 +1,8 @@
-import {on} from '@ember/object/evented';
 import {max, oneWay, or} from '@ember/object/computed';
 import Component from '@ember/component';
-import Ember from 'ember';
-import {task, timeout} from 'ember-concurrency';
+import PollingMixin from 'percy-web/mixins/polling';
 
-const POLLING_INTERVAL_SECONDS = 5;
-const MAX_UPDATE_POLLING_REQUESTS = 2000;
-
-export default Component.extend({
+export default Component.extend(PollingMixin, {
   build: null,
   activeSnapshotId: null,
   updateActiveSnapshotId: null,
@@ -24,34 +19,13 @@ export default Component.extend({
   showComparisons: or('build.isPending', 'build.isProcessing', 'build.isFinished'),
   shouldPollForUpdates: or('build.isPending', 'build.isProcessing'),
 
-  // Task to poll for updates for pending builds.
-  runningTask: null,
-  maybeStartPolling: on('init', function() {
-    if (this.get('shouldPollForUpdates')) {
-      this.set('runningTask', this.get('pollForUpdatesTask').perform());
-    }
-  }),
-  pollForUpdatesTask: task(function*() {
-    this.set('numPollRequests', 0);
-    while (this.get('numPollRequests') < MAX_UPDATE_POLLING_REQUESTS) {
-      this.incrementProperty('numPollRequests');
-      this.get('build')
-        .reload()
-        .then(build => {
-          build.get('comparisons').reload();
-          if (!this.get('shouldPollForUpdates')) {
-            this.get('runningTask').cancel();
-          }
-          // Cancel after 1 iteration if running tests - otherwise acceptance tests break
-          // ember-concurrency is planning on adding a better way to cancel tasks during testing
-          // https://ember-concurrency.com/#/docs/testing-debugging
-          if (Ember.testing) {
-            this.get('runningTask').cancel();
-          }
-        });
-      yield timeout(POLLING_INTERVAL_SECONDS * 1000);
-    }
-  }).drop(),
+  pollRefresh() {
+    this.get('build')
+      .reload()
+      .then(build => {
+        build.get('comparisons').reload();
+      });
+  },
 
   actions: {
     showSnapshotFullModalTriggered(snapshotId, snapshotSelectedWidth) {

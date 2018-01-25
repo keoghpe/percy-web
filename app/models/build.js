@@ -1,9 +1,10 @@
 import {computed} from '@ember/object';
-import {bool, and, equal, max, not, or} from '@ember/object/computed';
+import {bool, and, equal, max, not} from '@ember/object/computed';
 import DS from 'ember-data';
 import moment from 'moment';
 
-const WAITING_LABEL = 'Processing';
+const PENDING_LABEL = 'Receiving';
+const PROCESSING_LABEL = 'Processing';
 const UNREVIEWED_LABEL = 'Unreviewed';
 const APPROVED_LABEL = 'Approved';
 const FAILED_LABEL = 'Failed';
@@ -31,7 +32,6 @@ export default DS.Model.extend({
   isFinished: equal('state', 'finished'),
   isFailed: equal('state', 'failed'),
   isExpired: equal('state', 'expired'),
-  isWaiting: or('isPending', 'isProcessing'),
   failureReason: DS.attr(),
   failureReasonHumanized: computed('failureReason', function() {
     let failureReason = this.get('failureReason');
@@ -77,13 +77,15 @@ export default DS.Model.extend({
     return this.get('totalComparisonsDiff') > 0;
   }),
 
-  buildStatusLabel: computed('state', function() {
-    if (this.get('isWaiting')) {
-      return WAITING_LABEL;
+  buildStatusLabel: computed('state', 'reviewState', function() {
+    if (this.get('isPending')) {
+      return PENDING_LABEL;
+    } else if (this.get('isProcessing')) {
+      return PROCESSING_LABEL;
     } else if (this.get('isFinished')) {
-      if (this.get('isApproved') || this.get('hasNoDiffs')) {
+      if (this.get('isApproved')) {
         return APPROVED_LABEL;
-      } else {
+      } else if (this.get('isUnreviewed')) {
         return UNREVIEWED_LABEL;
       }
     } else if (this.get('isFailed')) {

@@ -1,14 +1,4 @@
 {{title "Completing GitHub App Setup"}}
 {{fixed-top-header}}
-<div class="container container--fixedWidth">
-  <div class="container container--forContent">
-    <div class="Card Card--extraPadded u-text-center">
-      <h3>GitHub App processing...</h3>
-      <p>
-        {{fa-icon "fa-spinner fa-pulse"}}
-        Waiting for GitHub to complete the installation.
-      </p>
-    </div>
-  </div>
-</div>
+  {{setup-github-app installationId=installationId afterAppInstalled=(route-action "afterAppInstalled")}}
 {{main-footer}}

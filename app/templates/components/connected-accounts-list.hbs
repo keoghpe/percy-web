@@ -1,0 +1,16 @@
+<div class="container-sm">
+  <section class="mb-6">
+    <h2 class="f1 text-weight-regular">Connected Accounts</h2>
+    {{connected-accounts-panel
+      identities=model
+      deleteIdentity=(action "deleteIdentity")
+      addIdentity=(action "addIdentity")
+    }}
+  </section>
+  {{#if showCreateAccount}}
+    <section>
+      <h2 class="f1 text-weight-regular mb-1">Create Account</h2>
+      {{forms/account-new user=model saveSuccess=(action "accountCreated")}}
+    </section>
+  {{/if}}
+</div>

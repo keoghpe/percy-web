@@ -1,27 +1,7 @@
 .status-indicator {
-  --background-color: var(--gray-000);
+  --status-color: var(--gray-000);
   width: var(--spacing-1);
   height: var(--spacing-1);
-  background: var(--background-color);
+  background: var(--status-color);
   border-radius: 50%;
-
-  &.is-processing {
-    --background-color: var(--gray-100);
-  }
-
-  &.is-approved {
-    --background-color: var(--green-500);
-  }
-
-  &.is-unreviewed {
-    --background-color: var(--purple-600);
-  }
-
-  &.is-failed {
-    --background-color: var(--red-500);
-  }
-
-  &.is-expired {
-    --background-color: var(--gray-100);
-  }
 }
