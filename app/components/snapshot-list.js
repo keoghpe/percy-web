@@ -16,9 +16,10 @@ export default Component.extend({
   snapshotComponents: null,
   updateActiveSnapshotId: null,
   updateSelectedWidth: null,
+  snapshots: null,
 
   sortedSnapshots: computed('snapshots.[]', 'buildContainerSelectedWidth', function() {
-    let snapshots = this.get('snapshots');
+    let snapshots = this.get('snapshots').toArray();
     let width = parseInt(this.get('buildContainerSelectedWidth'));
 
     function comparisonAtCurrentWidth(snapshot) {

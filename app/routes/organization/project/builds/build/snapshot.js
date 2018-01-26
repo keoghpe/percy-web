@@ -9,10 +9,12 @@ export default Route.extend(AuthenticatedRouteMixin, ResetScrollMixin, {
   },
   model(params /*transition*/) {
     this.set('params', params);
-    let buildId = this.modelFor('organization.project.builds.build').get('id');
+    let buildId = this.modelFor('organization.project.builds.build').build.get('id');
     return this.store.findRecord('build', buildId);
   },
   afterModel(resolvedModel) {
+    // TODO replace comparisons with snapshots?
+
     // Avoids race condition to get snapshots on build in components. Because the underlying
     // lookup is an async relationship, the get triggers a promise which allows route cycle
     // blocking behavior.

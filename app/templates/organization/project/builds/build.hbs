@@ -1,10 +1,11 @@
-{{title model.buildTitle}}
+{{title model.build.buildTitle}}
 {{build-container
-  build=model
+  build=model.build
   activeSnapshotId=activeSnapshotId
   updateActiveSnapshotId=(route-action "updateActiveSnapshotId")
   openSnapshotFullModal='openSnapshotFullModal'
-  isShowingModal=model.isShowingModal
+  isShowingModal=model.build.isShowingModal
+  snapshots=model.snapshots
   showSupport=(route-action "showSupport")
 }}
 {{outlet}}
