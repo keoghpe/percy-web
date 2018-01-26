@@ -12,20 +12,18 @@
   registerChild=(action "registerChild")
 }}
 
-{{#unless (eq snapshot.reviewState "approved")}}
-  {{#if isExpanded}}
-    {{#if selectedComparison}}
-      {{comparison-viewer
-        comparison=selectedComparison
-        snapshotSelectedWidth=snapshotSelectedWidth
-        isDefaultExpanded=isDefaultExpanded
-        showNoDiffSnapshot=showNoDiffSnapshot
-        data-test-SnapshotViewer-comparison=true
-      }}
-    {{else}}
-      <div class="p-2 text-center" data-test-SnapshotViewer-noComparison>
-        No snapshot taken at {{snapshotSelectedWidth}}px.
-      </div>
-    {{/if}}
+{{#if isExpanded}}
+  {{#if selectedComparison}}
+    {{comparison-viewer
+      comparison=selectedComparison
+      snapshotSelectedWidth=snapshotSelectedWidth
+      isDefaultExpanded=isDefaultExpanded
+      showNoDiffSnapshot=showNoDiffSnapshot
+      data-test-SnapshotViewer-comparison=true
+    }}
+  {{else}}
+    <div class="p-2 text-center" data-test-SnapshotViewer-noComparison>
+      No snapshot taken at {{snapshotSelectedWidth}}px.
+    </div>
   {{/if}}
-{{/unless}}
+{{/if}}
