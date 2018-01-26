@@ -8,7 +8,10 @@ export default Component.extend({
   store: service(),
   flashMessages: service(),
   classNames: ['SnapshotViewer mb-2'],
-  classNameBindings: ['isActionable:SnapshotViewer--actionable', 'isApproved:is-approved'],
+  classNameBindings: [
+    'isActionable:SnapshotViewer--actionable',
+    'isNotExpanded:is-showing-controls',
+  ],
   isDefaultExpanded: true,
   buildContainerSelectedWidth: null,
   registerChild() {},
