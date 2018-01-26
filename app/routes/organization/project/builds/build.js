@@ -6,6 +6,10 @@ export default Route.extend(AuthenticatedRouteMixin, {
   queryParams: {
     activeSnapshotId: {as: 'snapshot', replace: true},
   },
+  // model hook does not run when using transitionTo because
+  // I think? transitionTo supplies a buildId, and it uses that as the model automatically
+  // so this works when you load the builds/build page directly
+  // but not when you navigate to the builds.build page
   model(params) {
     // TODO can we include snapshots in the build query?
     const build = this.store.findRecord('build', params.build_id);
@@ -20,7 +24,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   afterModel(model) {
-    model.build.reload().then(build => {
+    let build = model.build ? model.build : model;
+    build.reload().then(build => {
       // TODO this should reload snapshots now?
       if (!build.get('isExpired')) {
         // Force reload because these async-hasMany's won't reload themselves if the build's
@@ -40,7 +45,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
     didTransition() {
       this._super.apply(this, arguments);
 
-      let build = this.modelFor(this.routeName).build;
+      // why is this not a hash, but just a build object???
+      // Why does this run before the model?
+      // Why are we asking for the model before the model has run?
+      let model = this.modelFor(this.routeName);
+      let build = model.build ? model.build : model;
+      // let build = this.modelFor(this.routeName);
       let organization = build.get('project.organization');
       let eventProperties = {
         project_id: build.get('project.id'),
