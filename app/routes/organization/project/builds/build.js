@@ -79,7 +79,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
         build: build,
         snapshots: snapshots,
       });
-      return review.save();
+      return review.save().then(() => {
+        const build = this.modelFor(this.routeName);
+        build.get('comparisons').reload();
+        build.reload();
+      });
     },
   },
 });
