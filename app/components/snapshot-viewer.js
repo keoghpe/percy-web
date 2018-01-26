@@ -30,18 +30,14 @@ export default Component.extend({
     return comparisons.findBy('width', parseInt(width, 10));
   }),
 
-  isExpanded: computed('isDefaultExpanded', function() {
-    // TODO: this is just to break the binding with isDefaultExpanded,
-    // fix this when migrating to later ember versions with default one-way bindings.
-    return this.get('isDefaultExpanded');
+  isExpanded: computed('isDefaultExpanded', 'snapshot.isApproved', function() {
+    return this.get('snapshot.isApproved') ? false : this.get('isDefaultExpanded');
   }),
 
   isNotExpanded: not('isExpanded'),
   isActionable: alias('isNotExpanded'),
 
-  isApproved: computed('snapshot', function() {
-    return this.get('snapshot.isApproved');
-  }),
+  isApproved: alias('snapshot.isApproved'),
 
   comparisonForSelectedWidth: computed('snapshot.comparisons', 'snapshotSelectedWidth', function() {
     let comparisons = this.get('snapshot.comparisons') || [];
