@@ -13,8 +13,13 @@ export default Component.extend({
   click() {
     this.set('isLoading', true);
     const snapshotIds = this.get('build.snapshots').mapBy('id');
-    this.createReview(this.get('build.id'), snapshotIds).finally(() => {
-      this.set('isLoading', false);
-    });
+
+    this.createReview(this.get('build.id'), snapshotIds)
+      .then(() => {
+        return this.get('build').reloadAll();
+      })
+      .finally(() => {
+        this.set('isLoading', false);
+      });
   },
 });
