@@ -6,10 +6,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
   queryParams: {
     activeSnapshotId: {as: 'snapshot', replace: true},
   },
-  // model hook does not run when using transitionTo because
-  // I think? transitionTo supplies a buildId, and it uses that as the model automatically
-  // so this works when you load the builds/build page directly
-  // but not when you navigate to the builds.build page
   model(params) {
     // TODO can we include snapshots in the build query?
     const build = this.store.findRecord('build', params.build_id);
@@ -31,7 +27,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
         // Force reload because these async-hasMany's won't reload themselves if the build's
         // state has changed, such as going from processing --> finished and we don't want to show
         // fewer comparisons than there are.
-        build.get('comparisons').reload();
+        build.get('snapshots').reload();
       }
     });
   },
