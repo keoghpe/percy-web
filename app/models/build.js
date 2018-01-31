@@ -97,7 +97,7 @@ export default DS.Model.extend({
 
   commit: DS.belongsTo('commit', {async: false}), // Might be null.
   baseBuild: DS.belongsTo('build', {async: false, inverse: null}),
-  comparisons: DS.hasMany('comparison', {async: true}),
+  comparisons: DS.hasMany('comparison', {async: false}),
   snapshots: DS.hasMany('snapshot', {async: true}),
 
   // snapshots: computed('comparisons', function() {

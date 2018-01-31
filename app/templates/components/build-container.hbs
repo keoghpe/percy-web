@@ -14,8 +14,7 @@
   }}
 
   {{#if showComparisons}}
-  {{!-- comparisons or snapshots? --}}
-    {{#if build.comparisons.isPending}}
+    {{#if snapshots.isPending}}
       {{loading-page}}
     {{else}}
       {{snapshot-list
