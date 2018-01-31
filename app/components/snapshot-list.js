@@ -87,12 +87,22 @@ export default Component.extend({
     'hideNoDiffs',
     'snapshotsWithDiffs.[]',
     'snapshotsWithoutDiffs.[]',
+    // This computed property is purposefully not depending on snapshot.isApproved.
+    // This is because we don't want snapshots jumping around in the view as they are approved,
+    // we only want them to be separated once, when the page loads.
     function() {
-      if (this.get('hideNoDiffs')) {
-        return this.get('snapshotsWithDiffs');
-      } else {
-        return [].concat(this.get('snapshotsWithDiffs'), this.get('snapshotsWithoutDiffs'));
-      }
+      let snapshots = this.get('hideNoDiffs')
+        ? this.get('snapshotsWithDiffs')
+        : [].concat(this.get('snapshotsWithDiffs'), this.get('snapshotsWithoutDiffs'));
+      const approvedSnapshots = [];
+      const unapprovedSnapshots = [];
+      snapshots.forEach(snapshot => {
+        snapshot.get('isApproved')
+          ? approvedSnapshots.push(snapshot)
+          : unapprovedSnapshots.push(snapshot);
+      });
+
+      return [].concat(unapprovedSnapshots, approvedSnapshots);
     },
   ),
   isDefaultExpanded: computed('snapshotsWithDiffs', function() {
