@@ -433,5 +433,7 @@ button,
 }
 
 .btn-toolbar {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: var(--spacing-1);
 }
