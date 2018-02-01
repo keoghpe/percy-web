@@ -69,22 +69,26 @@ Most Percy builds finish in under 2 minutes.">
   {{#pricing-bucket}}
     <div class="PricingSection-title">Enterprise</div>
     <div class="PricingSection-price">
-      <strong>Let's chat!</strong>
+      <strong style="font-size: 150%">{{#link-to "enterprise"}}Contact us{{/link-to}}</strong>
+      <br>Starting at<br>
+      <span style="font-weight: bold">$4500</span> / mo
     </div>
-    <hr>
-    <div class="PricingSection-numTeamMembers">
-      Unlimited team members
+    <div class="PricingSection-diffs">Custom snapshot volume<br></div>
+    <div class="PricingSection-infoItem" style="color: var(--dark-text-color);">
+      <strong>Engineering guidance &amp; support</strong>
     </div>
-    <div class="PricingSection-diffs">Unlimited snapshots<br></div>
+    <div class="PricingSection-infoItem" style="margin-top: 20px; margin-bottom: 20px">
+      With support for
+      <img style="width: 80%; padding: 0" src="/images/third-party/github-enterprise.png">
+    </div>
     <div class="PricingSection-numWorkers">
-      <br><br>Custom concurrent renderers
+      Dedicated concurrent renderers
     </div>
-    <div class="PricingSection-infoItem">Awesome Support</div>
     <div class="PricingSection-infoItem">Unlimited projects</div>
     <div class="PricingSection-infoItem">Custom history limits</div>
     <div class="PricingSection-infoItem">Custom terms</div>
-    <div class="PricingSection-infoItem">Uptime SLA</div>
-    <div class="PricingSection-infoItem">{{#link-to "enterprise"}}Contact us{{/link-to}}</div>
+    <div class="PricingSection-infoItem">99.9% Enterprise uptime SLA</div>
+    <div class="PricingSection-infoItem">{{#link-to "enterprise"}}Let's chat!{{/link-to}}</div>
   {{/pricing-bucket}}
   {{#if session.isAuthenticated}}
     <p><a class="Button Button--primary" href="#" {{action "jumpToBilling"}}>Jump to organization for billing</a></p>
