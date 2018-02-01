@@ -150,7 +150,7 @@ describe('Acceptance: Build', function() {
     this.build = headBuild;
   });
 
-  it.skip('shows as finished', function() {
+  it('shows as finished', function() {
     visit(`/${this.project.fullSlug}`);
     andThen(() => {
       expect(currentPath()).to.equal('organization.project.index');
