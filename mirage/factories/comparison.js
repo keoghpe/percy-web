@@ -31,14 +31,16 @@ export default Factory.extend({
       const headScreenshot = server.create('screenshot', 'head');
       const baseScreenshot = server.create('screenshot', 'base');
       const diffImage = server.create('image', 'diffImage');
-      const headSnapshot = server.create('snapshot');
+      if (!comparison.headSnapshot) {
+        const headSnapshot = server.create('snapshot');
+        comparison.update({headSnapshot});
+      }
 
       comparison.update({
         diffRatio,
         headScreenshot,
         baseScreenshot,
         diffImage,
-        headSnapshot,
       });
     },
   }),
@@ -48,13 +50,15 @@ export default Factory.extend({
       const headScreenshot = server.create('screenshot', 'headLong');
       const baseScreenshot = server.create('screenshot', 'baseLong');
       const diffImage = server.create('image', 'diffImageLong');
-      const headSnapshot = server.create('snapshot');
+      if (!comparison.headSnapshot) {
+        const headSnapshot = server.create('snapshot');
+        comparison.update({headSnapshot});
+      }
 
       comparison.update({
         headScreenshot,
         baseScreenshot,
         diffImage,
-        headSnapshot,
       });
     },
   }),
@@ -64,13 +68,15 @@ export default Factory.extend({
       const headScreenshot = server.create('screenshot', 'base');
       const baseScreenshot = server.create('screenshot', 'headLong');
       const diffImage = server.create('image', 'diffImageLong');
-      const headSnapshot = server.create('snapshot');
+      if (!comparison.headSnapshot) {
+        const headSnapshot = server.create('snapshot');
+        comparison.update({headSnapshot});
+      }
 
       comparison.update({
         headScreenshot,
         baseScreenshot,
         diffImage,
-        headSnapshot,
       });
     },
   }),
@@ -78,9 +84,12 @@ export default Factory.extend({
   wasAdded: trait({
     afterCreate(comparison, server) {
       const headScreenshot = server.create('screenshot', 'head');
-      const headSnapshot = server.create('snapshot');
+      if (!comparison.headSnapshot) {
+        const headSnapshot = server.create('snapshot');
+        comparison.update({headSnapshot});
+      }
 
-      comparison.update({headScreenshot, headSnapshot});
+      comparison.update({headScreenshot});
     },
   }),
 
@@ -100,14 +109,16 @@ export default Factory.extend({
       const headScreenshot = server.create('screenshot', 'head');
       const baseScreenshot = server.create('screenshot', 'base');
       const diffImage = server.create('image', 'randoImage');
-      const headSnapshot = server.create('snapshot');
+      if (!comparison.headSnapshot) {
+        const headSnapshot = server.create('snapshot');
+        comparison.update({headSnapshot});
+      }
 
       comparison.update({
         diffRatio,
         headScreenshot,
         baseScreenshot,
         diffImage,
-        headSnapshot,
       });
     },
   }),
@@ -118,14 +129,16 @@ export default Factory.extend({
       const headScreenshot = server.create('screenshot', 'head');
       const baseScreenshot = server.create('screenshot', 'base');
       const diffImage = server.create('image', 'diffImage');
-      const headSnapshot = server.create('snapshot');
+      if (!comparison.headSnapshot) {
+        const headSnapshot = server.create('snapshot');
+        comparison.update({headSnapshot});
+      }
 
       comparison.update({
         diffRatio,
         headScreenshot,
         baseScreenshot,
         diffImage,
-        headSnapshot,
       });
     },
   }),
@@ -136,14 +149,16 @@ export default Factory.extend({
       const headScreenshot = server.create('screenshot', 'mobileHead');
       const baseScreenshot = server.create('screenshot', 'mobileBase');
       const diffImage = server.create('image', 'mobileDiff');
-      const headSnapshot = server.create('snapshot');
+      if (!comparison.headSnapshot) {
+        const headSnapshot = server.create('snapshot');
+        comparison.update({headSnapshot});
+      }
 
       comparison.update({
         diffRatio,
         headScreenshot,
         baseScreenshot,
         diffImage,
-        headSnapshot,
       });
     },
   }),
@@ -151,11 +166,13 @@ export default Factory.extend({
   mobileAdded: trait({
     afterCreate(comparison, server) {
       const headScreenshot = server.create('screenshot', 'mobileHead');
-      const headSnapshot = server.create('snapshot');
+      if (!comparison.headSnapshot) {
+        const headSnapshot = server.create('snapshot');
+        comparison.update({headSnapshot});
+      }
 
       comparison.update({
         headScreenshot,
-        headSnapshot,
       });
     },
   }),

@@ -220,7 +220,7 @@ describe('Acceptance: Build', function() {
 
     keyEvent('.SnapshotList', 'keydown', DownArrowKey);
     andThen(() => {
-      expect(currentURL()).to.equal(`/${this.project.fullSlug}/builds/1?snapshot=snapshot-7`);
+      expect(currentURL()).to.equal(`/${this.project.fullSlug}/builds/1?snapshot=snapshot-1`);
     });
     percySnapshot(this.test.fullTitle() + ' | Down*2');
 
