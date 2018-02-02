@@ -18,7 +18,7 @@ export default Component.extend({
       return value;
     },
   }),
-  selectedComparison: computed('snapshot', 'snapshotSelectedWidth', function() {
+  selectedComparison: computed('snapshot.@each.comparisons', 'snapshotSelectedWidth', function() {
     let width = this.get('snapshotSelectedWidth');
     let comparisons = this.get('snapshot.comparisons') || [];
     return comparisons.findBy('width', parseInt(width, 10));

@@ -1,9 +1,20 @@
-import {visitable, collection, create, clickable, isVisible} from 'ember-cli-page-object';
+import {
+  visitable,
+  collection,
+  create,
+  clickable,
+  isVisible,
+  triggerable,
+} from 'ember-cli-page-object';
 import {SnapshotViewer} from 'percy-web/tests/pages/components/snapshot-viewer';
+
+const DOWN_ARROW_KEY = 40;
+const UP_ARROW_KEY = 38;
 
 const SELECTORS = {
   BUILD_LIST: '[data-test-project-container-build-list]',
   NO_DIFFS_PANEL: '[data-test-toggle-no-diffs]',
+  SNAPSHOT_LIST: '[data-test-snapshotList]',
 };
 
 // TODO snapshot-list page object?
@@ -41,6 +52,13 @@ const BuildPage = {
   urlWithSnapshotQueryParam(snapshot, build) {
     return `/${build.project.fullSlug}/builds/${build.id}?snapshot=${snapshot.id}`;
   },
+
+  typeDownArrow: triggerable('keydown', SELECTORS.SNAPSHOT_LIST, {
+    eventProperties: {keyCode: DOWN_ARROW_KEY},
+  }),
+  typeUpArrow: triggerable('keydown', SELECTORS.SNAPSHOT_LIST, {
+    eventProperties: {keyCode: UP_ARROW_KEY},
+  }),
 };
 
 export const FullScreenDiff = {
