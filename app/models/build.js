@@ -105,7 +105,7 @@ export default DS.Model.extend({
     }, []);
   }),
 
-  comparisonWidths: computed('comparisons', function() {
+  comparisonWidths: computed('comparisons.@each.width', function() {
     let widths = [...new Set(this.get('comparisons').map(c => c.get('width')))];
     return widths.sort((a, b) => a - b);
   }),

@@ -124,29 +124,31 @@ describe('Acceptance: Build', function() {
   setupSession(function(server) {
     let organization = server.create('organization', 'withUser');
     let project = server.create('project', {name: 'project-with-finished-build', organization});
-    let headBuild = server.create('build', {
+    let build = server.create('build', {
       project,
       createdAt: moment().subtract(2, 'minutes'),
       finishedAt: moment().subtract(5, 'seconds'),
     });
-    this.comparisons = {
-      different: server.create('comparison', {headBuild}),
-      gotLonger: server.create('comparison', 'gotLonger', {headBuild}),
-      gotShorter: server.create('comparison', 'gotShorter', {headBuild}),
-      wasAdded: server.create('comparison', 'wasAdded', {headBuild}),
-      wasRemoved: server.create('comparison', 'wasRemoved', {headBuild}),
-      same: server.create('comparison', 'same', {headBuild}),
-      differentNoMobile: server.create('comparison', {headBuild}),
-    };
 
-    // Create some mobile width comparisons
-    let headSnapshot = this.comparisons.different.headSnapshot;
-    server.create('comparison', 'mobile', {headBuild, headSnapshot});
-    headSnapshot = this.comparisons.wasAdded.headSnapshot;
-    server.create('comparison', 'mobile', 'wasAdded', {headBuild, headSnapshot});
+    let defaultSnapshot = server.create('snapshot', 'withComparison', {build});
+    // this.comparisons = {
+    //   different: server.create('comparison', {headBuild}),
+    //   gotLonger: server.create('comparison', 'gotLonger', {headBuild}),
+    //   gotShorter: server.create('comparison', 'gotShorter', {headBuild}),
+    //   wasAdded: server.create('comparison', 'wasAdded', {headBuild}),
+    //   wasRemoved: server.create('comparison', 'wasRemoved', {headBuild}),
+    //   same: server.create('comparison', 'same', {headBuild}),
+    //   differentNoMobile: server.create('comparison', {headBuild}),
+    // };
+
+    // // Create some mobile width comparisons
+    // let headSnapshot = this.comparisons.different.headSnapshot;
+    // server.create('comparison', 'mobile', {headBuild, headSnapshot});
+    // headSnapshot = this.comparisons.wasAdded.headSnapshot;
+    // server.create('comparison', 'mobile', 'wasAdded', {headBuild, headSnapshot});
 
     this.project = project;
-    this.build = headBuild;
+    this.build = build;
   });
 
   it('shows as finished', function() {
@@ -158,6 +160,7 @@ describe('Acceptance: Build', function() {
 
     click('[data-test-build-state]');
     andThen(() => {
+      debugger
       expect(currentPath()).to.equal('organization.project.builds.build.index');
     });
     percySnapshot(this.test.fullTitle() + ' on the build page');

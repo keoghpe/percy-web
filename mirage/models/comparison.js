@@ -5,7 +5,8 @@
 import {Model, belongsTo, hasMany} from 'ember-cli-mirage';
 
 export default Model.extend({
-  build: belongsTo('build'),
-  screenshots: hasMany('screenshot'),
-  comparisons: hasMany('comparison'),
+  headSnapshot: belongsTo('snapshot'),
+  headScreenshot: belongsTo('screenshot'),
+  baseScreenshot: belongsTo('screenshot'),
+  diffImage: belongsTo('image'),
 });
