@@ -34,7 +34,22 @@ export default Factory.extend({
       const headScreenshot = server.create('screenshot', 'head');
       const baseScreenshot = server.create('screenshot', 'base');
       const diffImage = server.create('image', 'diffImage');
-      // comparison = conditionallyAddHeadSnapshot(comparison, server);
+
+      comparison.update({
+        diffRatio,
+        headScreenshot,
+        baseScreenshot,
+        diffImage,
+      });
+    },
+  }),
+
+  same: trait({
+    afterCreate(comparison, server) {
+      const diffRatio = NO_DIFF_RATIO;
+      const headScreenshot = server.create('screenshot', 'head');
+      const baseScreenshot = server.create('screenshot', 'base');
+      const diffImage = server.create('image', 'randoImage');
 
       comparison.update({
         diffRatio,
@@ -113,23 +128,6 @@ export default Factory.extend({
       comparison.update({
         headScreenshot,
         baseScreenshot,
-      });
-    },
-  }),
-
-  same: trait({
-    afterCreate(comparison, server) {
-      const diffRatio = NO_DIFF_RATIO;
-      const headScreenshot = server.create('screenshot', 'head');
-      const baseScreenshot = server.create('screenshot', 'base');
-      const diffImage = server.create('image', 'randoImage');
-      comparison = conditionallyAddHeadSnapshot(comparison, server);
-
-      comparison.update({
-        diffRatio,
-        headScreenshot,
-        baseScreenshot,
-        diffImage,
       });
     },
   }),

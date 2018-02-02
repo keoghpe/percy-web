@@ -2,7 +2,7 @@
 // Mirage doesn't seem to prevent infinite loops when resolving foreign keys when
 // using the real model rather than the mirage model.
 
-import {Model, belongsTo, hasMany} from 'ember-cli-mirage';
+import {Model, belongsTo} from 'ember-cli-mirage';
 
 export default Model.extend({
   headSnapshot: belongsTo('snapshot'),

@@ -10,7 +10,7 @@
       </div>
       <div class="ComparisonViewer-halfColumn ComparisonViewer-halfColumn--right">
         {{#with comparison.headScreenshot.lossyImage as |lossyImage|}}
-          <div class="Viewer-pdiffImageBox Viewer-pdiffImageBox--actionable" style={{html-safe "max-width: " lossyImage.width "px"}}>
+          <div class="Viewer-pdiffImageBox Viewer-pdiffImageBox--actionable" style={{html-safe "max-width: " lossyImage.width "px"}} data-test-ComparisonViewer-diffImageBox>
             {{image-spacer action=(action "toggleOverlay") bubbles=false image=lossyImage imageClass="ComparisonViewer-pdiffImage ComparisonViewer-pdiffImage--actionable"}}
             {{#if isOverlayEnabled}}
               {{#with comparison.diffImage as |diffImage|}}

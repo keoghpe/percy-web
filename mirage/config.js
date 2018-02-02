@@ -1,7 +1,6 @@
 import Mirage from 'ember-cli-mirage';
 
 export default function() {
-  this.logging=true;
   this.passthrough('http://api.amplitude.com');
 
   this.get('/api/auth/session', function() {
