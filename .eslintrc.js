@@ -31,6 +31,12 @@ module.exports = {
     'space-unary-ops': ['error', {nonwords: false}],
     'comma-dangle': ['error', 'always-multiline'],
   },
+  overrides: {
+    files: '*-test.js',
+    rules: {
+      "no-unused-expressions": 'off'
+    }
+  },
   globals: {
     "Raven": true
   }

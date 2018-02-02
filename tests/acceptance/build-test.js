@@ -147,27 +147,6 @@ describe('Acceptance: Build', function() {
       projectSlug: project.slug,
       buildId: build.id,
     };
-    // this.comparisons = {
-    //   different: server.create('comparison', {headBuild}),
-    //   gotLonger: server.create('comparison', 'gotLonger', {headBuild}),
-    //   gotShorter: server.create('comparison', 'gotShorter', {headBuild}),
-    //   wasAdded: server.create('comparison', 'wasAdded', {headBuild}),
-    //   wasRemoved: server.create('comparison', 'wasRemoved', {headBuild}),
-    //   same: server.create('comparison', 'same', {headBuild}),
-    //   differentNoMobile: server.create('comparison', {headBuild}),
-    // };
-
-    // // Create some mobile width comparisons
-    // let headSnapshot = this.comparisons.different.headSnapshot;
-    // server.create('comparison', 'mobile', {headBuild, headSnapshot});
-    // headSnapshot = this.comparisons.wasAdded.headSnapshot;
-    // server.create('comparison', 'mobile', 'wasAdded', {headBuild, headSnapshot});
-
-    // BuildPageObject.visitBuild({
-    //   orgSlug: organization.slug,
-    //   projectSlug: project.slug,
-    //   buildId: build.id,
-    // });
   });
 
   // TODO move this out of this test
@@ -188,6 +167,8 @@ describe('Acceptance: Build', function() {
 
     percySnapshot(this.test.fullTitle() + ' on the build page with build info open');
   });
+
+  // TODO: test number of snapshots, expanded, actionable status for all
 
   it('toggles the image and pdiff', function() {
     let snapshot;
@@ -262,7 +243,6 @@ describe('Acceptance: Build', function() {
     });
   });
 
-  // TODO: add extra snapshot that should _not_ be focused
   it('jumps to snapshot for query params', function() {
     BuildPageObject.visitBuild(Object.assign(urlParams, {snapshot: defaultSnapshot.id}));
 
@@ -277,31 +257,36 @@ describe('Acceptance: Build', function() {
     percySnapshot(this.test.fullTitle());
   });
 
-  it('jumps to snapshot for query params in collapsed no diffs', function() {
-    // let snapshot = this.comparisons.same.headSnapshot;
+  it('jumps to snapshot for query params when snapshot has no diffs ', function() {
     BuildPageObject.visitBuild(Object.assign(urlParams, {snapshot: noDiffsSnapshot.id}));
     andThen(() => {
-      // debugger
       const focusedSnapshot = BuildPageObject.focusedSnapshot();
+
       expect(focusedSnapshot.name).to.equal(noDiffsSnapshot.name);
+      expect(focusedSnapshot.isExpanded).to.equal(true);
     });
-    // visit(`/${this.project.fullSlug}/builds/${this.build.id}?snapshot=${snapshot.id}`);
-    // andThen(() => {
-    //   expect(find(
-    //    '.SnapshotViewer.SnapshotViewer--focus .SnapshotViewer-title').text()).to.equal(
-    //     snapshot.name,
-    //   );
-    // });
   });
 
   it('shows and hides unchanged diffs', function() {
-    visit(`/${this.project.fullSlug}/builds/${this.build.id}`);
+    const snapshotName = noDiffsSnapshot.name;
+
+    BuildPageObject.visitBuild(urlParams);
+
+    andThen(() => {
+      expect(BuildPageObject.isNoDiffsPanelVisible).to.equal(true);
+      expect(BuildPageObject.findSnapshotByName(snapshotName)).to.not.exist;
+    });
 
     percySnapshot(this.test.fullTitle() + ' | shows batched no diffs');
 
-    click('[data-test-hide-no-diffs]');
+    BuildPageObject.clickToggleNoDiffsSection();
     andThen(() => {
-      expect(find('.ComparisonViewer-noDiffBox')).to.have.lengthOf(1);
+      const snapshot = BuildPageObject.findSnapshotByName(snapshotName);
+
+      expect(BuildPageObject.isNoDiffsPanelVisible).to.equal(false);
+      expect(snapshot.isExpanded, 'three').to.equal(true);
+      expect(snapshot.isNoDiffBoxVisible).to.equal(true);
+      // expect(find('.ComparisonViewer-noDiffBox')).to.have.lengthOf(1);
     });
 
     percySnapshot(this.test.fullTitle() + ' | shows expanded no diffs');

@@ -27,7 +27,7 @@
   {{else}}
     {{!-- Compared, but not different. --}}
     {{#unless showNoDiffSnapshot}}
-      <div class="row ComparisonViewer-noDiffBox">
+      <div class="row ComparisonViewer-noDiffBox" data-test-comparisonViewer-noDiffBox>
         No visual changes at {{comparison.width}}px.
           <a {{action "toggleNoDiffResource" bubbles=false}} href="#">Show snapshot</a>
       </div>

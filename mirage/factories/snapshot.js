@@ -18,6 +18,18 @@ export default Factory.extend({
     },
   }),
 
+  noDiffs: trait({
+    afterCreate(snapshot, server) {
+      const comparison = server.create('comparison', 'same');
+      const comparisonIds = snapshot.comparisonIds;
+      comparisonIds.push(comparison.id);
+      snapshot.comparisonIds = comparisonIds;
+      snapshot.name = 'no diffs snapshot';
+      snapshot.save();
+      // snapshot.update({name: 'no diffs snapshot'});
+    },
+  }),
+
   withMobileComparison: trait({
     afterCreate(snapshot, server) {
       const comparison = server.create('comparison', 'mobile');
@@ -85,24 +97,6 @@ export default Factory.extend({
       comparisons.push(comparison);
 
       snapshot.update({comparisons});
-    },
-  }),
-
-  noDiffs: trait({
-    // afterCreate(snapshot, server) {
-    //   const comparison = server.create('comparison', 'default');
-    //   const comparisonIds = snapshot.comparisonIds;
-    //   comparisonIds.push(comparison.id);
-    //   snapshot.comparisonIds = comparisonIds;
-    //   snapshot.save();
-    // },
-    afterCreate(snapshot, server) {
-      const comparison = server.create('comparison', 'same');
-      const comparisonIds = snapshot.comparisonIds;
-      comparisonIds.push(comparison.id);
-      snapshot.comparisonIds = comparisonIds;
-      snapshot.save();
-      snapshot.update({name: 'no diffs snapshot'});
     },
   }),
 
