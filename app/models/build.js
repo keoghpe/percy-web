@@ -99,6 +99,7 @@ export default DS.Model.extend({
   baseBuild: DS.belongsTo('build', {async: false, inverse: null}),
   comparisons: DS.hasMany('comparison', {async: true}),
 
+  // snapshots: DS.hasMany('snapshots'),
   snapshots: computed('comparisons', function() {
     let comparisons = this.get('comparisons');
     let snapshots = comparisons.map(comparison => comparison.get('headSnapshot')).filter(x => x);
@@ -112,6 +113,7 @@ export default DS.Model.extend({
 
   defaultSelectedWidth: max('comparisonWidths'),
   numComparisonWidths: computed('comparisonWidths', function() {
+    console.log('widths', this.get('comparisonWidths'))
     return this.get('comparisonWidths').length;
   }),
 

@@ -129,16 +129,70 @@ describe('Acceptance: Build', function() {
       createdAt: moment().subtract(2, 'minutes'),
       finishedAt: moment().subtract(5, 'seconds'),
     });
-    this.snapshots = [];
+
+    const defaultSnapshot = server.create('snapshot', 'withComparison', 'withMobileComparison', {
+      build: headBuild,
+    });
+    const longerSnapshot = server.create(
+      'snapshot',
+      'withComparison',
+      'gotLonger',
+      'withMobileComparison',
+      {build: headBuild},
+    );
+    const shorterSnapshot = server.create(
+      'snapshot',
+      'withComparison',
+      'gotShorter',
+      'withMobileComparison',
+      {build: headBuild},
+    );
+    const addedSnapshot = server.create(
+      'snapshot',
+      'withComparison',
+      'wasAdded',
+      'withMobileAdded',
+      {build: headBuild},
+    );
+    const removedSnapshot = server.create(
+      'snapshot',
+      'withComparison',
+      'wasRemoved',
+      'withMobileRemoved',
+      {build: headBuild},
+    );
+    const noDiffsSnapshot = server.create('snapshot', 'withComparison', 'noDiffs', {
+      build: headBuild,
+    });
+    const differentNoMobileSnapshot = server.create('snapshot', 'withComparison', {
+      build: headBuild,
+    });
+
     this.comparisons = {
-      different: server.create('comparison', 'different', {headBuild}),
-      gotLonger: server.create('comparison', 'gotLonger', {headBuild}),
-      gotShorter: server.create('comparison', 'gotShorter', {headBuild}),
-      wasAdded: server.create('comparison', 'wasAdded', {headBuild}),
-      wasRemoved: server.create('comparison', 'wasRemoved', {headBuild}),
-      same: server.create('comparison', 'same', {headBuild}),
-      differentNoMobile: server.create('comparison', 'differentNoMobile', {headBuild}),
+      different: defaultSnapshot.comparisons.findBy('width', 1280),
+      gotLonger: defaultSnapshot.comparisons.findBy('width', 1280),
+      gotShorter: defaultSnapshot.comparisons.findBy('width', 1280),
+      wasAdded: defaultSnapshot.comparisons.findBy('width', 1280),
+      wasRemoved: defaultSnapshot.comparisons.findBy('width', 1280),
+      same: defaultSnapshot.comparisons.findBy('width', 1280),
+      differentNoMobile: defaultSnapshot.comparisons.findBy('width', 1280),
+      // different: server.create('comparison', 'different', {headBuild}),
+      // gotLonger: server.create('comparison', 'gotLonger', {headBuild}),
+      // gotShorter: server.create('comparison', 'gotShorter', {headBuild}),
+      // wasAdded: server.create('comparison', 'default', 'wasAdded', {headBuild}),
+      // wasRemoved: server.create('comparison', 'default', 'wasRemoved', {headBuild}),
+      // same: server.create('comparison', 'same', {headBuild}),
+      // differentNoMobile: server.create('comparison', 'differentNoMobile', {headBuild}),
     };
+
+    // this.snapshots = [
+    // server.create('snapshot'),
+    //   server.create('snapshot'),
+    //   server.create('snapshot'),
+    //   server.create('snapshot'),
+    //   server.create('snapshot'),
+    //   server.create('snapshot'),
+    // ];
 
     // Create some mobile width comparisons
     let headSnapshot = this.comparisons.different.headSnapshot;
