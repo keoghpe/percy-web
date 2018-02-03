@@ -210,7 +210,6 @@ describe('Acceptance: Build', function() {
     percySnapshot(this.test.fullTitle() + ' | shows overlay');
   });
 
-  //TODO do this one
   it('walk across snapshots with arrow keys', function() {
     let firstSnapshot;
     let secondSnapshot;
@@ -325,59 +324,99 @@ describe('Acceptance: Build', function() {
     percySnapshot(this.test.fullTitle() + ' | shows expanded no diffs');
   });
 
-  // TODO full view
-  it.skip('toggles full view', function() {
-    // visit(`/${this.project.fullSlug}/builds/${this.build.id}`);
-    click('.SnapshotViewer:first .ToggleFullViewButton');
+  it('toggles full view', function() {
+    BuildPageObject.visitBuild(urlParams);
+    BuildPageObject.snapshots(0).header.clickToggleFullscreen();
+
     andThen(() => {
       expect(currentPath()).to.equal('organization.project.builds.build.snapshot');
-      expect(find('.SnapshotViewerFullModalWrapper ').length).to.equal(1);
+      expect(BuildPageObject.snapshotFullscreen.isVisible).to.equal(true);
     });
 
-    click('.ToggleFullViewButton');
+    BuildPageObject.snapshotFullscreen.header.clickToggleFullscreen();
+
     andThen(() => {
       expect(currentPath()).to.equal('organization.project.builds.build.index');
-      expect(find('.SnapshotViewerFullModalWrapper ').length).to.equal(0);
+      expect(BuildPageObject.snapshotFullscreen.isVisible).to.equal(false);
     });
   });
+});
 
-  // TODO full view
-  it.skip('responds to keystrokes and click in full view', function() {
-    let snapshot = this.comparisons.different.headSnapshot;
-    visit(`/${this.project.fullSlug}/builds/${this.build.id}/view/${snapshot.id}/1280?mode=diff`);
+describe('Acceptance: Fullscreen Snapshot', function() {
+  freezeMoment('2018-05-22');
+  setupAcceptance();
 
-    keyEvent('.SnapshotViewerFull', 'keydown', 39);
+  let project;
+  let snapshot;
+  let noDiffsSnapshot;
+  let urlParams;
+
+  setupSession(function(server) {
+    const organization = server.create('organization', 'withUser');
+    project = server.create('project', {name: 'project-with-finished-build', organization});
+    const build = server.create('build', {
+      project,
+      createdAt: moment().subtract(2, 'minutes'),
+      finishedAt: moment().subtract(5, 'seconds'),
+    });
+    snapshot = server.create('snapshot', 'withComparison', {build});
+    noDiffsSnapshot = server.create('snapshot', 'noDiffs');
+
+    urlParams = {
+      orgSlug: organization.slug,
+      projectSlug: project.slug,
+      buildId: build.id,
+      snapshotId: snapshot.id,
+      width: snapshot.comparisons.models[0].width,
+      mode: 'diff',
+    };
+  });
+
+  it('responds to keystrokes and click in full view', function() {
+    BuildPageObject.visitFullPageSnapshot(urlParams);
+
+    BuildPageObject.snapshotFullscreen.typeRightArrow();
+
     andThen(() => {
       expect(currentURL()).to.include('mode=head');
     });
 
-    keyEvent('.SnapshotViewerFull', 'keydown', 37);
+    BuildPageObject.snapshotFullscreen.typeLeftArrow();
+
     andThen(() => {
       expect(currentURL()).to.include('mode=diff');
     });
 
-    click('.ComparisonViewerFull');
+    BuildPageObject.snapshotFullscreen.clickComparisonViewer();
     andThen(() => {
       expect(currentURL()).to.include('mode=head');
     });
 
-    keyEvent('.SnapshotViewerFull', 'keydown', 27);
+    BuildPageObject.snapshotFullscreen.typeEscape();
     andThen(() => {
       expect(currentPath()).to.equal('organization.project.builds.build.index');
-      expect(find('.SnapshotViewerFullModalWrapper ').length).to.equal(0);
+      expect(BuildPageObject.snapshotFullscreen.isVisible).to.equal(false);
     });
   });
 
-  // TODO full view
+  // TODO: move this to integration test
   it.skip('hides comparison mode controls in full view if no snapshot taken', function() {
-    let snapshot = this.comparisons.differentNoMobile.headSnapshot;
-    visit(`/${this.project.fullSlug}/builds/${this.build.id}/view/${snapshot.id}/320?mode=diff`);
+    // let snapshot = this.comparisons.differentNoMobile.headSnapshot;
+    // visit(`/${project.fullSlug}/builds/${this.build.id}/view/${snapshot.id}/320?mode=diff`);
+    BuildPageObject.visitFullPageSnapshot(
+      Object.assign(urlParams, {
+        width: noDiffsSnapshot.comparisons.models[0].width,
+        mode: 'diff',
+      }),
+    );
+
     andThen(() => {
-      expect(find('[data-test-comparison-mode-switcher]').css('visibility')).to.equal('hidden');
+      expect(BuildPageObject.snapshotFullscreen.isComparisonModeSwitcherVisible).to.equal(false);
+      // expect(find('[data-test-comparison-mode-switcher]').css('visibility')).to.equal('hidden');
     });
   });
 
-  // TODO full view
+  // TODO move to integration test
   it.skip('shows "New" comparison mode controls in full view if snapshot is new', function() {
     let snapshot = this.comparisons.wasAdded.headSnapshot;
 
@@ -388,40 +427,29 @@ describe('Acceptance: Build', function() {
     });
   });
 
-  // FULL VIEW
-  it.skip('toggles between old/diff/new comparisons when interacting with comparison mode switcher', function() { // eslint-disable-line
-    let originalModeButton;
-    let diffModeButton;
-    let newModeButton;
+  it('toggles between old/diff/new comparisons when interacting with comparison mode switcher', function() { // eslint-disable-line
+    BuildPageObject.visitFullPageSnapshot(urlParams);
 
-    const snapshot = this.comparisons.different.headSnapshot;
-    visit(`/${this.project.fullSlug}/builds/${this.build.id}/view/${snapshot.id}/1280?mode=diff`);
+    BuildPageObject.snapshotFullscreen.clickBaseComparisonMode();
 
     andThen(() => {
-      originalModeButton = find('[data-test-comparison-mode-switcher] button:contains(Original)');
-      diffModeButton = find('[data-test-comparison-mode-switcher] button:contains(Diff)');
-      newModeButton = find('[data-test-comparison-mode-switcher] button:contains(New)');
-
-      click(originalModeButton);
-    });
-
-    andThen(() => {
-      expect(find('[data-test-snapshotviewerfull-comparison-viewer] img').attr('src')).to.equal(
+      expect(BuildPageObject.snapshotFullscreen.comparisonImageUrl).to.equal(
         '/images/test/bs-base.png',
       );
-
-      click(newModeButton);
     });
 
+    BuildPageObject.snapshotFullscreen.clickHeadComparisonMode();
+
     andThen(() => {
-      expect(find('[data-test-snapshotviewerfull-comparison-viewer] img').attr('src')).to.equal(
+      expect(BuildPageObject.snapshotFullscreen.comparisonImageUrl).to.equal(
         '/images/test/bs-head.png',
       );
-      click(diffModeButton);
     });
 
+    BuildPageObject.snapshotFullscreen.clickDiffComparisonMode();
+
     andThen(() => {
-      expect(find('[data-test-snapshotviewerfull-comparison-viewer] img').attr('src')).to.equal(
+      expect(BuildPageObject.snapshotFullscreen.diffImageUrl).to.equal(
         '/images/test/bs-pdiff-base-head.png',
       );
     });

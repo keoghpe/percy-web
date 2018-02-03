@@ -7,6 +7,7 @@ import {
   triggerable,
 } from 'ember-cli-page-object';
 import {SnapshotViewer} from 'percy-web/tests/pages/components/snapshot-viewer';
+import {SnapshotViewerFull} from 'percy-web/tests/pages/components/snapshot-viewer-full';
 
 const DOWN_ARROW_KEY = 40;
 const UP_ARROW_KEY = 38;
@@ -21,6 +22,9 @@ const SELECTORS = {
 const BuildPage = {
   visitProject: visitable('/:orgSlug/:projectSlug'),
   visitBuild: visitable('/:orgSlug/:projectSlug/builds/:buildId'),
+  visitFullPageSnapshot: visitable(
+    '/:orgSlug/:projectSlug/builds/:buildId/view/:snapshotId/:width',
+  ),
 
   isNoDiffsPanelVisible: isVisible(SELECTORS.NO_DIFFS_PANEL),
   clickToggleNoDiffsSection: clickable(SELECTORS.NO_DIFFS_PANEL),
@@ -59,6 +63,9 @@ const BuildPage = {
   typeUpArrow: triggerable('keydown', SELECTORS.SNAPSHOT_LIST, {
     eventProperties: {keyCode: UP_ARROW_KEY},
   }),
+
+  snapshotFullscreen: SnapshotViewerFull,
+  isFullscreenModalVisible: isVisible(SELECTORS.SNAPSHOT_FULL_MODAL),
 };
 
 export const FullScreenDiff = {
