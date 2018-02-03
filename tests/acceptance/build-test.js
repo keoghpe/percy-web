@@ -160,26 +160,12 @@ describe('Acceptance: Build', function() {
     };
   });
 
-  // TODO move this out of this test
-  it.skip('shows as finished', function() {
-    visit(`/${this.project.fullSlug}`);
-    andThen(() => {
-      expect(currentPath()).to.equal('organization.project.index');
-    });
-    percySnapshot(this.test.fullTitle() + ' on the project page');
-
-    click('[data-test-build-state]');
-    andThen(() => {
-      expect(currentPath()).to.equal('organization.project.builds.build.index');
-    });
-    percySnapshot(this.test.fullTitle() + ' on the build page');
-
-    click('#BuildInfo');
-
-    percySnapshot(this.test.fullTitle() + ' on the build page with build info open');
-  });
-
   // TODO: test number of snapshots, expanded, actionable status for all
+  it('shows build overview info dropdown', function() {
+    BuildPageObject.visitBuild(urlParams);
+    BuildPageObject.toggleBuildInfoDropdown();
+    percySnapshot(this.test.fullTitle());
+  });
 
   it('toggles the image and pdiff', function() {
     let snapshot;

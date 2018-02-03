@@ -16,6 +16,7 @@ const SELECTORS = {
   BUILD_LIST: '[data-test-project-container-build-list]',
   NO_DIFFS_PANEL: '[data-test-toggle-no-diffs]',
   SNAPSHOT_LIST: '[data-test-snapshotList]',
+  BUILD_INFO_DROPDOWN_TOGGLE: '[data-test-build-info-dropdown-toggle]',
 };
 
 // TODO snapshot-list page object?
@@ -25,6 +26,8 @@ const BuildPage = {
   visitFullPageSnapshot: visitable(
     '/:orgSlug/:projectSlug/builds/:buildId/view/:snapshotId/:width',
   ),
+
+  toggleBuildInfoDropdown: clickable(SELECTORS.BUILD_INFO_DROPDOWN_TOGGLE),
 
   isNoDiffsPanelVisible: isVisible(SELECTORS.NO_DIFFS_PANEL),
   clickToggleNoDiffsSection: clickable(SELECTORS.NO_DIFFS_PANEL),
@@ -67,12 +70,5 @@ const BuildPage = {
   snapshotFullscreen: SnapshotViewerFull,
   isFullscreenModalVisible: isVisible(SELECTORS.SNAPSHOT_FULL_MODAL),
 };
-
-export const FullScreenDiff = {
-  visitSnapshotDiff: visitable('/:orgSlug/:projectSlug/builds/:buildId/view/:snapshotId/:width'),
-  snapshot: SnapshotViewer,
-};
-
-export const FullScreenDiffPage = create(FullScreenDiff);
 
 export default create(BuildPage);
