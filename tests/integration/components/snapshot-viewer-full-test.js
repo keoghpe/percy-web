@@ -7,7 +7,7 @@ import {percySnapshot} from 'ember-percy';
 import hbs from 'htmlbars-inline-precompile';
 import {make, makeList, manualSetup} from 'ember-data-factory-guy';
 import sinon from 'sinon';
-import SnapshotViewerPO from 'percy-web/tests/pages/components/snapshot-viewer';
+import SnapshotViewerPO from 'percy-web/tests/pages/components/snapshot-viewer-full';
 
 describe('Integration: SnapshotViewerFull', function() {
   setupComponentTest('snapshot-viewer-full', {

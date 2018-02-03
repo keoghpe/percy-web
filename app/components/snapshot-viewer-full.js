@@ -8,6 +8,8 @@ export default Component.extend({
   comparisonMode: null,
   snapshotId: null,
   galleryMap: ['base', 'diff', 'head'],
+  attributeBindings: ['data-test-snapshotViewerFull'],
+  'data-test-snapshotViewerFull': true,
 
   galleryIndex: computed('comparisonMode', function() {
     return this.get('galleryMap').indexOf(this.get('comparisonMode'));
