@@ -41,7 +41,7 @@ export default Factory.extend({
       const diffRatio = NO_DIFF_RATIO;
       const headScreenshot = server.create('screenshot', 'head');
       const baseScreenshot = server.create('screenshot', 'base');
-      const diffImage = server.create('image', 'randoImage');
+      const diffImage = server.create('image', 'noDiffImage');
 
       comparison.update({
         diffRatio,
@@ -69,118 +69,4 @@ export default Factory.extend({
       });
     },
   }),
-
-  // different: trait({
-  //   afterCreate(comparison, server) {
-  //     const diffRatio = LOW_DIFF_RATIO;
-  //     const headScreenshot = server.create('screenshot', 'head');
-  //     const baseScreenshot = server.create('screenshot', 'base');
-  //     const diffImage = server.create('image', 'diffImage');
-
-  //     comparison.update({
-  //       diffRatio,
-  //       headScreenshot,
-  //       baseScreenshot,
-  //       diffImage,
-  //     });
-  //   },
-  // }),
-
-  // gotLonger: trait({
-  //   afterCreate(comparison, server) {
-  //     const headScreenshot = server.create('screenshot', 'headLong');
-  //     const baseScreenshot = server.create('screenshot', 'baseLong');
-  //     const diffImage = server.create('image', 'diffImageLong');
-
-  //     comparison.update({
-  //       headScreenshot,
-  //       baseScreenshot,
-  //       diffImage,
-  //     });
-  //   },
-  // }),
-
-  // gotShorter: trait({
-  //   afterCreate(comparison, server) {
-  //     const headScreenshot = server.create('screenshot', 'base');
-  //     const baseScreenshot = server.create('screenshot', 'headLong');
-  //     const diffImage = server.create('image', 'diffImageLong');
-
-  //     comparison.update({
-  //       headScreenshot,
-  //       baseScreenshot,
-  //       diffImage,
-  //     });
-  //   },
-  // }),
-
-  // wasAdded: trait({
-  //   afterCreate(comparison, server) {
-  //     comparison = conditionallyAddHeadSnapshot(comparison, server);
-  //     const headScreenshot = comparison.headScreenshot || server.create('screenshot', 'head');
-  //     const baseScreenshot = null;
-
-  //     comparison.update({
-  //       headScreenshot,
-  //       baseScreenshot,
-  //     });
-  //   },
-  // }),
-
-  // wasRemoved: trait({
-  //   afterCreate(comparison, server) {
-  //     const headScreenshot = null;
-  //     const baseScreenshot = comparison.baseSnapshot || server.create('screenshot', 'base');
-
-  //     comparison.update({
-  //       headScreenshot,
-  //       baseScreenshot,
-  //     });
-  //   },
-  // }),
-
-  // differentNoMobile: trait({
-  //   afterCreate(comparison, server) {
-  //     const diffRatio = LOW_DIFF_RATIO;
-  //     const headScreenshot = server.create('screenshot', 'head');
-  //     const baseScreenshot = server.create('screenshot', 'base');
-  //     const diffImage = server.create('image', 'diffImage');
-
-  //     comparison.update({
-  //       diffRatio,
-  //       headScreenshot,
-  //       baseScreenshot,
-  //       diffImage,
-  //     });
-  //   },
-  // }),
-
-  // mobileAdded: trait({
-  //   afterCreate(comparison, server) {
-  //     const width = 320;
-  //     const headScreenshot = server.create('screenshot', 'mobileHead');
-  //     const baseScreenshot = null;
-
-  //     comparison.update({
-  //       width,
-  //       headScreenshot,
-  //       baseScreenshot,
-  //     });
-  //   },
-  // }),
-
-  // mobileRemoved: trait({
-  //   afterCreate(comparison, server) {
-  //     const width = 320;
-  //     const headScreenshot = null;
-  //     const baseScreenshot = comparison.baseSnapshot ||
-  //       server.create('screenshot', 'mobileBase');
-
-  //     comparison.update({
-  //       width,
-  //       headScreenshot,
-  //       baseScreenshot,
-  //     });
-  //   },
-  // }),
 });

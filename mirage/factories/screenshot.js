@@ -30,24 +30,6 @@ export default Factory.extend({
     },
   }),
 
-  headLong: trait({
-    afterCreate(screenshot, server) {
-      const image = server.create('image', 'headScreenshotLongImage');
-      const lossyImage = server.create('image', 'headLossyScreenshotLongImage');
-
-      screenshot.update({image, lossyImage});
-    },
-  }),
-
-  baseLong: trait({
-    afterCreate(screenshot, server) {
-      const image = server.create('image', 'baseScreenshotImage');
-      const lossyImage = server.create('image', 'baseLossyScreenshotImage');
-
-      screenshot.update({image, lossyImage});
-    },
-  }),
-
   mobileHead: trait({
     afterCreate(screenshot, server) {
       const image = server.create('image', 'mobileHead');
