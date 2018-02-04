@@ -17,6 +17,7 @@ const SELECTORS = {
   NO_DIFFS_PANEL: '[data-test-toggle-no-diffs]',
   SNAPSHOT_LIST: '[data-test-snapshotList]',
   BUILD_INFO_DROPDOWN_TOGGLE: '[data-test-build-info-dropdown-toggle]',
+  SHOW_SUPPORT_LINK: '[data-test-build-overview-show-support]',
 };
 
 // TODO snapshot-list page object?
@@ -69,6 +70,8 @@ const BuildPage = {
 
   snapshotFullscreen: SnapshotViewerFull,
   isFullscreenModalVisible: isVisible(SELECTORS.SNAPSHOT_FULL_MODAL),
+
+  clickShowSupportLink: clickable(SELECTORS.SHOW_SUPPORT_LINK),
 };
 
 export default create(BuildPage);

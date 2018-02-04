@@ -163,9 +163,8 @@ describe('Acceptance: Project', function() {
       percySnapshot(this.test);
     });
 
-    it('shows as finished', function() {
+    it('navigates to build page after clicking build', function() {
       ProjectPageObject.visitProject(urlParams);
-      percySnapshot(this.test.fullTitle() + ' on the project page');
 
       andThen(() => {
         expect(currentPath()).to.equal('organization.project.index');

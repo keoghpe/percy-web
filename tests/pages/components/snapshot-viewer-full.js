@@ -1,4 +1,4 @@
-import {create, attribute, triggerable, clickable, isVisible} from 'ember-cli-page-object';
+import {create, attribute, triggerable, clickable} from 'ember-cli-page-object';
 import {SnapshotViewerHeader} from 'percy-web/tests/pages/components/snapshot-viewer-header';
 import {alias} from 'ember-cli-page-object/macros';
 
@@ -41,7 +41,8 @@ export const SnapshotViewerFull = {
 
   clickComparisonViewer: clickable(SELECTORS.COMPARISON_VIEWER),
 
-  isComparisonModeSwitcherVisible: isVisible(SELECTORS.COMPARISON_MODE_SWITCHER),
+  isComparisonModeSwitcherVisible: alias('header.isComparisonModeSwitcherVisible'),
+  isNewComparisonModeButtonVisible: alias('header.isNewComparisonModeButtonVisible'),
 };
 
 export default create(SnapshotViewerFull);

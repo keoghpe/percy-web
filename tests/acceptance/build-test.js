@@ -8,6 +8,7 @@ import BuildPageObject from 'percy-web/tests/pages/build-page';
 describe('Acceptance: Pending Build', function() {
   freezeMoment('2018-05-22');
   setupAcceptance();
+  let urlParams;
 
   setupSession(function(server) {
     let organization = server.create('organization', 'withUser');
@@ -17,24 +18,22 @@ describe('Acceptance: Pending Build', function() {
       createdAt: moment().subtract(2, 'minutes'),
       state: 'pending',
     });
-    this.project = project;
-    this.build = build;
+
+    urlParams = {
+      orgSlug: organization.slug,
+      projectSlug: project.slug,
+      buildId: build.id,
+    };
   });
 
   it('shows as pending', function() {
-    visit(`/${this.project.fullSlug}`);
-    andThen(() => {
-      expect(currentPath()).to.equal('organization.project.index');
-    });
-    percySnapshot(this.test.fullTitle() + ' on the project page');
-
-    click('[data-test-build-state]');
+    BuildPageObject.visitBuild(urlParams);
     andThen(() => {
       expect(currentPath()).to.equal('organization.project.builds.build.index');
     });
     percySnapshot(this.test.fullTitle() + ' on the build page');
 
-    click('#BuildInfo');
+    BuildPageObject.toggleBuildInfoDropdown();
 
     percySnapshot(this.test.fullTitle() + ' on the build page with build info open');
   });
@@ -43,6 +42,7 @@ describe('Acceptance: Pending Build', function() {
 describe('Acceptance: Processing Build', function() {
   freezeMoment('2018-05-22');
   setupAcceptance();
+  let urlParams;
 
   setupSession(function(server) {
     let organization = server.create('organization', 'withUser');
@@ -52,24 +52,22 @@ describe('Acceptance: Processing Build', function() {
       createdAt: moment().subtract(2, 'minutes'),
       state: 'processing',
     });
-    this.project = project;
-    this.build = build;
+
+    urlParams = {
+      orgSlug: organization.slug,
+      projectSlug: project.slug,
+      buildId: build.id,
+    };
   });
 
   it('shows as processing', function() {
-    visit(`/${this.project.fullSlug}`);
-    andThen(() => {
-      expect(currentPath()).to.equal('organization.project.index');
-    });
-    percySnapshot(this.test.fullTitle() + ' on the project page');
-
-    click('[data-test-build-state]');
+    BuildPageObject.visitBuild(urlParams);
     andThen(() => {
       expect(currentPath()).to.equal('organization.project.builds.build.index');
     });
     percySnapshot(this.test.fullTitle() + ' on the build page');
 
-    click('#BuildInfo');
+    BuildPageObject.toggleBuildInfoDropdown();
 
     percySnapshot(this.test.fullTitle() + ' on the build page with build info open');
   });
@@ -78,6 +76,7 @@ describe('Acceptance: Processing Build', function() {
 describe('Acceptance: Failed Build', function() {
   freezeMoment('2018-05-22');
   setupAcceptance();
+  let urlParams;
 
   setupSession(function(server) {
     let organization = server.create('organization', 'withUser');
@@ -88,30 +87,29 @@ describe('Acceptance: Failed Build', function() {
       state: 'failed',
       failureReason: 'render_timeout',
     });
-    this.project = project;
-    this.build = build;
+
+    urlParams = {
+      orgSlug: organization.slug,
+      projectSlug: project.slug,
+      buildId: build.id,
+    };
   });
 
   it('shows as failed', function() {
-    visit(`/${this.project.fullSlug}`);
-    andThen(() => {
-      expect(currentPath()).to.equal('organization.project.index');
-    });
-    percySnapshot(this.test.fullTitle() + ' on the project page');
+    BuildPageObject.visitBuild(urlParams);
 
-    click('[data-test-build-state]');
     andThen(() => {
       expect(currentPath()).to.equal('organization.project.builds.build.index');
     });
     percySnapshot(this.test.fullTitle() + ' on the build page');
 
-    click('#BuildInfo');
+    BuildPageObject.toggleBuildInfoDropdown();
 
     percySnapshot(this.test.fullTitle() + ' on the build page with build info open');
 
     window.Intercom = sinon.stub();
 
-    click('[data-test-build-overview-show-support]');
+    BuildPageObject.clickShowSupportLink();
     andThen(() => {
       expect(window.Intercom).to.have.been.calledWith('show');
     });
@@ -122,7 +120,6 @@ describe('Acceptance: Build', function() {
   freezeMoment('2018-05-22');
   setupAcceptance();
 
-  // TODO do these need to be globally scoped?
   let project;
   let defaultSnapshot;
   let noDiffsSnapshot;
@@ -334,7 +331,6 @@ describe('Acceptance: Fullscreen Snapshot', function() {
 
   let project;
   let snapshot;
-  let noDiffsSnapshot;
   let urlParams;
 
   setupSession(function(server) {
@@ -346,7 +342,6 @@ describe('Acceptance: Fullscreen Snapshot', function() {
       finishedAt: moment().subtract(5, 'seconds'),
     });
     snapshot = server.create('snapshot', 'withComparison', {build});
-    noDiffsSnapshot = server.create('snapshot', 'noDiffs');
 
     urlParams = {
       orgSlug: organization.slug,
@@ -382,34 +377,6 @@ describe('Acceptance: Fullscreen Snapshot', function() {
     andThen(() => {
       expect(currentPath()).to.equal('organization.project.builds.build.index');
       expect(BuildPageObject.snapshotFullscreen.isVisible).to.equal(false);
-    });
-  });
-
-  // TODO: move this to integration test
-  it.skip('hides comparison mode controls in full view if no snapshot taken', function() {
-    // let snapshot = this.comparisons.differentNoMobile.headSnapshot;
-    // visit(`/${project.fullSlug}/builds/${this.build.id}/view/${snapshot.id}/320?mode=diff`);
-    BuildPageObject.visitFullPageSnapshot(
-      Object.assign(urlParams, {
-        width: noDiffsSnapshot.comparisons.models[0].width,
-        mode: 'diff',
-      }),
-    );
-
-    andThen(() => {
-      expect(BuildPageObject.snapshotFullscreen.isComparisonModeSwitcherVisible).to.equal(false);
-      // expect(find('[data-test-comparison-mode-switcher]').css('visibility')).to.equal('hidden');
-    });
-  });
-
-  // TODO move to integration test
-  it.skip('shows "New" comparison mode controls in full view if snapshot is new', function() {
-    let snapshot = this.comparisons.wasAdded.headSnapshot;
-
-    visit(`/${this.project.fullSlug}/builds/${this.build.id}/view/${snapshot.id}/1280?mode=diff`);
-    andThen(() => {
-      expect(find('[data-test-comparison-mode-switcher] button').length).to.equal(1);
-      expect(find('[data-test-comparison-mode-switcher] button').text()).to.equal('New Snapshot');
     });
   });
 

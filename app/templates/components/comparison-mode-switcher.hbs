@@ -1,7 +1,7 @@
 <div class="btn-group" data-test-comparison-mode-switcher role="group" aria-label="Snapshot Comparison Switcher">
   {{#if wasAdded}}
     <button type="button" class="btn is-active"
-      {{action updateComparisonMode 'head'}}>New Snapshot</button>
+      {{action updateComparisonMode 'head'}} data-test-ComparisonModeSwitcher-new>New Snapshot</button>
   {{else}}
     <button type="button" class="btn {{if (eq comparisonMode 'base') 'is-active'}}"
       {{action updateComparisonMode 'base'}} data-test-ComparisonModeSwitcher-base>Original</button>

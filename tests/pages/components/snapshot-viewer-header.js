@@ -1,4 +1,12 @@
-import {create, clickable, isVisible, hasClass, text, collection} from 'ember-cli-page-object';
+import {
+  create,
+  clickable,
+  isVisible,
+  hasClass,
+  text,
+  collection,
+  isPresent,
+} from 'ember-cli-page-object';
 
 const SELECTORS = {
   HEADER: '[data-test-SnapshotViewer-header]',
@@ -11,6 +19,7 @@ const SELECTORS = {
   COMPARISON_MODE_SWITCHER_BASE: '[data-test-ComparisonModeSwitcher-base]',
   COMPARISON_MODE_SWITCHER_DIFF: '[data-test-ComparisonModeSwitcher-diff]',
   COMPARISON_MODE_SWITCHER_HEAD: '[data-test-ComparisonModeSwitcher-head]',
+  COMPARISON_MODE_SWITCHER_NEW: '[data-test-ComparisonModeSwitcher-new]',
 };
 
 export const SnapshotViewerHeader = {
@@ -18,7 +27,12 @@ export const SnapshotViewerHeader = {
   isTitleVisible: isVisible(SELECTORS.TITLE),
   titleText: text(SELECTORS.TITLE),
 
-  isComparisonModeSwitcherVisible: isVisible(SELECTORS.COMPARISON_MODE_SWITCHER),
+  isComparisonModeSwitcherVisible: {
+    isDescriptor: true,
+    get() {
+      return this._isComparisonModeSwitcherPresent && !this._isComparisonModeSwitcherInvisible;
+    },
+  },
 
   isWidthSwitcherVisible: isVisible(SELECTORS.WIDTH_SWITCHER),
 
@@ -39,6 +53,14 @@ export const SnapshotViewerHeader = {
   clickBaseComparisonMode: clickable(SELECTORS.COMPARISON_MODE_SWITCHER_BASE),
   clickDiffComparisonMode: clickable(SELECTORS.COMPARISON_MODE_SWITCHER_DIFF),
   clickHeadComparisonMode: clickable(SELECTORS.COMPARISON_MODE_SWITCHER_HEAD),
+
+  isBaseComparisonModeButtonVisible: isVisible(SELECTORS.COMPARISON_MODE_SWITCHER_BASE),
+  isDiffComparisonModeButtonVisible: isVisible(SELECTORS.COMPARISON_MODE_SWITCHER_DIFF),
+  isHeadComparisonModeButtonVisible: isVisible(SELECTORS.COMPARISON_MODE_SWITCHER_HEAD),
+  isNewComparisonModeButtonVisible: isVisible(SELECTORS.COMPARISON_MODE_SWITCHER_NEW),
+
+  _isComparisonModeSwitcherPresent: isPresent(SELECTORS.COMPARISON_MODE_SWITCHER),
+  _isComparisonModeSwitcherInvisible: hasClass('is-invisible', SELECTORS.COMPARISON_MODE_SWITCHER),
 };
 
 export default create(SnapshotViewerHeader);
