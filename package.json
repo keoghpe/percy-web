@@ -85,7 +85,7 @@
     "ember-tether": "^1.0.0-beta.0",
     "ember-truth-helpers": "^2.0.0",
     "ember-watson": "^0.9.1",
-    "eslint": "^4.16.0",
+    "eslint": "^4.17.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "glob": "^7.1.2",
