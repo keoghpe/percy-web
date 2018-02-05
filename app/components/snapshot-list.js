@@ -7,6 +7,8 @@ import Component from '@ember/component';
 
 export default Component.extend({
   classNames: ['SnapshotList'],
+  attributeBindings: ['data-test-snapshot-list'],
+  'data-test-snapshot-list': true,
 
   activeSnapshotId: null,
   buildContainerSelectedWidth: null,

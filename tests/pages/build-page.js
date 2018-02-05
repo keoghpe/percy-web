@@ -1,13 +1,7 @@
-import {
-  visitable,
-  collection,
-  create,
-  clickable,
-  isVisible,
-  triggerable,
-} from 'ember-cli-page-object';
-import {SnapshotViewer} from 'percy-web/tests/pages/components/snapshot-viewer';
+import {visitable, create, clickable, isVisible, triggerable} from 'ember-cli-page-object';
 import {SnapshotViewerFull} from 'percy-web/tests/pages/components/snapshot-viewer-full';
+import {SnapshotList} from 'percy-web/tests/pages/components/snapshot-list';
+import {alias} from 'ember-cli-page-object/macros';
 
 const DOWN_ARROW_KEY = 40;
 const UP_ARROW_KEY = 38;
@@ -20,7 +14,6 @@ const SELECTORS = {
   SHOW_SUPPORT_LINK: '[data-test-build-overview-show-support]',
 };
 
-// TODO snapshot-list page object?
 const BuildPage = {
   visitBuild: visitable('/:orgSlug/:projectSlug/builds/:buildId'),
   visitFullPageSnapshot: visitable(
@@ -32,10 +25,8 @@ const BuildPage = {
   isNoDiffsPanelVisible: isVisible(SELECTORS.NO_DIFFS_PANEL),
   clickToggleNoDiffsSection: clickable(SELECTORS.NO_DIFFS_PANEL),
 
-  snapshots: collection({
-    itemScope: SnapshotViewer.scope,
-    item: SnapshotViewer,
-  }),
+  snapshotList: SnapshotList,
+  snapshots: alias('snapshotList.snapshots'),
 
   snapshotTitles: {
     isDescriptor: true,
