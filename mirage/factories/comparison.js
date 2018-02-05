@@ -55,14 +55,12 @@ export default Factory.extend({
   mobile: trait({
     afterCreate(comparison, server) {
       const width = 320;
-      const diffRatio = 0.32;
       const headScreenshot = server.create('screenshot', 'mobileHead');
       const baseScreenshot = server.create('screenshot', 'mobileBase');
       const diffImage = server.create('image', 'mobileDiff');
 
       comparison.update({
         width,
-        diffRatio,
         headScreenshot,
         baseScreenshot,
         diffImage,
