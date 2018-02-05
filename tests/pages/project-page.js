@@ -1,10 +1,8 @@
-import {visitable, collection, create, hasClass} from 'ember-cli-page-object';
+import {visitable, collection, create} from 'ember-cli-page-object';
+import {BuildCard} from 'percy-web/tests/pages/components/build-card';
 
 const SELECTORS = {
   PROJECT_CONTAINER: '[data-test-project-container]',
-  BUILD_CARD: '[data-test-build-card]',
-  // TODO: goes in build-card page object
-  BUILD_STATE: '[data-test-build-state]',
 };
 
 const ProjectPage = {
@@ -13,11 +11,8 @@ const ProjectPage = {
   visitProject: visitable('/:orgSlug/:projectSlug'),
 
   builds: collection({
-    itemScope: SELECTORS.BUILD_CARD,
-    // TODO make build-card page object
-    item: {
-      isFinished: hasClass('is-finished'),
-    },
+    itemScope: BuildCard.scope,
+    item: BuildCard,
   }),
 
   finishedBuilds: {
