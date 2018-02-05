@@ -14,7 +14,7 @@ const SELECTORS = {
   COMPARISON_VIEWER: '[data-test-SnapshotViewerFull-comparison-viewer]',
   COMPARISON_IMAGE: '[data-test-SnapshotViewerFull-comparison-viewer] img',
   COMPARISON_MODE_SWITCHER: '[data-test-comparison-mode-switcher]',
-  DIFF_IMAGE: '.pdiffImageOverlay img',
+  DIFF_IMAGE: '[data-test-comparison-viewer-full-diff-image-overlay] img',
   DIFF_IMAGE_BOX: '[data-test-ComparisonViewer-diffImageBox] img',
 };
 

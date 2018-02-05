@@ -22,7 +22,6 @@ const SELECTORS = {
 
 // TODO snapshot-list page object?
 const BuildPage = {
-  visitProject: visitable('/:orgSlug/:projectSlug'),
   visitBuild: visitable('/:orgSlug/:projectSlug/builds/:buildId'),
   visitFullPageSnapshot: visitable(
     '/:orgSlug/:projectSlug/builds/:buildId/view/:snapshotId/:width',

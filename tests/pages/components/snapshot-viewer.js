@@ -4,7 +4,7 @@ import {alias} from 'ember-cli-page-object/macros';
 
 const SELECTORS = {
   SNAPSHOT_VIEWER: '[data-test-SnapshotViewer]',
-  DIFF_IMAGE: '.pdiffImageOverlay img',
+  DIFF_IMAGE: '[data-test-comparison-viewer-full-diff-image-overlay] img',
   DIFF_IMAGE_BOX: '[data-test-ComparisonViewer-diffImageBox] img',
   NO_DIFF_BOX: '[data-test-comparisonViewer-noDiffBox]',
 };

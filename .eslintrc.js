@@ -32,6 +32,8 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
   },
   overrides: {
+    // chai uses some expressions like `to.be.ok` which are valid syntax
+    // but get caught by this rule.
     files: '*-test.js',
     rules: {
       "no-unused-expressions": 'off'

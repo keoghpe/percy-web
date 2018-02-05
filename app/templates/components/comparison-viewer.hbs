@@ -14,7 +14,7 @@
             {{image-spacer action=(action "toggleOverlay") bubbles=false image=lossyImage imageClass="ComparisonViewer-pdiffImage ComparisonViewer-pdiffImage--actionable"}}
             {{#if isOverlayEnabled}}
               {{#with comparison.diffImage as |diffImage|}}
-                <div class="pdiffImageOverlay">
+                <div class="pdiffImageOverlay" data-test-comparison-viewer-full-diff-image-overlay>
                   {{image-spacer action=(action "toggleOverlay") bubbles=false image=diffImage imageClass="Viewer-pdiffImageOverlay"}}
                 </div>
               {{/with}}
