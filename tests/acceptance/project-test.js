@@ -3,7 +3,7 @@ import freezeMoment from '../helpers/freeze-moment';
 import moment from 'moment';
 import ProjectPageObject from 'percy-web/tests/pages/project-page';
 
-describe('Acceptance: Project', function() {
+describe('Acceptance: Projectsss', function() {
   setupAcceptance();
 
   context('organization has no projects', function() {
@@ -174,7 +174,7 @@ describe('Acceptance: Project', function() {
       andThen(() => {
         expect(currentPath()).to.equal('organization.project.builds.build.index');
       });
-      percySnapshot(this.test.fullTitle() + ' on the build page');
+      percySnapshot(this.test.fullTitle());
     });
   });
 });

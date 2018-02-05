@@ -260,14 +260,14 @@ describe('Acceptance: Build', function() {
   });
 
   it('jumps to snapshot for query params', function() {
-    BuildPageObject.visitBuild(Object.assign(urlParams, {snapshot: defaultSnapshot.id}));
+    BuildPageObject.visitBuild(Object.assign(urlParams, {snapshot: twoWidthsSnapshot.id}));
 
     andThen(() => {
       const focusedSnapshot = BuildPageObject.focusedSnapshot();
 
       expect(currentPath()).to.equal('organization.project.builds.build.index');
       expect(focusedSnapshot.isFocused).to.equal(true);
-      expect(focusedSnapshot.name).to.equal(defaultSnapshot.name);
+      expect(focusedSnapshot.name).to.equal(twoWidthsSnapshot.name);
     });
 
     percySnapshot(this.test.fullTitle());
@@ -281,6 +281,8 @@ describe('Acceptance: Build', function() {
       expect(focusedSnapshot.name).to.equal(noDiffsSnapshot.name);
       expect(focusedSnapshot.isExpanded).to.equal(true);
     });
+
+    percySnapshot(this.test.fullTitle());
   });
 
   it('shows and hides unchanged diffs', function() {
