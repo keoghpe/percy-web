@@ -87,7 +87,7 @@
     "ember-watson": "^0.9.1",
     "eslint": "^4.16.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.5.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "glob": "^7.1.2",
     "http-proxy": "^1.16.2",
     "husky": "^0.14.3",
