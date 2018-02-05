@@ -49,7 +49,7 @@
     "ember-cli-htmlbars-inline-precompile": "^1.0.2",
     "ember-cli-inject-live-reload": "^1.7.0",
     "ember-cli-mirage": "0.3.3",
-    "ember-cli-mocha": "^0.14.4",
+    "ember-cli-mocha": "^0.15.0",
     "ember-cli-moment-shim": "^3.4.0",
     "ember-cli-page-object": "^1.13.0",
     "ember-cli-sass": "^7.1.1",
