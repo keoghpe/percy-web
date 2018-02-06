@@ -49,7 +49,7 @@
     {{/if}}
     {{#if (eq build.failureReason 'render_timeout')}}
       <p>Some snapshots in this build took too long to render even after multiple retries.</p>
-      <p>This can happen in rare cases when a page loads an asset that takes too long and hangs the Percy renderer. We have automatically recorded this error and will look into it, but feel free to <a href="#" {{action "showSupport"}}>reach out</a> and we can help get this fixed.</p>
+      <p>This can happen in rare cases when a page loads an asset that takes too long and hangs the Percy renderer. We have automatically recorded this error and will look into it, but feel free to <a href="#" {{action showSupport}} data-test-build-overview-show-support>reach out</a> and we can help get this fixed.</p>
     {{/if}}
   {{else if build.isExpired}}
     {{#if build.project.isEnabled}}

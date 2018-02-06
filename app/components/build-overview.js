@@ -16,4 +16,6 @@ export default Component.extend({
     'build.isApproved:BuildOverview--approved',
     'build.hasDiffs:BuildOverview--hasDiffs',
   ],
+
+  showSupport() {},
 });

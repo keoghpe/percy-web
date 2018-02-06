@@ -26,3 +26,16 @@
   --container-lg: var(--width-lg);
   --container-xl: var(--width-xl);
 }
+
+/* for media queries */
+$width-xs: 460px;
+$width-sm: 544px;
+$width-md: 768px;
+$width-lg: 1012px;
+$width-xl: 1280px;
+
+$container-xs: $width-xs !default;
+$container-sm: $width-sm !default;
+$container-md: $width-md !default;
+$container-lg: $width-lg !default;
+$container-xl: $width-xl !default;

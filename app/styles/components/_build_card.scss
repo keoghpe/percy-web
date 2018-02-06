@@ -1,8 +1,8 @@
 .build-card,
 .build-list-header {
   display: grid;
-  grid-gap: var(--spacer-4);
-  padding: 0 var(--spacer-3);
+  grid-gap: var(--spacing-4);
+  padding: 0 var(--spacing-3);
   box-shadow: inset 4px 0 0 var(--status-color, transparent);
 
   @media screen and (min-width: $width-md) {
@@ -26,7 +26,7 @@
 
 .build-card {
   align-items: center;
-  padding: var(--spacer-3) var(--spacer-4);
+  padding: var(--spacing-3) var(--spacing-4);
   background: var(--white);
   transition: box-shadow 250ms;
   grid-template-areas:

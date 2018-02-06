@@ -1,17 +1,17 @@
-<div class="container Header Header--large Header--dark">
+<header class="container Header Header--large Header--dark">
   {{#if session.isAuthenticated}}
-    <div class="flex justify-end pt-1">
+    <div class="flex justify-end pt-2 mb-2">
       {{nav-menu user=session.currentUser}}
     </div>
   {{else}}
-    <div class="flex justify-end pt-2">
+    <div class="flex justify-end pt-2 mb-4">
       {{nav-menu}}
     </div>
   {{/if}}
-  <br clear="all">
-  <img class="Header-logo" src="/images/percy.svg">
-  <h1 class="alt">Percy</h1>
-  <h2>Continuous visual reviews for web apps</h2>
+  <div class="px-4">
+    {{inline-svg "logo-vertical-on-dark" class="scalable-svg mt-4 mb-3"}}
+  </div>
+  <h1 class="f3 text-weight-regular mb-4">Solving visual testing across design, development, and deployment.</h1>
   {{#if session.isAuthenticated}}
     {{goto-app
       redirectToDefaultOrganization="redirectToDefaultOrganization"
@@ -20,7 +20,7 @@
   {{else}}
     {{login-button showLoginModal="showLoginModal"}}
   {{/if}}
-</div>
+</header>
 <div class="container container--marketing InviteContainer">
   Blog: <a href="https://blog.percy.io/turbocharge-your-react-development-with-storybook-and-percy-d9bff19c187e">Turbocharge your React development with Storybook and Percy</a> <sup>new!</sup>
 </div>
@@ -57,7 +57,7 @@
           We believe visual testing is only truly useful for developers if it fits into your day-to-day workflow.
         </p>
         <p>
-          Unlike other services that are limited to only testing staging servers or live sites, <strong>Percy integrates directly into your test suite and development workflow</strong> to provide iterative and fast feedback about visual changes. This is what we mean by <strong>automated visual reviews</strong>.
+          Unlike other services that are limited to only testing staging servers or live sites, <strong>Percy integrates directly into your test suite and development workflow</strong> to provide iterative and fast feedback about visual changes. We call this <strong>continuous visual integration</strong>.
         </p>
         <p>
           Percy runs with your test suite, takes DOM snapshots, and uploads them to our service where they are rendered in a modern browser, stored, and compared to your master branch. We <strong>support most CI services</strong> and custom environments.

@@ -19,7 +19,7 @@
   --f5-size: 14px;
   --f6-size: 12px;
 
-  @media screen and (min-width: var(--width-lg)) {
+  @media screen and (min-width: $width-lg) {
     --f00-size: 48px;
     --f0-size: 40px;
     --f1-size: 32px;

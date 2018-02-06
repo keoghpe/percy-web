@@ -2,6 +2,9 @@ import Component from '@ember/component';
 import PollingMixin from 'percy-web/mixins/polling';
 import {inject as service} from '@ember/service';
 
+export function areInstallationIdsEqual(installationId, otherInstallationId) {
+  return installationId == otherInstallationId;
+}
 export default Component.extend(PollingMixin, {
   installationId: null,
   afterAppInstalled: null,
@@ -16,9 +19,13 @@ export default Component.extend(PollingMixin, {
       .then(orgs => {
         // Attempt to get the organization that matches the installationId
         // This may fail if we haven't received the webhook yet, or a fake param is used
-        let organization = orgs.find(
-          org => org.get('githubIntegration.githubInstallationId') == this.get('installationId'),
-        );
+        let installationId = this.get('installationId');
+        let organization = orgs.find(org => {
+          return areInstallationIdsEqual(
+            org.get('githubIntegration.githubInstallationId'),
+            installationId,
+          );
+        });
 
         if (organization) {
           this.get('afterAppInstalled')(organization);

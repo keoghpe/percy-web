@@ -1,7 +1,7 @@
 {{#unless isDefaultExpanded}}
-  <div class="Alert Alert--warning">
+  <div class="Alert Alert--warning text-center">
     <strong>Whew!</strong> There are too many snapshots to show all at once, so they
-    are collapsed below. <strong>Tip:</strong> use the arrow keys <code>←</code> and <code>➞</code> to move around.
+    are collapsed below. <strong>Tip:</strong> use the arrow keys <code>↓</code> and <code>↑</code> to move around.
   </div>
 {{/unless}}
 {{#each computedSnapshots as |snapshot index|}}
@@ -21,7 +21,14 @@
   }}
 {{/each}}
 {{#if hideNoDiffs}}
-  <div class="HideNoDiffsPanel" {{action "toggleNoDiffSnapshots"}}>
-    {{pluralize noDiffSnapshotsCount "unchanged snapshot"}} for all widths. <span>View all</span>
+  <div class="SnapshotViewer SnapshotViewer--actionable">
+    <div class="SnapshotViewer-header flex align-center justify-center text-weight-bold p-2 mx-2 mb-2 bg-gray-000 rounded border border-gray-100 c-pointer" data-test-hide-no-diffs {{action "toggleNoDiffSnapshots"}}>
+      <figure class="svg-container">
+        {{inline-svg "no-comparison-group-icon" class="mr-1"}}
+      </figure>
+      <div class="text-blue mr-sm">
+        {{pluralize noDiffSnapshotsCount "unchanged snapshot"}} for all widths.
+      </div>
+    </div>
   </div>
 {{/if}}

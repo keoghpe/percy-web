@@ -16,8 +16,7 @@
   "variables/animations",
   "variables/shadows",
   "variables/code",
-  "variables/layout",
-  "variables/typography";
+  "variables/layout";
 
 // Vendor styles
 @import
@@ -33,8 +32,6 @@
   "forms",
   "flash_messages",
   "alerts";
-
-@import "colors/colors";
 
 @import
   "layout/container",
@@ -64,15 +61,11 @@
   "components/build_overview_icon",
   "components/build_started",
   "components/build_state_badge",
-  "components/build_toolbar",
   "components/build_container",
-  "components/comparison_list",
-  "components/comparison_switcher",
   "components/comparison_viewer",
   "components/comparison_viewer_full",
   "components/snapshot_viewer",
   "components/snapshot_viewer_full",
-  "components/snapshot_list",
   "components/svg",
   "components/forms/billing_edit",
   "components/forms/organization_user_edit",
@@ -85,9 +78,7 @@
   "components/mock_approval_flow",
   "components/mock_build_page",
   "components/note",
-  "components/nav_menu",
   "components/organizations/billing_section",
-  "components/organizations/github_bot_integrator",
   "components/organizations/github_integration",
   "components/organizations/github_settings",
   "components/organizations/jump_to_billing",
@@ -103,7 +94,6 @@
   "components/status_indicator",
   "components/status_pill",
   "components/supported_cis_image",
-  "components/sync_repos_section",
   "components/trial_bar",
   "components/user_avatar",
   "components/user_menu";
