@@ -9,7 +9,7 @@ const UP_ARROW_KEY = 38;
 const SELECTORS = {
   BUILD_LIST: '[data-test-project-container-build-list]',
   NO_DIFFS_PANEL: '[data-test-toggle-no-diffs]',
-  SNAPSHOT_LIST: '[data-test-snapshotList]',
+  SNAPSHOT_LIST: '[data-test-snapshot-list]',
   BUILD_INFO_DROPDOWN_TOGGLE: '[data-test-build-info-dropdown-toggle]',
   SHOW_SUPPORT_LINK: '[data-test-build-overview-show-support]',
 };
