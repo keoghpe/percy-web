@@ -7,11 +7,17 @@ FactoryGuy.define('organization', {
     name: () => faker.company.companyName(),
 
     projects: FactoryGuy.hasMany('project'),
-    githubIntegration: FactoryGuy.belongsTo('github-integration'),
+    versionControlIntegrations: FactoryGuy.hasMany('version-control-integration'),
     repos: FactoryGuy.hasMany('repo'),
   },
   traits: {
-    withGithubIntegration: {githubIntegration: () => make('github-integration')},
+    withGithubIntegration: {
+      versionControlIntegrations: () => {
+        // TODO: This will clobber other versionControlIntegrations
+        // When more integrations are added here, fix this to support them
+        return [make('version-control-integration', 'github')];
+      },
+    },
     withRepos: {repos: () => makeList('repo', 3)},
     withProjects: {projects: () => makeList('project', 5)},
   },

@@ -1,41 +1,16 @@
 .SnapshotViewer {
-  position: relative;
-  width: 100%;
-  margin-bottom: 10px;
-  background: var(--lightest-gray);
-  border: var(--lighter-gray-border);
-  border-radius: 3px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  .SnapshotViewer-noComparison {
-    width: 100%;
-    padding: 10px;
-    text-align: center;
-  }
-
-  &.SnapshotViewer--collapsed {
-    margin-top: 0;
-    // Hacky way to make inner borders overlap, plus the z-index in hover.
-    margin-top: -1px;
-    margin-bottom: 0;
-  }
-
   &.SnapshotViewer--actionable {
-    margin-bottom: 10px;
     cursor: pointer;
 
-    &:hover {
-      cursor: pointer;
-      border: var(--lighter-gray-border-hover);
+    &:hover .SnapshotViewer-header {
+      border-color: var(--gray-200) !important;
     }
   }
 }
 
 .SnapshotViewer--focus {
-  border: var(--gray-border);
+  border-top: var(--gray-border);
+  border-bottom: var(--gray-border);
 }
 
 .SnapshotViewer-header {
@@ -60,10 +35,6 @@
   width: 100vw;
   z-index: 1;
   grid-template-columns: 1fr auto 1fr;
-}
-
-.SnapshotViewer-header-controls {
-  display: flex;
 }
 
 .maximize-snapshot {

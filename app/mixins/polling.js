@@ -31,7 +31,10 @@ var Polling = Mixin.create({
 
   pollForUpdatesTask: task(function*() {
     this.set('_numPollRequests', 0);
-    while (this.get('_numPollRequests') < this.get('MAX_UPDATE_POLLING_REQUESTS')) {
+    while (
+      this.get('_numPollRequests') < this.get('MAX_UPDATE_POLLING_REQUESTS') &&
+      this.get('shouldPollForUpdates')
+    ) {
       // don't make requests when the document doesn't have focus
       // but ignore that rule if in testing, since in testing we can't guarantee window focus
       if (document.hasFocus() || Ember.testing) {

@@ -12,7 +12,7 @@ samp {
 }
 
 code {
-  padding: 0 var(--spacer-1);
+  padding: 0 var(--spacing-1);
   color: var(--text-color);
   white-space: nowrap;
   background: var(--gray-100);
@@ -21,7 +21,7 @@ code {
 
 pre > code {
   display: block;
-  padding: var(--spacer-1);
+  padding: var(--spacing-1);
   white-space: pre;
 }
 
@@ -47,36 +47,4 @@ a {
   padding: 2px 8px;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 4px;
-}
-
-.f00 {
-  font-size: var(--f00-size) !important;
-}
-
-.f0 {
-  font-size: var(--f0-size) !important;
-}
-
-.f1 {
-  font-size: var(--f1-size) !important;
-}
-
-.f2 {
-  font-size: var(--f2-size) !important;
-}
-
-.f3 {
-  font-size: var(--f3-size) !important;
-}
-
-.f4 {
-  font-size: var(--f4-size) !important;
-}
-
-.f5 {
-  font-size: var(--f5-size) !important;
-}
-
-.f6 {
-  font-size: var(--f6-size) !important;
 }

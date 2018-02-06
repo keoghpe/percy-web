@@ -1,7 +1,7 @@
 import {JSONAPISerializer} from 'ember-cli-mirage';
 
 export default JSONAPISerializer.extend({
-  include: ['subscription', 'githubIntegration'],
+  include: ['subscription', 'versionControlIntegrations'],
   links(organization) {
     return {
       projects: {

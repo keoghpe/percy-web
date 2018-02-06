@@ -50,11 +50,11 @@ describe('Acceptance: Project', function() {
 
   context('settings', function() {
     let organization;
-    let githubIntegration;
+    let versionControlIntegration;
     let repos;
     setupSession(function(server) {
       organization = server.create('organization', 'withUser');
-      githubIntegration = server.create('githubIntegration');
+      versionControlIntegration = server.create('versionControlIntegration', 'github');
       repos = [server.create('repo'), server.create('repo'), server.create('repo')];
       let enabled = server.create('project', {name: 'Enabled', organization});
       let disabled = server.create('project', {
@@ -84,7 +84,7 @@ describe('Acceptance: Project', function() {
     });
 
     it('displays github integration select menu', function() {
-      organization.update({githubIntegration, repos});
+      organization.update({versionControlIntegrations: [versionControlIntegration], repos});
       andThen(() => {
         visit(`/${this.enabledProject.fullSlug}/settings`);
       });

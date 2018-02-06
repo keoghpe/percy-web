@@ -35,7 +35,7 @@ export default Component.extend(PollingMixin, {
       let integrationRequest = this.get('organization.githubIntegrationRequest');
       integrationRequest.set('_orgForAdapter', this.get('organization'));
       integrationRequest.destroyRecord();
-      this.get('runningTask').cancel();
+      this.get('pollingTask').cancel();
     },
     triggerInstallation() {
       let url = this.get('githubIntegrationUrl');

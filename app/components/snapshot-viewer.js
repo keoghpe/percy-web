@@ -1,12 +1,10 @@
 import {not, alias, notEmpty} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import Component from '@ember/component';
-import {inject as service} from '@ember/service';
 
 export default Component.extend({
   snapshot: null,
-  store: service(),
-  classNames: ['SnapshotViewer'],
+  classNames: ['SnapshotViewer mb-2'],
 
   buildContainerSelectedWidth: null,
   registerChild() {},

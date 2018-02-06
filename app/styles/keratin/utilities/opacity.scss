@@ -1,5 +1,17 @@
+.opacity-1,
+.opacity-75,
+.opacity-50,
+.opacity-25,
+.opacity-0 {
+  transition: opacity 250ms;
+}
+
 .opacity-1 { opacity: 1; }
 .opacity-75 { opacity: 0.75; }
 .opacity-50 { opacity: 0.5; }
 .opacity-25 { opacity: 0.25; }
 .opacity-0 { opacity: 0; }
+
+.opacity-hoverable:hover {
+  opacity: 1;
+}

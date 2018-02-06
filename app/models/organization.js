@@ -5,7 +5,12 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   name: DS.attr(),
   slug: DS.attr(),
-  githubIntegration: DS.belongsTo('github-integration', {async: false}),
+  versionControlIntegrations: DS.hasMany('version-control-integrations', {
+    async: false,
+  }),
+  githubIntegration: computed('versionControlIntegrations.@each.githubIntegrationId', function() {
+    return this.get('versionControlIntegrations').findBy('isGithubIntegration');
+  }),
   githubIntegrationRequest: DS.belongsTo('github-integration-request', {
     async: false,
   }),

@@ -1,9 +1,20 @@
 <div class="container">
   <div class="Header Header--dark flex justify-between align-center">
     <div class="flex align-center">
-      {{#link-to "index"}}
-        <img src="/images/percy.svg" class="Header-logo mr-3">
-      {{/link-to}}
+      {{#if session.isAuthenticated}}
+        {{#link-to "index"}}
+          <figure class="svg-container">
+            {{inline-svg "percy-mascot-on-dark" class="mr-3"}}
+          </figure>
+        {{/link-to}}
+      {{else}}
+        {{#link-to "index"}}
+          <figure class="svg-container">
+            {{inline-svg "percy-full-horizontal-on-dark" class="mr-3"}}
+          </figure>
+        {{/link-to}}
+      {{/if}}
+
       {{#if session.isAuthenticated}}
         {{organizations/switcher-nav currentOrganization=currentOrganization}}
       {{/if}}

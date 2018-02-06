@@ -44,10 +44,7 @@ export default Factory.extend({
 
   withGithubIntegration: trait({
     afterCreate(organization, server) {
-      if (organization.githubIntegration === null) {
-        let githubIntegration = server.create('githubIntegration');
-        organization.update({githubIntegration});
-      }
+      server.create('versionControlIntegration', 'github', {organization});
     },
   }),
 });

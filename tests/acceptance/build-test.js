@@ -1,6 +1,7 @@
 import setupAcceptance, {setupSession} from '../helpers/setup-acceptance';
 import freezeMoment from '../helpers/freeze-moment';
 import moment from 'moment';
+import sinon from 'sinon';
 
 // TODO convert this file to use page objects
 describe('Acceptance: Pending Build', function() {
@@ -106,6 +107,13 @@ describe('Acceptance: Failed Build', function() {
     click('#BuildInfo');
 
     percySnapshot(this.test.fullTitle() + ' on the build page with build info open');
+
+    window.Intercom = sinon.stub();
+
+    click('[data-test-build-overview-show-support]');
+    andThen(() => {
+      expect(window.Intercom).to.have.been.calledWith('show');
+    });
   });
 });
 
@@ -166,7 +174,7 @@ describe('Acceptance: Build', function() {
     });
 
     let comparison = this.comparisons.different;
-    let comparisonSelector = `.SnapshotViewer:has(a[title="${comparison.headSnapshot.name}"])`;
+    let comparisonSelector = `.SnapshotViewer:has([title="${comparison.headSnapshot.name}"])`;
 
     andThen(() => {
       expect(find(`${comparisonSelector} .pdiffImageOverlay img`).length).to.equal(1);
@@ -190,27 +198,27 @@ describe('Acceptance: Build', function() {
   });
 
   it('walk across snapshots with arrow keys', function() {
-    const RightArrowKey = 39;
-    const LeftArrowKey = 37;
+    const DownArrowKey = 40;
+    const UpArrowKey = 38;
     visit(`/${this.project.fullSlug}/builds/${this.build.id}`);
     andThen(() => {
       expect(currentPath()).to.equal('organization.project.builds.build.index');
       expect(currentURL()).to.equal(`/${this.project.fullSlug}/builds/1`);
     });
 
-    keyEvent('.SnapshotList', 'keydown', RightArrowKey);
+    keyEvent('.SnapshotList', 'keydown', DownArrowKey);
     andThen(() => {
       expect(currentURL()).to.equal(`/${this.project.fullSlug}/builds/1?snapshot=snapshot-3`);
     });
     percySnapshot(this.test.fullTitle() + ' | Right');
 
-    keyEvent('.SnapshotList', 'keydown', RightArrowKey);
+    keyEvent('.SnapshotList', 'keydown', DownArrowKey);
     andThen(() => {
       expect(currentURL()).to.equal(`/${this.project.fullSlug}/builds/1?snapshot=snapshot-1`);
     });
     percySnapshot(this.test.fullTitle() + ' | Right*2');
 
-    keyEvent('.SnapshotList', 'keydown', LeftArrowKey);
+    keyEvent('.SnapshotList', 'keydown', UpArrowKey);
     andThen(() => {
       expect(currentURL()).to.equal(`/${this.project.fullSlug}/builds/1?snapshot=snapshot-3`);
     });
@@ -259,7 +267,7 @@ describe('Acceptance: Build', function() {
 
     percySnapshot(this.test.fullTitle() + ' | shows batched no diffs');
 
-    click('.HideNoDiffsPanel');
+    click('[data-test-hide-no-diffs]');
     andThen(() => {
       expect(find('.ComparisonViewer-noDiffBox')).to.have.lengthOf(1);
     });

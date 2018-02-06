@@ -26,23 +26,11 @@
       line-height: 1.5;
     }
 
-    .Header-logo {
-      width: auto;
-      height: 180px;
-      padding: 0;
-      margin-top: 35px;
-    }
-
     .Alert--info {
       max-width: 650px;
       margin: 30px auto 40px;
       font-size: 1.6rem;
     }
-  }
-
-  .Header-logo {
-    width: 50px;
-    margin: 10px 12px 0 0;
   }
 
   .Header-title {
@@ -79,10 +67,6 @@
       }
     }
 
-    .NavMenu-item {
-      line-height: 4rem;
-    }
-
     .Button {
       font-weight: bold;
       color: var(--white);
@@ -113,23 +97,9 @@
         display: none;
       }
     }
-
-    &.Header--light {
-      .Header-logo {
-        margin-top: 10px;
-      }
-    }
   }
 }
 
-.main-header {
-  position: fixed;
-  width: 100vw;
+.build-toolbar {
   height: var(--header-height);
-  background: var(--dark-purple);
-}
-
-.main-header-alt {
-  background: var(--lightest-gray);
-  border-bottom: 1px solid var(--lighter-gray);
 }
