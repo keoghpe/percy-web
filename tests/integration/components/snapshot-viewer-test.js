@@ -9,22 +9,14 @@ import {make, manualSetup} from 'ember-data-factory-guy';
 import sinon from 'sinon';
 import SnapshotViewerPO from 'percy-web/tests/pages/components/snapshot-viewer';
 
-// TODO: acceptance test for clicking different comparison modes
-// TODO: acceptance test for clicking snapshot title and see query params change
-// TODO: clicking comparison mode buttons switch img src
-// TODO: clicking on right comparison, toggles diff image
-
 describe('Integration: SnapshotViewer', function() {
   setupComponentTest('snapshot-viewer', {
     integration: true,
   });
 
   let snapshotTitle;
-  const widthIndex = 1;
-  // NOTE: these need to be the same as the widths in the snapshot factory
-  const buildWidths = [375, 550, 1024];
-  const buildContainerSelectedWidth = buildWidths[widthIndex];
   let showSnapshotFullModalTriggeredStub;
+  let comparisons;
 
   beforeEach(function() {
     manualSetup(this.container);
@@ -32,24 +24,18 @@ describe('Integration: SnapshotViewer', function() {
 
     showSnapshotFullModalTriggeredStub = sinon.stub();
     snapshotTitle = 'Awesome snapshot title';
-    const snapshot = make('snapshot', {name: snapshotTitle});
-    const build = make('build');
+    const snapshot = make('snapshot', 'withComparisons', {name: snapshotTitle});
+    comparisons = snapshot.get('comparisons');
     const stub = sinon.stub();
 
     this.setProperties({
       stub,
       snapshot,
-      build,
-      buildWidths,
-      buildContainerSelectedWidth,
       showSnapshotFullModalTriggered: showSnapshotFullModalTriggeredStub,
     });
 
     this.render(hbs`{{snapshot-viewer
       snapshot=snapshot
-      build=build
-      buildWidths=buildWidths
-      buildContainerSelectedWidth=buildContainerSelectedWidth
       showSnapshotFullModalTriggered=showSnapshotFullModalTriggered
       snapshotWidthChangeTriggered=stub
     }}`);
@@ -88,21 +74,21 @@ describe('Integration: SnapshotViewer', function() {
       expect(
         SnapshotViewerPO.header.widthSwitcher.buttons().count,
         'there should be correct number of buttons',
-      ).to.equal(buildWidths.length);
+      ).to.equal(comparisons.length);
     });
 
     it('displays correct text on the buttons', function() {
       SnapshotViewerPO.header.widthSwitcher.buttons().forEach((button, i) => {
         expect(button.text, `button ${i} should contain correct width`).to.equal(
-          `${buildWidths[i]}px`,
+          `${comparisons.toArray()[i].get('width')}px`,
         );
       });
     });
 
-    it('displays correct number as selected', function() {
+    it('displays highest width with diffs as selected', function() {
       expect(SnapshotViewerPO.header.widthSwitcher.buttons(0).isActive).to.equal(false);
-      expect(SnapshotViewerPO.header.widthSwitcher.buttons(widthIndex).isActive).to.equal(true);
-      expect(SnapshotViewerPO.header.widthSwitcher.buttons(2).isActive).to.equal(false);
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(1).isActive).to.equal(false);
+      expect(SnapshotViewerPO.header.widthSwitcher.buttons(2).isActive).to.equal(true);
     });
 
     it('updates active button when clicked', function() {
@@ -132,7 +118,7 @@ describe('Integration: SnapshotViewer', function() {
       SnapshotViewerPO.header.clickToggleFullscreen();
       expect(showSnapshotFullModalTriggeredStub).to.have.been.calledWith(
         this.get('snapshot.id'),
-        this.get('buildContainerSelectedWidth'),
+        comparisons.get('lastObject.width'),
       );
     });
   });
