@@ -26,7 +26,7 @@ export default Route.extend(AuthenticatedRouteMixin, ResetScrollMixin, {
     controller.setProperties({
       build: model,
       snapshotId: params.snapshot_id,
-      snapshotSelectedWidth: params.width,
+      snapshotSelectedWidth: parseInt(params.width, 10),
       comparisonMode: params.comparisonMode,
     });
   },
