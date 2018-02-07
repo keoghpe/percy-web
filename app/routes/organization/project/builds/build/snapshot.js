@@ -9,7 +9,7 @@ export default Route.extend(AuthenticatedRouteMixin, ResetScrollMixin, {
   },
   model(params /*transition*/) {
     this.set('params', params);
-    let buildId = this.modelFor('organization.project.builds.build').build.get('id');
+    let buildId = this.modelFor('organization.project.builds.build').get('id');
     return this.store.findRecord('build', buildId);
   },
   afterModel(resolvedModel) {
