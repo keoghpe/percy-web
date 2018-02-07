@@ -97,14 +97,7 @@ export default DS.Model.extend({
 
   commit: DS.belongsTo('commit', {async: false}), // Might be null.
   baseBuild: DS.belongsTo('build', {async: false, inverse: null}),
-  // comparisons: DS.hasMany('comparison', {async: false}),
   snapshots: DS.hasMany('snapshot', {async: true}),
-
-  // snapshots: computed('comparisons', function() {
-  //   let comparisons = this.get('comparisons');
-  //   let snapshots = comparisons.map(comparison => comparison.get('headSnapshot')).filter(x => x);
-  //   return [...new Set(snapshots)];
-  // }),
 
   comparisons: computed('snapshots', function() {
     return this.get('snapshots').reduce((acc, snapshot) => {

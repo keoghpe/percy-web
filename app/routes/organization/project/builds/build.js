@@ -22,7 +22,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
   afterModel(model) {
     let build = model.build ? model.build : model;
     build.reload().then(build => {
-      // TODO this should reload snapshots now?
       if (!build.get('isExpired')) {
         // Force reload because these async-hasMany's won't reload themselves if the build's
         // state has changed, such as going from processing --> finished and we don't want to show
@@ -41,12 +40,9 @@ export default Route.extend(AuthenticatedRouteMixin, {
     didTransition() {
       this._super.apply(this, arguments);
 
-      // why is this not a hash, but just a build object???
-      // Why does this run before the model?
-      // Why are we asking for the model before the model has run?
       let model = this.modelFor(this.routeName);
       let build = model.build ? model.build : model;
-      // let build = this.modelFor(this.routeName);
+
       let organization = build.get('project.organization');
       let eventProperties = {
         project_id: build.get('project.id'),
