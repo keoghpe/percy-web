@@ -1,5 +1,4 @@
 {{build-toolbar
-  updateSelectedWidth=(action "updateSelectedWidth")
   build=build
   project=build.project
   organization=build.project.organization
@@ -7,9 +6,6 @@
 <div class="BuildContainer-body position-absolute overflow-y-scroll w-full">
   {{build-header
     build=build
-    defaultSelectedWidth=buildContainerSelectedWidth
-    updateSelectedWidth=(action "updateSelectedWidth")
-    noWidthSelected=noWidthSelected
     showSupport=showSupport
   }}
 
@@ -19,12 +15,8 @@
     {{else}}
       {{snapshot-list
         snapshots=build.snapshots
-        buildContainerSelectedWidth=buildContainerSelectedWidth
-        buildWidths=build.comparisonWidths
         activeSnapshotId=activeSnapshotId
         updateActiveSnapshotId=(action "updateActiveSnapshotId")
-        selectedWidth=selectedWidth
-        snapshotWidthChangeTriggered=(action "snapshotWidthChangeTriggered")
         build=build
         showSnapshotFullModalTriggered=(action 'showSnapshotFullModalTriggered')
         isShowingModal=isShowingModal

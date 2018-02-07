@@ -13,14 +13,6 @@
   </div>
   {{trial-bar organization=organization}}
   <div class="flex align-center">
-    {{#if (gt build.numComparisonWidths 1)}}
-      {{build-width-selector
-        widths=build.comparisonWidths
-        defaultSelectedWidth=defaultSelectedWidth
-        updateSelectedWidth=(action updateSelectedWidth)
-        noWidthSelected=noWidthSelected
-      }}
-    {{/if}}
     {{approval-section build=build}}
   </div>
 </header>

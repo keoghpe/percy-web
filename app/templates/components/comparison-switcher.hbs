@@ -1,8 +1,8 @@
 <div class="btn-group btn-group-alt">
-  {{#each buildWidths as |width|}}
+  {{#each comparisons as |comparison|}}
     {{comparison-switcher-item
       selectedWidth=selectedWidth
-      width=width
+      width=comparison.width
       comparisons=comparisons
       updateSelectedWidth=updateSelectedWidth
       data-test-ComparisonSwitcher-button=true

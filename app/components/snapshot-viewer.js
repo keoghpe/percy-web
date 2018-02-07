@@ -1,33 +1,38 @@
-import {not, alias, notEmpty} from '@ember/object/computed';
+import {alias, not, notEmpty, or} from '@ember/object/computed';
 import {computed} from '@ember/object';
 import Component from '@ember/component';
 
 export default Component.extend({
   classNames: ['SnapshotViewer mb-2'],
-  snapshot: null,
-  buildContainerSelectedWidth: null,
-  registerChild() {},
-  unregisterChild() {},
-  selectChild() {},
-
-  snapshotSelectedWidth: computed('buildContainerSelectedWidth', {
-    get() {
-      return this.get('buildContainerSelectedWidth');
-    },
-    set(_, value) {
-      return value;
-    },
-  }),
-  selectedComparison: computed('snapshot', 'snapshotSelectedWidth', function() {
-    let width = this.get('snapshotSelectedWidth');
-    let comparisons = this.get('snapshot.comparisons') || [];
-    return comparisons.findBy('width', parseInt(width, 10));
-  }),
   classNameBindings: [
     'isFocus:SnapshotViewer--focus',
     'isExpanded::SnapshotViewer--collapsed',
     'isActionable:SnapshotViewer--actionable',
   ],
+  snapshot: null,
+
+  registerChild() {},
+  unregisterChild() {},
+  selectChild() {},
+
+  snapshotSelectedWidth: or('userSelectedWidth', 'defaultWidth'),
+  userSelectedWidth: null,
+
+  comparisons: alias('snapshot.comparisons'),
+
+  defaultWidth: computed('comparisons.@each.width', function() {
+    const sortedComparisonsWithDiffs = this.get('comparisons')
+      .filterBy('isDifferent')
+      .sortBy('width');
+    return sortedComparisonsWithDiffs.get('lastObject.width');
+  }),
+
+  selectedComparison: computed('snapshot', 'snapshotSelectedWidth', function() {
+    let width = this.get('snapshotSelectedWidth');
+    let comparisons = this.get('snapshot.comparisons') || [];
+    return comparisons.findBy('width', parseInt(width, 10));
+  }),
+
   isDefaultExpanded: true,
   isFocus: false,
   isExpanded: computed('isDefaultExpanded', function() {
@@ -83,8 +88,7 @@ export default Component.extend({
     },
 
     updateSelectedWidth(value) {
-      this.set('snapshotSelectedWidth', value);
-      this.get('snapshotWidthChangeTriggered')();
+      this.set('userSelectedWidth', value);
     },
   },
 });

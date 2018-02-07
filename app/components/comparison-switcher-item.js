@@ -23,6 +23,6 @@ export default Component.extend({
   }),
 
   click() {
-    this.get('updateSelectedWidth')(this.get('width'));
+    this.updateSelectedWidth(this.get('width'));
   },
 });
